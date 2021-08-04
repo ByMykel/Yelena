@@ -1,6 +1,7 @@
 <?php
 
-use Illuminate\Http\Request;
+use App\Http\Controllers\CardController;
+use App\Http\Controllers\DeckController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,6 +15,24 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+Route::prefix('cards')->group(function () {
+    Route::get('/', [CardController::class, 'index']);
+    Route::post('/store', [CardController::class, 'store']);
+
+    Route::prefix('{card}')->group(function () {
+        Route::get('/', [CardController::class, 'show']);
+        Route::put('/update', [CardController::class, 'update']);
+        Route::delete('/destroy', [CardController::class, 'destroy']);
+    });
+});
+
+Route::prefix('decks')->group(function () {
+    Route::get('/', [DeckController::class, 'index']);
+    Route::post('/store', [DeckController::class, 'store']);
+
+    Route::prefix('{deck}')->group(function () {
+        Route::get('/', [DeckController::class, 'show']);
+        Route::put('/update', [DeckController::class, 'update']);
+        Route::delete('/destroy', [DeckController::class, 'destroy']);
+    });
 });
