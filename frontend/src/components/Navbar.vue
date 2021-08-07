@@ -12,18 +12,6 @@
                     "
                     >Home</router-link
                 >
-
-                <router-link
-                    to="/cards"
-                    class="block px-3 py-2 rounded-md text-sm font-medium"
-                    :class="
-                        $route.name === 'Cards'
-                            ? 'bg-gray-900 text-white'
-                            : 'text-gray-300 hover:bg-black-200 hover:text-white'
-                    "
-                    >Cards</router-link
-                >
-
                 <router-link
                     to="/decks"
                     class="block px-3 py-2 rounded-md text-sm font-medium"

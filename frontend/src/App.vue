@@ -1,11 +1,17 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+    <div id="app">
+        <App-layout>
+            <router-view />
+        </App-layout>
     </div>
-    <router-view/>
-  </div>
 </template>
+
+<script>
+import AppLayout from "./layouts/AppLayout.vue";
+
+export default {
+    components: { AppLayout },
+};
+</script>
 
 <style src="./assets/tailwind.css">
