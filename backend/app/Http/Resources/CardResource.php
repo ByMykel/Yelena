@@ -18,6 +18,7 @@ class CardResource extends JsonResource
             'id' => $this->id,
             'question' => $this->question,
             'answer' => $this->answer,
+            'deck' => $this->deck,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];

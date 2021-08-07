@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Card;
+use App\Models\Deck;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class CardFactory extends Factory
@@ -22,7 +23,7 @@ class CardFactory extends Factory
     public function definition()
     {
         return [
-            'deck_id' => null,
+            'deck_id' => Deck::inRandomOrder()->first()->id,
             'question' => $this->faker->word(),
             'answer' => $this->faker->word(),
         ];

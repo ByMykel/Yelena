@@ -12,7 +12,7 @@ final class Card
 {
     public function all()
     {
-        return CardResource::collection(ModelsCard::all());
+        return CardResource::collection(ModelsCard::with("deck")->get());
     }
 
     public function findOrFail($id)

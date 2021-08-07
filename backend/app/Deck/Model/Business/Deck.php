@@ -12,12 +12,12 @@ final class Deck
 {
     public function all()
     {
-        return DeckResource::collection(ModelsDeck::all());
+        return DeckResource::collection(ModelsDeck::withCount('cards')->get());
     }
 
     public function findOrFail($id)
     {
-        return new DeckResource(ModelsDeck::findOrFail($id));
+        return new DeckResource(ModelsDeck::with('cards')->findOrFail($id));
     }
 
     public function create(Request $request)
