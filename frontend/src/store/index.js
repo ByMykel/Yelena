@@ -13,6 +13,9 @@ export default new Vuex.Store({
         SET_CARDS(state, cards) {
             state.cards = cards;
         },
+        SET_DECKS(state, decks) {
+            state.decks = decks;
+        },
     },
     actions: {
         async fetchCards({ commit }) {
@@ -20,10 +23,18 @@ export default new Vuex.Store({
                 commit("SET_CARDS", data.data.data);
             });
         },
+        async fetchDecks({ commit }) {
+            await repository.getDecks().then((data) => {
+                commit("SET_DECKS", data.data.data);
+            });
+        },
     },
     getters: {
         getCards(state) {
             return state.cards;
+        },
+        getDecks(state) {
+            return state.decks;
         },
     },
     modules: {},
