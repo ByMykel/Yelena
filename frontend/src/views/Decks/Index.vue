@@ -101,24 +101,36 @@
                 </div>
             </div>
         </div>
+
+        <base-pagination
+            action="fetchDecks"
+            path="/decks"
+            :meta="getMeta"
+        ></base-pagination>
     </div>
 </template>
 
 <script>
-import { mapActions, mapGetters } from "vuex";
+import { mapGetters } from "vuex";
+import store from "../../store";
+import BasePagination from "../../components/BasePagination.vue";
 
 export default {
+    components: { BasePagination },
     data() {
         return {};
     },
     computed: {
-        ...mapGetters(["getDecks"]),
+        ...mapGetters(["getDecks", "getMeta"]),
     },
-    mounted() {
-        this.fetchDecks();
+    beforeRouteEnter(to, from, next) {
+        const currentPage = parseInt(to.query.page) || 1;
+
+        store.dispatch("fetchDecks", currentPage).then(() => {
+            to.params.page = currentPage;
+            next();
+        });
     },
-    methods: {
-        ...mapActions(["fetchDecks"]),
-    },
+    methods: {},
 };
 </script>
