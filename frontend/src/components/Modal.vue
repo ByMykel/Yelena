@@ -8,6 +8,7 @@
             flex
             items-center
             justify-center
+            z-50
         "
     >
         <div class="w-3/4">
