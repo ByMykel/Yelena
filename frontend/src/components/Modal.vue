@@ -11,7 +11,7 @@
             z-50
         "
     >
-        <div class="w-3/4">
+        <div class="w-full mx-2 sm:w-3/4">
             <div class="relative">
                 <button
                     class="
@@ -29,7 +29,7 @@
                         items-center
                         justify-center
                     "
-                    @click="$emit('close-modal')"
+                    @click="$parent.$emit('close-modal')"
                 >
                     <svg
                         class="w-6 h-6"
