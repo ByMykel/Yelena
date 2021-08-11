@@ -16,6 +16,7 @@
                     bg-white
                     hover:bg-gray-50
                     disabled:opacity-50
+                    disabled:cursor-not-allowed
                 "
                 :disabled="previousPage === null"
                 @click="toPage(previousPage)"
@@ -38,6 +39,7 @@
                     bg-white
                     hover:bg-gray-50
                     disabled:opacity-50
+                    disabled:cursor-not-allowed
                 "
                 :disabled="nextPage === null"
                 @click="toPage(nextPage)"
@@ -82,6 +84,7 @@
                             text-gray-500
                             hover:bg-gray-50
                             disabled:opacity-50
+                            disabled:cursor-not-allowed
                         "
                         :disabled="previousPage === null"
                         @click="toPage(previousPage)"
@@ -138,6 +141,7 @@
                             text-gray-500
                             hover:bg-gray-50
                             disabled:opacity-50
+                            disabled:cursor-not-allowed
                         "
                         :disabled="nextPage === null"
                         @click="toPage(nextPage)"
