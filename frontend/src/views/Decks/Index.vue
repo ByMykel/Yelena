@@ -103,9 +103,9 @@
         </div>
 
         <base-pagination
-            action="fetchDecks"
+            action="deck/fetchDecks"
             path="/decks"
-            :meta="getMeta"
+            :meta="getDecksMeta"
         ></base-pagination>
     </div>
 </template>
@@ -121,12 +121,12 @@ export default {
         return {};
     },
     computed: {
-        ...mapGetters(["getDecks", "getMeta"]),
+        ...mapGetters("deck", ["getDecks", "getDecksMeta"]),
     },
     beforeRouteEnter(to, from, next) {
         const currentPage = parseInt(to.query.page) || 1;
 
-        store.dispatch("fetchDecks", currentPage).then(() => {
+        store.dispatch("deck/fetchDecks", currentPage).then(() => {
             to.params.page = currentPage;
             next();
         });
