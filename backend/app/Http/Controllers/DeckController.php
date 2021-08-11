@@ -24,6 +24,14 @@ class DeckController extends Controller
     }
 
     /**
+     * Display a listing of the resource.
+     */
+    public function list()
+    {
+        return $this->deck->getAllDecks();
+    }
+
+    /**
      * Show the form for creating a new resource.
      */
     public function create()

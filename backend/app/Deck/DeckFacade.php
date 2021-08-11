@@ -18,6 +18,11 @@ final class DeckFacade
 
     public function getDecks()
     {
+        return $this->deckFactory->createDeck()->paginate();
+    }
+
+    public function getAllDecks()
+    {
         return $this->deckFactory->createDeck()->all();
     }
 

@@ -26,6 +26,8 @@ Route::prefix('cards')->group(function () {
     });
 });
 
+Route::get('/decks_list', [DeckController::class, 'list']);
+
 Route::prefix('decks')->group(function () {
     Route::get('/', [DeckController::class, 'index']);
     Route::post('/store', [DeckController::class, 'store']);
