@@ -1,9 +1,17 @@
 <template>
     <div>
-        <Modal :show="show" @close-modal="show = false">
-            <CreateDeck></CreateDeck>
-        </Modal>
-        <Navbar @create-deck="show = true"></Navbar>
+        <CreateDeck
+            :show="showDeckModal"
+            @close-modal="showDeckModal = false"
+        ></CreateDeck>
+        <CreateCard
+            :show="showCardModal"
+            @close-modal="showCardModal = false"
+        ></CreateCard>
+        <Navbar
+            @create-deck="showDeckModal = true"
+            @create-card="showCardModal = true"
+        ></Navbar>
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <slot></slot>
         </div>
@@ -11,14 +19,16 @@
 </template>
 
 <script>
-import Modal from "../components/Modal.vue";
 import Navbar from "../components/Navbar.vue";
 import CreateDeck from "../components/CreateDeck.vue";
+import CreateCard from "../components/CreateCard.vue";
+
 export default {
-    components: { Navbar, Modal, CreateDeck },
+    components: { Navbar, CreateDeck, CreateCard },
     data() {
         return {
-            show: false,
+            showDeckModal: false,
+            showCardModal: false,
         };
     },
 };

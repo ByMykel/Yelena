@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <Modal :show="show">
         <div class="grid grid-cols-3 gap-6">
             <div class="col-span-3 sm:col-span-2">
                 <label
@@ -48,13 +48,18 @@
                 Save
             </button>
         </div>
-    </div>
+    </Modal>
 </template>
 
 <script>
 import { mapActions } from "vuex";
+import Modal from "../components/Modal.vue";
 
 export default {
+    components: { Modal },
+    props: {
+        show: Boolean,
+    },
     data() {
         return {
             deckForm: {
@@ -63,7 +68,7 @@ export default {
         };
     },
     methods: {
-        ...mapActions(["createDeck"]),
+        ...mapActions("deck", ["createDeck"]),
         handleForm() {
             this.createDeck(this.deckForm);
             this.deckForm.name = "";
