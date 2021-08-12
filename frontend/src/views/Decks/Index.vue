@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="my-5">Decks page</div>
+        <div class="py-2 font-semibold text-xl">All your decks</div>
         <div class="flex flex-col">
             <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
                 <div
@@ -97,16 +97,17 @@
                                 </tr>
                             </tbody>
                         </table>
+                        <div class="bg-white border-t border-gray-200">
+                            <base-pagination
+                                action="deck/fetchDecks"
+                                path="/decks"
+                                :meta="getDecksMeta"
+                            ></base-pagination>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-
-        <base-pagination
-            action="deck/fetchDecks"
-            path="/decks"
-            :meta="getDecksMeta"
-        ></base-pagination>
     </div>
 </template>
 
