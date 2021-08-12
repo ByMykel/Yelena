@@ -12,7 +12,7 @@
             @create-deck="showDeckModal = true"
             @create-card="showCardModal = true"
         ></Navbar>
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 my-10">
             <slot></slot>
         </div>
     </div>

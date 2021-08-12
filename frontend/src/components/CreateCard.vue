@@ -144,7 +144,6 @@ export default {
         ...mapActions("card", ["createCard"]),
         handleForm() {
             this.createCard(this.form);
-            this.form.deck_id = this.decksList[0]?.id;
             this.form.question = "";
             this.form.answer = "";
         },

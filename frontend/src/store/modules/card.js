@@ -5,7 +5,6 @@ export const namespaced = true;
 
 export const state = {
     cards: [],
-    cards_list: [],
     meta: null,
 };
 
@@ -19,7 +18,7 @@ export const mutations = {
 };
 
 export const actions = {
-    async fetchCards({ commit }, id, page) {
+    async fetchCards({ commit }, { id, page }) {
         await repository.getCardsByDeckId(id, page).then((data) => {
             commit("SET_CARDS", data.data.data);
             commit("SET_META", data.data.meta);
@@ -28,11 +27,10 @@ export const actions = {
     async createCard({ dispatch }, cardForm) {
         await repository.createCard(cardForm).then(() => {
             if (router.currentRoute.name === "DeckById") {
-                dispatch(
-                    "fetchCards",
-                    router.currentRoute.params.id,
-                    router.currentRoute.params.page || 1
-                );
+                dispatch("fetchCards", {
+                    id: router.currentRoute.params.id,
+                    page: router.currentRoute.params.page || 1,
+                });
             }
         });
     },
