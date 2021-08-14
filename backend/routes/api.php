@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CardController;
 use App\Http\Controllers\DeckController;
+use App\Http\Controllers\StudyController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -36,5 +37,7 @@ Route::prefix('decks')->group(function () {
         Route::get('/', [DeckController::class, 'show']);
         Route::put('/update', [DeckController::class, 'update']);
         Route::delete('/destroy', [DeckController::class, 'destroy']);
+
+        Route::get('/study', [StudyController::class, 'show']);
     });
 });
