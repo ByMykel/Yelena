@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Deck\Model\Business;
 
-use App\Http\Resources\DeckCollectionResource;
 use App\Http\Resources\DeckResource;
 use App\Models\Deck as ModelsDeck;
 use Illuminate\Http\Request;
@@ -13,12 +12,12 @@ final class Deck
 {
     public function paginate()
     {
-        return DeckCollectionResource::collection(ModelsDeck::withCount('cards')->paginate());
+        return DeckResource::collection(ModelsDeck::withCount(['cards', 'due_cards'])->paginate());
     }
 
     public function all()
     {
-        return DeckCollectionResource::collection(ModelsDeck::withCount('cards')->get());
+        return DeckResource::collection(ModelsDeck::withCount('cards')->get());
     }
 
     public function findOrFail($id)

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Card;
+use App\Models\Deck;
 use App\Study\StudyFacade;
 use Illuminate\Http\Request;
 
@@ -51,9 +53,9 @@ class StudyController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Deck $deck)
     {
-        return $this->study->getStudyDeckById($id);
+        return $this->study->getStudyDeckById($deck->id);
     }
 
     /**
@@ -74,9 +76,9 @@ class StudyController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Card $card)
     {
-        //
+        $this->study->update($request, $card);
     }
 
     /**
