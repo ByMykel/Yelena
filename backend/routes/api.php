@@ -24,6 +24,8 @@ Route::prefix('cards')->group(function () {
         Route::get('/', [CardController::class, 'show']);
         Route::put('/update', [CardController::class, 'update']);
         Route::delete('/destroy', [CardController::class, 'destroy']);
+
+        Route::put('/study/update', [StudyController::class, 'update']);
     });
 });
 

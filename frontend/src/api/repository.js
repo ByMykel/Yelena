@@ -23,4 +23,11 @@ export default {
     createCard(data) {
         return api.post(`${BASE_URL}/cards/store`, data);
     },
+    // Study
+    getStudyDeck(id) {
+        return api.get(`${BASE_URL}/decks/${id}/study`);
+    },
+    updateStudyCard(id, data) {
+        return api.put(`${BASE_URL}/cards/${id}/study/update`, data);
+    },
 };
