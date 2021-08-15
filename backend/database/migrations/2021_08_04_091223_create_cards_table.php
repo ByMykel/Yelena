@@ -18,6 +18,10 @@ class CreateCardsTable extends Migration
             $table->foreignId('deck_id')->nullable()->constrained()->onDelete('cascade');
             $table->text('question');
             $table->text('answer');
+            $table->integer('repetitions')->default(0);
+            $table->float('ease_factor')->default(2.5);
+            $table->integer('interval')->default(0);
+            $table->date('review_date')->nullable();
             $table->timestamps();
         });
     }
