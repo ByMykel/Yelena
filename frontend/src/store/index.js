@@ -3,6 +3,7 @@ import Vuex from "vuex";
 
 import * as deck from "./modules/deck";
 import * as card from "./modules/card";
+import * as study from "./modules/study";
 
 Vue.use(Vuex);
 
@@ -12,5 +13,6 @@ export default new Vuex.Store({
     modules: {
         deck,
         card,
+        study
     },
 });
