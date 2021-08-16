@@ -2,8 +2,10 @@
     <div
         v-show="show"
         class="
-            absolute
+            fixed
             inset-0
+            w-full
+            h-screen
             bg-black bg-opacity-25
             flex
             items-center
@@ -59,6 +61,19 @@
 export default {
     props: {
         show: Boolean,
+    },
+    watch: {
+        show(value) {
+            if (value) {
+                return document
+                    .querySelector("body")
+                    .classList.add("overflow-hidden");
+            }
+
+            return document
+                .querySelector("body")
+                .classList.remove("overflow-hidden");
+        },
     },
 };
 </script>
