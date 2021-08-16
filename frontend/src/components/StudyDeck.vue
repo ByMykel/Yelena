@@ -1,0 +1,147 @@
+<template>
+    <modal :show="show">
+        <div
+            class="flex justify-center h-40"
+            style="max-height: calc(100vh - 150px)"
+        >
+            <div v-if="finished">Your finished your deck</div>
+            <div v-else class="flex flex-col justify-between items-center">
+                <div class="text-center font-bold text-xl space-y-2">
+                    <div class="bg-blue-300 px-2 rounded-sm">
+                        {{ actualCard.question }}
+                    </div>
+                    <div v-if="showAnswer" class="bg-gray-300 px-2 rounded-sm">
+                        {{ actualCard.answer }}
+                    </div>
+                </div>
+                <div>
+                    <button
+                        v-if="!showAnswer"
+                        class="bg-gray-700 text-white px-2 rounded-sm"
+                        @click="showAnswer = true"
+                    >
+                        Show
+                    </button>
+                    <div v-else class="space-x-2">
+                        <button
+                            v-for="option in [
+                                { number: 2, name: 'Incorrect' },
+                                {
+                                    number: 3,
+                                    name: 'Hard',
+                                },
+                                { number: 4, name: 'Good' },
+                                { number: 5, name: 'Easy' },
+                            ]"
+                            :key="option.number"
+                            class="bg-gray-700 text-white px-2 rounded-sm"
+                            @click="selectedOption(option.number)"
+                        >
+                            {{ option.name }}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </modal>
+</template>
+
+<script>
+import { mapGetters } from "vuex";
+// import store from "../store";
+import repository from "../api/repository";
+import Modal from "./Modal.vue";
+
+export default {
+    components: { Modal },
+    props: {
+        show: Boolean,
+        idDeck: Number,
+    },
+    data() {
+        return {
+            finished: true,
+            showAnswer: false,
+            actualCard: null,
+            initialDeck: [],
+        };
+    },
+    computed: {
+        ...mapGetters("study", ["getStudyDeck"]),
+    },
+    watch: {
+        show(value) {
+            if (value) {
+                this.initialDeck = [...this.getStudyDeck.cards];
+                this.finished = this.getStudyDeck.cards.length === 0;
+                this.actualCard = this.initialDeck.shift();
+            }
+        },
+    },
+    beforeMount() {
+        // if (this.idDeck === null) return;
+        // store.dispatch("study/fetchStudyDeck", this.idDeck).then(() => {
+        // });
+        // this.initialDeck = [...this.getStudyDeck.cards];
+        // this.finished = this.getStudyDeck.cards.length === 0;
+        // this.actualCard = this.initialDeck.shift();
+    },
+    // beforeRouteEnter(to, from, next) {
+    //     const id = this.idDeck;
+
+    //     store.dispatch("study/fetchStudyDeck", id).then(() => {
+    //         to.params.page = id;
+    //         next();
+    //     });
+    // },
+    methods: {
+        selectedOption(quality) {
+            let data = this.superMemo(quality, this.actualCard);
+
+            repository.updateStudyCard(this.actualCard.id, data);
+
+            if (this.initialDeck.length === 0) {
+                this.finished = true;
+                return;
+            }
+
+            this.nextCard();
+        },
+        nextCard() {
+            this.showAnswer = false;
+            this.actualCard = this.initialDeck.shift();
+        },
+        superMemo(quality, card) {
+            let interval;
+            let repetitions;
+            let ease_factor;
+
+            if (quality >= 3) {
+                switch (card.repetitions) {
+                    case 0:
+                        interval = 1;
+                        break;
+                    case 1:
+                        interval = 6;
+                        break;
+                    default:
+                        interval = Math.round(card.interval * card.ease_factor);
+                }
+
+                repetitions = card.repetitions + 1;
+            } else {
+                repetitions = 0;
+                interval = 1;
+            }
+
+            ease_factor =
+                card.ease_factor +
+                (0.1 - (5 - quality) * (0.08 + (5 - quality) * 0.02));
+
+            ease_factor = Math.max(ease_factor, 1.3);
+
+            return { interval, repetitions, ease_factor };
+        },
+    },
+};
+</script>

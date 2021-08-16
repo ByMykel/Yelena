@@ -11,6 +11,12 @@ class Card extends Model
 
     protected $guarded = [];
 
+    protected $casts = [
+        'repetitions' => 'integer',
+        'ease_factor' => 'float',
+        'interval' => 'integer',
+    ];
+
     public function deck()
     {
         return $this->belongsTo(Deck::class);

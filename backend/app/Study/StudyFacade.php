@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace App\Study;
 
+use App\Models\Card;
+use Illuminate\Http\Request;
+
 final class StudyFacade
 {
     public $studyFactory;
@@ -16,5 +19,10 @@ final class StudyFacade
     public function getStudyDeckById($id)
     {
         return $this->studyFactory->createStudy()->findOrFail($id);
+    }
+
+    public function update(Request $request, Card $card)
+    {
+        $this->studyFactory->createStudy()->update($request, $card);
     }
 }
