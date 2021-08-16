@@ -1,17 +1,17 @@
 <template>
     <div>
-        <CreateDeck
+        <create-deck
             :show="showDeckModal"
             @close-modal="showDeckModal = false"
-        ></CreateDeck>
-        <CreateCard
+        ></create-deck>
+        <create-card
             :show="showCardModal"
             @close-modal="showCardModal = false"
-        ></CreateCard>
-        <Navbar
+        ></create-card>
+        <navbar
             @create-deck="showDeckModal = true"
             @create-card="showCardModal = true"
-        ></Navbar>
+        ></navbar>
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 my-10">
             <slot></slot>
         </div>
