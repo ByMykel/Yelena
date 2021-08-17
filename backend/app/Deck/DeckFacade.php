@@ -36,6 +36,11 @@ final class DeckFacade
         return $this->deckFactory->createDeck()->create($request);
     }
 
+    public function createDeckWithoutRequest($name)
+    {
+        return $this->deckFactory->createDeck()->createDeck($name);
+    }
+
     public function updateDeck(Request $request, Deck $deck)
     {
         return $this->deckFactory->createDeck()->update($request, $deck);

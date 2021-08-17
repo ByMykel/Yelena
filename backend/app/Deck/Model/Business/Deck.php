@@ -30,6 +30,11 @@ final class Deck
         ModelsDeck::create($request->all());
     }
 
+    public function createDeck($name)
+    {
+        return ModelsDeck::create(['name' => $name]);
+    }
+
     public function update(Request $request, ModelsDeck $deck)
     {
         $deck->update($request->all());

@@ -1,5 +1,9 @@
 <template>
     <div>
+        <study-deck
+            :show="showStudyModal"
+            @close-modal="showStudyModal = false"
+        ></study-deck>
         <div class="py-2 font-semibold text-xl">All your decks</div>
         <div class="flex flex-col">
             <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -52,7 +56,20 @@
                                     >
                                         Cards
                                     </th>
-
+                                    <th
+                                        scope="col"
+                                        class="
+                                            px-6
+                                            py-3
+                                            text-left text-xs
+                                            font-medium
+                                            text-gray-500
+                                            uppercase
+                                            tracking-wider
+                                        "
+                                    >
+                                        Due
+                                    </th>
                                     <th scope="col" class="relative px-6 py-3">
                                         <span class="sr-only">Edit</span>
                                     </th>
@@ -66,7 +83,9 @@
                                     <td class="px-6 py-4 whitespace-nowrap">
                                         {{ deck.cards_count }}
                                     </td>
-
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        {{ deck.due_cards_count }}
+                                    </td>
                                     <td
                                         class="
                                             px-6
@@ -76,6 +95,17 @@
                                             font-medium
                                         "
                                     >
+                                        <span
+                                            class="
+                                                mr-4
+                                                text-blue-600
+                                                hover:text-blue-900
+                                                cursor-pointer
+                                            "
+                                            @click="studySelectedDeck(deck.id)"
+                                        >
+                                            Study
+                                        </span>
                                         <router-link
                                             :to="`/decks/${deck.id}`"
                                             class="
@@ -83,7 +113,7 @@
                                                 text-green-600
                                                 hover:text-green-900
                                             "
-                                            >Study</router-link
+                                            >Check Cards</router-link
                                         >
                                         <a
                                             href="#"
@@ -115,11 +145,15 @@
 import { mapGetters } from "vuex";
 import store from "../../store";
 import BasePagination from "../../components/BasePagination.vue";
+import StudyDeck from "../../components/StudyDeck.vue";
 
 export default {
-    components: { BasePagination },
+    components: { BasePagination, StudyDeck },
     data() {
-        return {};
+        return {
+            showStudyModal: false,
+            selectedDeck: null,
+        };
     },
     computed: {
         ...mapGetters("deck", ["getDecks", "getDecksMeta"]),
@@ -132,6 +166,12 @@ export default {
             next();
         });
     },
-    methods: {},
+    methods: {
+        studySelectedDeck(deckId) {
+            store
+                .dispatch("study/fetchStudyDeck", deckId)
+                .then(() => (this.showStudyModal = true));
+        },
+    },
 };
 </script>

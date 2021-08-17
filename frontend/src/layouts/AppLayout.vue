@@ -8,9 +8,14 @@
             :show="showCardModal"
             @close-modal="showCardModal = false"
         ></create-card>
+        <import-cards
+            :show="showImportCardModal"
+            @close-modal="showImportCardModal = false"
+        ></import-cards>
         <navbar
             @create-deck="showDeckModal = true"
             @create-card="showCardModal = true"
+            @import-card="showImportCardModal = true"
         ></navbar>
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 my-10">
             <slot></slot>
@@ -22,13 +27,15 @@
 import Navbar from "../components/Navbar.vue";
 import CreateDeck from "../components/CreateDeck.vue";
 import CreateCard from "../components/CreateCard.vue";
+import ImportCards from "../components/ImportCards.vue";
 
 export default {
-    components: { Navbar, CreateDeck, CreateCard },
+    components: { Navbar, CreateDeck, CreateCard, ImportCards },
     data() {
         return {
             showDeckModal: false,
             showCardModal: false,
+            showImportCardModal: false,
         };
     },
 };

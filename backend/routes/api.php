@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CardController;
 use App\Http\Controllers\DeckController;
+use App\Http\Controllers\ImportDeckController;
 use App\Http\Controllers\StudyController;
 use Illuminate\Support\Facades\Route;
 
@@ -30,6 +31,7 @@ Route::prefix('cards')->group(function () {
 });
 
 Route::get('/decks_list', [DeckController::class, 'list']);
+Route::post('/import_deck', [ImportDeckController::class, 'import']);
 
 Route::prefix('decks')->group(function () {
     Route::get('/', [DeckController::class, 'index']);

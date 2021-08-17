@@ -30,4 +30,12 @@ export default {
     updateStudyCard(id, data) {
         return api.put(`${BASE_URL}/cards/${id}/study/update`, data);
     },
+    // Import deck
+    importDeck(data) {
+        return api.post(`${BASE_URL}/import_deck`, data, {
+            headers: {
+                "Content-Type": "multipart/form-data",
+            },
+        });
+    },
 };

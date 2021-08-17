@@ -31,6 +31,11 @@ final class CardFacade
         return $this->cardFactory->createCard()->create($request);
     }
 
+    public function createCardWithoutRequest($id, $question, $answer)
+    {
+        return $this->cardFactory->createCard()->createCard($id, $question, $answer);
+    }
+
     public function updateCard(Request $request, Card $card)
     {
         return $this->cardFactory->createCard()->update($request, $card);

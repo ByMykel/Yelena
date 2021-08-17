@@ -25,6 +25,15 @@ final class Card
         ModelsCard::create($request->all());
     }
 
+    public function createCard($id, $question, $answer)
+    {
+        ModelsCard::create([
+            'deck_id' => $id,
+            'question' => $question,
+            'answer' => $answer
+        ]);
+    }
+
     public function update(Request $request, ModelsCard $card)
     {
         $card->update($request->all());
