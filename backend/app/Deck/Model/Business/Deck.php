@@ -12,7 +12,12 @@ final class Deck
 {
     public function paginate()
     {
-        return DeckResource::collection(ModelsDeck::withCount(['cards', 'due_cards'])->paginate());
+        $decks = ModelsDeck::withCount(['cards', 'due_cards'])
+            ->orderBy('due_cards_count', 'desc')
+            ->orderBy('cards_count', 'desc')
+            ->paginate();
+
+        return DeckResource::collection($decks);
     }
 
     public function all()
