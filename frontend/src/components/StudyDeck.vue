@@ -5,19 +5,19 @@
             style="max-height: calc(100vh - 150px)"
         >
             <div v-if="finished">Your finished your deck</div>
-            <div v-else class="flex flex-col justify-between items-center">
-                <div class="text-center font-bold text-xl space-y-2">
-                    <div class="bg-blue-300 px-2 rounded-sm">
+            <div v-else class="flex flex-col items-center justify-between">
+                <div class="space-y-2 text-xl font-bold text-center">
+                    <div class="px-2 bg-blue-300 rounded-sm">
                         {{ actualCard.question }}
                     </div>
-                    <div v-if="showAnswer" class="bg-gray-300 px-2 rounded-sm">
+                    <div v-if="showAnswer" class="px-2 bg-gray-300 rounded-sm">
                         {{ actualCard.answer }}
                     </div>
                 </div>
                 <div>
                     <button
                         v-if="!showAnswer"
-                        class="bg-gray-700 text-white px-2 rounded-sm"
+                        class="px-2 text-white bg-gray-700 rounded-sm"
                         @click="showAnswer = true"
                     >
                         Show
@@ -34,7 +34,7 @@
                                 { number: 5, name: 'Easy' },
                             ]"
                             :key="option.number"
-                            class="bg-gray-700 text-white px-2 rounded-sm"
+                            class="px-2 text-white bg-gray-700 rounded-sm"
                             @click="selectedOption(option.number)"
                         >
                             {{ option.name }}
@@ -72,6 +72,7 @@ export default {
     watch: {
         show(value) {
             if (value) {
+                this.showAnswer = false;
                 this.initialDeck = [...this.getStudyDeck.cards];
                 this.finished = this.getStudyDeck.cards.length === 0;
                 this.actualCard = this.initialDeck.shift();
