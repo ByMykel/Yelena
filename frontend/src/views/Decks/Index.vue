@@ -39,17 +39,19 @@
                                 </tr>
                             </thead>
                             <tbody class="bg-white divide-y divide-gray-200">
-                                <tr
-                                    v-for="deck in getDecks"
-                                    :key="deck.id"
-                                    :class="{
-                                        'bg-gray-50': deck.due_cards_count == 0,
-                                    }"
-                                >
+                                <tr v-for="deck in getDecks" :key="deck.id">
                                     <td
-                                        class="px-6 py-4 text-sm font-medium text-gray-900 whitespace-nowrap"
+                                        class="relative px-6 py-4 text-sm font-medium text-gray-900 whitespace-nowrap"
                                     >
-                                        {{ deck.name }}
+                                        <div
+                                            v-if="deck.due_cards_count == 0"
+                                            class="absolute inset-0 flex items-center "
+                                        >
+                                            <span
+                                                class="w-2 h-2 ml-2 bg-red-300 rounded-full top-5 left-1"
+                                            ></span>
+                                        </div>
+                                        <span>{{ deck.name }}</span>
                                     </td>
                                     <td
                                         class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap"
@@ -66,7 +68,11 @@
                                     >
                                         <span
                                             class="mr-4 text-blue-600 cursor-pointer hover:text-blue-900"
-                                            @click="studySelectedDeck(deck.id)"
+                                            :class="{
+                                                'opacity-50 cursor-not-allowed':
+                                                    deck.due_cards_count == 0,
+                                            }"
+                                            @click="studySelectedDeck(deck)"
                                         >
                                             Study
                                         </span>
@@ -119,9 +125,11 @@ export default {
         });
     },
     methods: {
-        studySelectedDeck(deckId) {
+        studySelectedDeck(deck) {
+            if (deck.due_cards_count == 0) return;
+
             store
-                .dispatch("study/fetchStudyDeck", deckId)
+                .dispatch("study/fetchStudyDeck", deck.id)
                 .then(() => (this.showStudyModal = true));
         },
     },
