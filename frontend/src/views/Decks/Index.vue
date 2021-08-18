@@ -45,7 +45,7 @@
                                     >
                                         <div
                                             v-if="deck.due_cards_count == 0"
-                                            class="absolute inset-0 flex items-center "
+                                            class="absolute inset-0 flex items-center w-5"
                                         >
                                             <span
                                                 class="w-2 h-2 ml-2 bg-red-300 rounded-full top-5 left-1"
