@@ -38,14 +38,22 @@
                                     </th>
                                 </tr>
                             </thead>
-                            <tbody class="bg-white divide-y divide-gray-200">
-                                <tr v-for="deck in getDecks" :key="deck.id">
+                            <tbody class="divide-y divide-gray-200">
+                                <tr
+                                    v-for="deck in getDecks"
+                                    :key="deck.id"
+                                    :class="[
+                                        deck.due_cards_count == 0
+                                            ? 'bg-gray-50 bg-opacity-75'
+                                            : 'bg-white',
+                                    ]"
+                                >
                                     <td
                                         class="relative px-6 py-4 text-sm font-medium text-gray-900 whitespace-nowrap"
                                     >
                                         <div
                                             v-if="deck.due_cards_count == 0"
-                                            class="absolute inset-0 flex items-center w-5"
+                                            class="absolute inset-0 flex items-center w-5 "
                                         >
                                             <span
                                                 class="w-2 h-2 ml-2 bg-red-300 rounded-full top-5 left-1"
@@ -55,11 +63,19 @@
                                     </td>
                                     <td
                                         class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap"
+                                        :class="{
+                                            'opacity-50':
+                                                deck.due_cards_count == 0,
+                                        }"
                                     >
                                         {{ deck.cards_count }}
                                     </td>
                                     <td
                                         class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap"
+                                        :class="{
+                                            'opacity-50':
+                                                deck.due_cards_count == 0,
+                                        }"
                                     >
                                         {{ deck.due_cards_count }}
                                     </td>
