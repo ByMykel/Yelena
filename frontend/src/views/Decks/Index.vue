@@ -4,69 +4,32 @@
             :show="showStudyModal"
             @close-modal="showStudyModal = false"
         ></study-deck>
-        <div class="py-2 font-semibold text-xl">All your decks</div>
         <div class="flex flex-col">
             <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
                 <div
-                    class="
-                        py-2
-                        align-middle
-                        inline-block
-                        min-w-full
-                        sm:px-6
-                        lg:px-8
-                    "
+                    class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8"
                 >
                     <div
-                        class="
-                            shadow
-                            overflow-hidden
-                            border-b border-gray-200
-                            sm:rounded-lg
-                        "
+                        class="overflow-hidden border-b border-gray-200 shadow sm:rounded-lg"
                     >
                         <table class="min-w-full divide-y divide-gray-200">
                             <thead class="bg-gray-50">
                                 <tr>
                                     <th
                                         scope="col"
-                                        class="
-                                            px-6
-                                            py-3
-                                            text-left text-xs
-                                            font-medium
-                                            text-gray-500
-                                            uppercase
-                                            tracking-wider
-                                        "
+                                        class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase "
                                     >
                                         Name
                                     </th>
                                     <th
                                         scope="col"
-                                        class="
-                                            px-6
-                                            py-3
-                                            text-left text-xs
-                                            font-medium
-                                            text-gray-500
-                                            uppercase
-                                            tracking-wider
-                                        "
+                                        class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase "
                                     >
                                         Cards
                                     </th>
                                     <th
                                         scope="col"
-                                        class="
-                                            px-6
-                                            py-3
-                                            text-left text-xs
-                                            font-medium
-                                            text-gray-500
-                                            uppercase
-                                            tracking-wider
-                                        "
+                                        class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase "
                                     >
                                         Due
                                     </th>
@@ -76,52 +39,41 @@
                                 </tr>
                             </thead>
                             <tbody class="bg-white divide-y divide-gray-200">
-                                <tr v-for="deck in getDecks" :key="deck.id">
-                                    <td class="px-6 py-4 whitespace-nowrap">
+                                <tr
+                                    v-for="deck in getDecks"
+                                    :key="deck.id"
+                                    :class="{
+                                        'bg-gray-50': deck.due_cards_count == 0,
+                                    }"
+                                >
+                                    <td
+                                        class="px-6 py-4 text-sm font-medium text-gray-900 whitespace-nowrap"
+                                    >
                                         {{ deck.name }}
                                     </td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
+                                    <td
+                                        class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap"
+                                    >
                                         {{ deck.cards_count }}
                                     </td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
+                                    <td
+                                        class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap"
+                                    >
                                         {{ deck.due_cards_count }}
                                     </td>
                                     <td
-                                        class="
-                                            px-6
-                                            py-4
-                                            whitespace-nowrap
-                                            text-right text-sm
-                                            font-medium
-                                        "
+                                        class="px-6 py-4 text-sm font-medium text-right whitespace-nowrap"
                                     >
                                         <span
-                                            class="
-                                                mr-4
-                                                text-blue-600
-                                                hover:text-blue-900
-                                                cursor-pointer
-                                            "
+                                            class="mr-4 text-blue-600 cursor-pointer hover:text-blue-900"
                                             @click="studySelectedDeck(deck.id)"
                                         >
                                             Study
                                         </span>
                                         <router-link
                                             :to="`/decks/${deck.id}`"
-                                            class="
-                                                mr-4
-                                                text-green-600
-                                                hover:text-green-900
-                                            "
+                                            class="mr-4 text-green-600 hover:text-green-900"
                                             >Check Cards</router-link
-                                        >
-                                        <a
-                                            href="#"
-                                            class="
-                                                text-indigo-600
-                                                hover:text-indigo-900
-                                            "
-                                            >Edit</a
                                         >
                                     </td>
                                 </tr>
