@@ -1,40 +1,16 @@
 <template>
     <div
         v-show="show"
-        class="
-            fixed
-            inset-0
-            w-full
-            h-screen
-            bg-black bg-opacity-25
-            flex
-            items-center
-            justify-center
-            z-50
-        "
+        class="fixed inset-0 z-50 flex items-center justify-center w-full h-screen bg-black bg-opacity-25 "
     >
-        <div class="w-full mx-2 sm:w-3/4">
+        <div class="w-full mx-2" style="max-width: 28rem">
             <div class="relative">
                 <button
-                    class="
-                        absolute
-                        right-0
-                        -top-8
-                        bg-white bg-opacity-25
-                        hover:bg-opacity-100
-                        cursor-pointer
-                        rounded-full
-                        w-6
-                        h-6
-                        shadow
-                        flex
-                        items-center
-                        justify-center
-                    "
+                    class="absolute right-0 flex items-center justify-center w-6 h-6 bg-black rounded-full shadow cursor-pointer bg-opacity-80 -top-8 hover:bg-opacity-100"
                     @click="$parent.$emit('close-modal')"
                 >
                     <svg
-                        class="w-6 h-6"
+                        class="w-6 h-6 text-white"
                         fill="currentColor"
                         viewBox="0 0 20 20"
                         xmlns="http://www.w3.org/2000/svg"
@@ -48,7 +24,7 @@
                 </button>
             </div>
             <div
-                class="rounded-md bg-white shadow overflow-y-auto p-4"
+                class="p-4 overflow-y-auto bg-white rounded-md shadow"
                 style="max-height: calc(100vh - 150px)"
             >
                 <slot></slot>
