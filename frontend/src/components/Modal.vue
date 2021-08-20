@@ -24,7 +24,7 @@
                 </button>
             </div>
             <div
-                class="p-4 overflow-y-auto bg-white rounded-md shadow"
+                class="overflow-y-auto bg-white rounded-md shadow"
                 style="max-height: calc(100vh - 150px)"
             >
                 <slot></slot>
