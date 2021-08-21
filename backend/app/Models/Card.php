@@ -32,10 +32,14 @@ class Card extends Model
 
     public function getReviewDateHumanAttribute()
     {
-        if ($this->review_date) {
-            return $this->review_date->diffForHumans();
+        if (!$this->review_date) {
+            return "Has never been reviewed";
         }
 
-        return "";
+        if ($this->review_date->isPast()) {
+            return "Review now";
+        }
+
+        return $this->review_date->diffForHumans();
     }
 }
