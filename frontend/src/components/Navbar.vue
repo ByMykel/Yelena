@@ -1,26 +1,26 @@
 <template>
-    <div class="bg-gray-800">
+    <div class="bg-blue-600 pb-60">
         <div class="px-2 mx-auto max-w-7xl sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between py-2">
+            <div class="flex items-center justify-between py-2 border-b border-blue-300 border-opacity-25">
                 <nav>
                     <div class="flex">
                         <router-link
                             to="/"
-                            class="block px-3 py-2 font-medium rounded-md"
+                            class="block px-3 py-2 font-medium text-white rounded-md"
                             :class="
                                 $route.name === 'Home'
-                                    ? 'text-blue-500'
-                                    : 'text-white hover:text-gray-300'
+                                    ? 'bg-blue-500 bg-opacity-50'
+                                    : 'hover:text-gray-200'
                             "
                             >Home</router-link
                         >
                         <router-link
                             to="/decks"
-                            class="block px-3 py-2 font-medium rounded-md"
+                            class="block px-3 py-2 font-medium text-white rounded-md"
                             :class="
                                 $route.name === 'Decks'
-                                    ? 'text-blue-500'
-                                    : 'text-white hover:text-gray-300'
+                                    ? 'bg-blue-500 bg-opacity-50'
+                                    : 'hover:text-gray-200'
                             "
                             >Decks</router-link
                         >
@@ -28,7 +28,7 @@
                 </nav>
                 <div class="flex space-x-2">
                     <button
-                        class="flex items-center px-2 py-2 text-sm font-medium text-white bg-gray-600 bg-opacity-50 rounded jutify-center hover:bg-opacity-75"
+                        class="flex items-center px-2 py-2 text-sm font-medium text-white bg-blue-500 bg-opacity-50 rounded jutify-center hover:bg-opacity-75"
                         @click="$emit('create-deck')"
                     >
                         <svg
@@ -48,7 +48,7 @@
                         <span class="mx-1">Deck</span>
                     </button>
                     <button
-                        class="flex items-center px-2 py-2 text-sm font-medium text-white bg-gray-600 bg-opacity-50 rounded jutify-center hover:bg-opacity-75"
+                        class="flex items-center px-2 py-2 text-sm font-medium text-white bg-blue-500 bg-opacity-50 rounded jutify-center hover:bg-opacity-75"
                         @click="$emit('create-card')"
                     >
                         <svg
@@ -68,7 +68,7 @@
                         <span class="mx-1">Card</span>
                     </button>
                     <button
-                        class="flex items-center px-2 py-2 text-sm font-medium text-white bg-gray-600 bg-opacity-50 rounded jutify-center hover:bg-opacity-75"
+                        class="flex items-center px-2 py-2 text-sm font-medium text-white bg-blue-500 bg-opacity-50 rounded jutify-center hover:bg-opacity-75"
                         @click="$emit('import-card')"
                     >
                         <svg
