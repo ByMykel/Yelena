@@ -6,6 +6,7 @@ namespace App\Deck\Model\Business;
 
 use App\Http\Resources\DeckResource;
 use App\Models\Deck as ModelsDeck;
+use App\Models\Card as ModelsCard;
 use Illuminate\Http\Request;
 
 final class Deck
@@ -27,7 +28,12 @@ final class Deck
 
     public function findOrFail($id)
     {
-        return new DeckResource(ModelsDeck::with('cards')->findOrFail($id));
+        $deck = ModelsDeck::findOrFail($id);
+        $deck['cards'] = ModelsCard::where('deck_id', $id)
+            ->orderBy('review_date', 'asc')
+            ->get();
+
+        return new DeckResource($deck);
     }
 
     public function create(Request $request)
