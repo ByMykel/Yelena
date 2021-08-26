@@ -1,5 +1,5 @@
 <template>
-    <div class="bg-blue-600 pb-60">
+    <div class="pb-64 bg-blue-600">
         <div class="px-2 mx-auto max-w-7xl sm:px-6 lg:px-8">
             <div class="flex items-center justify-between py-2 border-b border-blue-300 border-opacity-25">
                 <nav>

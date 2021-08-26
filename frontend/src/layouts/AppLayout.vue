@@ -17,7 +17,7 @@
             @create-card="showCardModal = true"
             @import-card="showImportCardModal = true"
         ></navbar>
-        <div class="mx-auto my-10 -mt-48 max-w-7xl sm:px-6 lg:px-8">
+        <div class="mx-auto my-10 -mt-56 max-w-7xl sm:px-6 lg:px-8">
             <slot></slot>
         </div>
     </div>

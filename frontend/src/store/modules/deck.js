@@ -18,7 +18,7 @@ export const mutations = {
 };
 
 export const actions = {
-    async fetchDecks({ commit }, page) {
+    async fetchDecks({ commit }, { page }) {
         await repository.getDecks(page).then((data) => {
             commit("SET_DECKS", data.data.data);
             commit("SET_META", data.data.meta);
