@@ -26,12 +26,12 @@ final class Deck
         return DeckResource::collection(ModelsDeck::withCount('cards')->get());
     }
 
-    public function findOrFail($id)
+    public function findOrFail(Request $request, $id)
     {
-        $deck = ModelsDeck::findOrFail($id);
+        $deck['deck'] = ModelsDeck::findOrFail($id);
         $deck['cards'] = ModelsCard::where('deck_id', $id)
             ->orderBy('review_date', 'asc')
-            ->get();
+            ->paginate();
 
         return new DeckResource($deck);
     }

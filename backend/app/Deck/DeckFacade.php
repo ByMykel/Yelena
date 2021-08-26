@@ -26,9 +26,9 @@ final class DeckFacade
         return $this->deckFactory->createDeck()->all();
     }
 
-    public function getDeckById($id)
+    public function getDeckById(Request $request, $id)
     {
-        return $this->deckFactory->createDeck()->findOrFail($id);
+        return $this->deckFactory->createDeck()->findOrFail($request, $id);
     }
 
     public function createDeck(Request $request)

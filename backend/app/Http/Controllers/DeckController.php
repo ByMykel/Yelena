@@ -50,9 +50,9 @@ class DeckController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Deck $deck)
+    public function show(Request $request, Deck $deck)
     {
-        return $this->deck->getDeckById($deck->id);
+        return $this->deck->getDeckById($request, $deck->id);
     }
 
     /**
