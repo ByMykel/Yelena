@@ -70,4 +70,17 @@ class CardController extends Controller
     {
         $this->card->deleteCard($card);
     }
+
+    /**
+     * Mark or unmark as favorite some card.
+     */
+    public function favorite(Card $card)
+    {
+        if ($card->favorite) {
+            $this->card->unfavorite($card);
+            return;
+        }
+
+        $this->card->favorite($card);
+    }
 }

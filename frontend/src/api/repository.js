@@ -26,6 +26,9 @@ export default {
     createCard(data) {
         return api.post(`${BASE_URL}/cards/store`, data);
     },
+    handleFavoriteCard(id) {
+        return api.post(`${BASE_URL}/cards/${id}/favorite`);
+    },
     // Study
     getStudyDeck(id) {
         return api.get(`${BASE_URL}/decks/${id}/study`);

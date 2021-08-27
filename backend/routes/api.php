@@ -27,6 +27,7 @@ Route::prefix('cards')->group(function () {
         Route::delete('/destroy', [CardController::class, 'destroy']);
 
         Route::put('/study/update', [StudyController::class, 'update']);
+        Route::post('/favorite', [CardController::class, 'favorite']);
     });
 });
 

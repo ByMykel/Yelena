@@ -43,4 +43,14 @@ final class Card
     {
         $card->delete();
     }
+
+    public function favorite(ModelsCard $card)
+    {
+        $card->update(['favorite' => 1]);
+    }
+
+    public function unfavorite(ModelsCard $card)
+    {
+        $card->update(['favorite' => 0]);
+    }
 }

@@ -22,6 +22,7 @@ class CreateCardsTable extends Migration
             $table->float('ease_factor')->default(2.5);
             $table->integer('interval')->default(0);
             $table->date('review_date')->nullable();
+            $table->boolean('favorite')->default(0);
             $table->timestamps();
         });
     }

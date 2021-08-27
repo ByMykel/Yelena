@@ -26,6 +26,7 @@ class CardFactory extends Factory
             'deck_id' => Deck::inRandomOrder()->first()->id,
             'question' => $this->faker->word(),
             'answer' => $this->faker->word(),
+            'favorite' => $this->faker->numberBetween(0, 1),
         ];
     }
 }

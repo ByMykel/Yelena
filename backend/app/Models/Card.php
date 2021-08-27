@@ -17,6 +17,7 @@ class Card extends Model
         'repetitions' => 'integer',
         'ease_factor' => 'float',
         'interval' => 'integer',
+        'favorite' => 'boolean',
     ];
 
     protected $dates = [

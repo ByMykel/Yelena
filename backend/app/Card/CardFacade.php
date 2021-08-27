@@ -45,4 +45,14 @@ final class CardFacade
     {
         return $this->cardFactory->createCard()->delete($card);
     }
+
+    public function favorite(Card $card)
+    {
+        return $this->cardFactory->createCard()->favorite($card);
+    }
+
+    public function unfavorite(Card $card)
+    {
+        return $this->cardFactory->createCard()->unfavorite($card);
+    }
 }

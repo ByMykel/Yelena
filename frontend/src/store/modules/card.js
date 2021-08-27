@@ -19,6 +19,13 @@ export const mutations = {
     SET_META(state, meta) {
         state.meta = meta;
     },
+    UPDATE_FAVORITE(state, id) {
+        state.cards.map((card) => {
+            if (card.id === id) {
+                card.favorite = !card.favorite;
+            }
+        });
+    },
 };
 
 export const actions = {
@@ -44,6 +51,9 @@ export const actions = {
                 });
             }
         });
+    },
+    async handleFavorite({ commit }, id) {
+        commit("UPDATE_FAVORITE", id);
     },
 };
 

@@ -55,7 +55,7 @@
                                         <div
                                             class="absolute inset-0 flex items-center justify-center w-7"
                                         >
-                                            <span v-if="card.favorite">
+                                            <span v-if="card.favorite" @click="handleFavorite(card)">
                                                 <svg
                                                     class="w-5 h-5 text-yellow-300 cursor-pointer hover:text-yellow-200"
                                                     fill="currentColor"
@@ -67,7 +67,7 @@
                                                     ></path>
                                                 </svg>
                                             </span>
-                                            <span v-else>
+                                            <span v-else @click="handleFavorite(card)">
                                                 <svg
                                                     class="w-5 h-5 text-gray-300 cursor-pointer hover:text-yellow-300"
                                                     fill="none"
@@ -171,10 +171,10 @@ export default {
 
             return true;
         },
-        handleFavorite(deck) {
+        handleFavorite(card) {
             repository
-                .handleFavorite(deck.id)
-                .then(() => (deck.favorite = !deck.favorite));
+                .handleFavoriteCard(card.id)
+                .then(() => store.dispatch("card/handleFavorite", card.id));
         },
     },
 };
