@@ -14,6 +14,7 @@ final class Deck
     public function paginate()
     {
         $decks = ModelsDeck::withCount(['cards', 'due_cards'])
+            ->orderBy('favorite', 'desc')
             ->orderBy('due_cards_count', 'desc')
             ->orderBy('cards_count', 'desc')
             ->paginate();
@@ -30,6 +31,7 @@ final class Deck
     {
         $deck['deck'] = ModelsDeck::findOrFail($id);
         $deck['cards'] = ModelsCard::where('deck_id', $id)
+            ->orderBy('favorite', 'desc')
             ->orderBy('review_date', 'asc')
             ->paginate();
 
@@ -54,5 +56,15 @@ final class Deck
     public function delete(ModelsDeck $deck)
     {
         $deck->delete();
+    }
+
+    public function favorite(ModelsDeck $deck)
+    {
+        $deck->update(['favorite' => 1]);
+    }
+
+    public function unfavorite(ModelsDeck $deck)
+    {
+        $deck->update(['favorite' => 0]);
     }
 }

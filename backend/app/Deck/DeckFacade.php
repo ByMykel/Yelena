@@ -50,4 +50,14 @@ final class DeckFacade
     {
         return $this->deckFactory->createDeck()->delete($deck);
     }
+
+    public function favorite(Deck $deck)
+    {
+        return $this->deckFactory->createDeck()->favorite($deck);
+    }
+
+    public function unfavorite(Deck $deck)
+    {
+        return $this->deckFactory->createDeck()->unfavorite($deck);
+    }
 }

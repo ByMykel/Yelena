@@ -78,4 +78,17 @@ class DeckController extends Controller
     {
         $this->deck->deleteDeck($deck);
     }
+
+    /**
+     * Mark or unmark as favorite some deck.
+     */
+    public function favorite(Deck $deck)
+    {
+        if ($deck->favorite) {
+            $this->deck->unfavorite($deck);
+            return;
+        }
+
+        $this->deck->favorite($deck);
+    }
 }

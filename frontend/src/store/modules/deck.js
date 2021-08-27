@@ -15,6 +15,13 @@ export const mutations = {
     SET_META(state, meta) {
         state.meta = meta;
     },
+    UPDATE_FAVORITE(state, id) {
+        state.decks.map((deck) => {
+            if (deck.id === id) {
+                deck.favorite = !deck.favorite;
+            }
+        });
+    },
 };
 
 export const actions = {
@@ -30,6 +37,9 @@ export const actions = {
                 dispatch("fetchDecks", router.currentRoute.params.page || 1);
             }
         });
+    },
+    async handleFavorite({ commit }, id) {
+        commit("UPDATE_FAVORITE", id);
     },
 };
 

@@ -16,6 +16,9 @@ export default {
     createDeck(data) {
         return api.post(`${BASE_URL}/decks/store`, data);
     },
+    handleFavoriteDeck(id) {
+        return api.post(`${BASE_URL}/decks/${id}/favorite`);
+    },
     // Cards
     getCardsByDeckId(id, page) {
         return api.get(`${BASE_URL}/decks/${id}/?page=${page}`);

@@ -43,5 +43,6 @@ Route::prefix('decks')->group(function () {
         Route::delete('/destroy', [DeckController::class, 'destroy']);
 
         Route::get('/study', [StudyController::class, 'show']);
+        Route::post('/favorite', [DeckController::class, 'favorite']);
     });
 });

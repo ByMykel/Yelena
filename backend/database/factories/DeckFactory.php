@@ -23,6 +23,7 @@ class DeckFactory extends Factory
     {
         return [
             'name' => $this->faker->sentence($nbWords = 2, $variableNbWords = true),
+            'favorite' => $this->faker->numberBetween(0, 1)
         ];
     }
 }
