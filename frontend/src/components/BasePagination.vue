@@ -1,46 +1,15 @@
 <template>
-    <div class="px-4 py-3 flex items-center justify-between sm:px-6">
-        <div class="flex-1 flex justify-between sm:hidden">
+    <div class="flex items-center justify-between px-4 py-3 sm:px-6">
+        <div class="flex justify-between flex-1 sm:hidden">
             <button
-                class="
-                    relative
-                    inline-flex
-                    items-center
-                    px-4
-                    py-2
-                    border border-gray-300
-                    text-sm
-                    font-medium
-                    rounded-md
-                    text-gray-700
-                    bg-white
-                    hover:bg-gray-50
-                    disabled:opacity-50
-                    disabled:cursor-not-allowed
-                "
+                class="relative inline-flex items-center px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md  hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
                 :disabled="previousPage === null"
                 @click="toPage(previousPage)"
             >
                 Previous
             </button>
             <button
-                class="
-                    ml-3
-                    relative
-                    inline-flex
-                    items-center
-                    px-4
-                    py-2
-                    border border-gray-300
-                    text-sm
-                    font-medium
-                    rounded-md
-                    text-gray-700
-                    bg-white
-                    hover:bg-gray-50
-                    disabled:opacity-50
-                    disabled:cursor-not-allowed
-                "
+                class="relative inline-flex items-center px-4 py-2 ml-3 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md  hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
                 :disabled="nextPage === null"
                 @click="toPage(nextPage)"
             >
@@ -59,33 +28,11 @@
             </div>
             <div>
                 <nav
-                    class="
-                        relative
-                        z-0
-                        inline-flex
-                        rounded-md
-                        shadow-sm
-                        -space-x-px
-                    "
+                    class="relative z-0 inline-flex -space-x-px rounded-md shadow-sm "
                     aria-label="Pagination"
                 >
                     <button
-                        class="
-                            relative
-                            inline-flex
-                            items-center
-                            px-2
-                            py-2
-                            rounded-l-md
-                            border border-gray-300
-                            bg-white
-                            text-sm
-                            font-medium
-                            text-gray-500
-                            hover:bg-gray-50
-                            disabled:opacity-50
-                            disabled:cursor-not-allowed
-                        "
+                        class="relative inline-flex items-center px-2 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300  rounded-l-md hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
                         :disabled="previousPage === null"
                         @click="toPage(previousPage)"
                     >
@@ -104,51 +51,22 @@
                         </svg>
                     </button>
                     <button
-                        v-for="page in pages"
-                        :key="page"
-                        :to="`/decks/?page=${page}`"
-                        class="
-                            relative
-                            inline-flex
-                            items-center
-                            px-4
-                            py-2
-                            border
-                            text-sm
-                            font-medium
-                        "
-                        :class="
-                            meta.current_page === page
-                                ? 'z-10 bg-blue-50 border-blue-500 text-blue-600'
-                                : 'bg-white border-gray-300 text-gray-500 hover:bg-gray-50'
-                        "
+                        v-for="(page, index) in pages"
+                        :key="index"
+                        class="relative inline-flex items-center px-4 py-2 text-sm font-medium border "
+                        :class="pageClass(page)"
                         @click="toPage(page)"
                     >
                         <span>{{ page }}</span>
                     </button>
                     <button
-                        class="
-                            relative
-                            inline-flex
-                            items-center
-                            px-2
-                            py-2
-                            rounded-r-md
-                            border border-gray-300
-                            bg-white
-                            text-sm
-                            font-medium
-                            text-gray-500
-                            hover:bg-gray-50
-                            disabled:opacity-50
-                            disabled:cursor-not-allowed
-                        "
+                        class="relative inline-flex items-center px-2 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300  rounded-r-md hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
                         :disabled="nextPage === null"
                         @click="toPage(nextPage)"
                     >
                         <span class="sr-only">Next</span>
                         <svg
-                            class="h-5 w-5"
+                            class="w-5 h-5"
                             fill="currentColor"
                             viewBox="0 0 20 20"
                             xmlns="http://www.w3.org/2000/svg"
@@ -167,8 +85,6 @@
 </template>
 
 <script>
-import store from "../store";
-
 export default {
     props: {
         action: {
@@ -188,14 +104,24 @@ export default {
         pages() {
             let pages = [];
 
-            let first = Math.max(this.meta.current_page - 3, 1);
+            let first = Math.max(this.meta.current_page - 2, 1);
             let last = Math.min(
-                this.meta.current_page + 4,
+                this.meta.current_page + 2,
                 this.meta.last_page
             );
 
+            if (first != 1) {
+                pages.push(1);
+                pages.push("...");
+            }
+
             for (let i = first; i <= last; i++) {
                 pages.push(i);
+            }
+
+            if (last != this.meta.last_page) {
+                pages.push("...");
+                pages.push(this.meta.last_page);
             }
 
             return pages;
@@ -217,15 +143,23 @@ export default {
     methods: {
         toPage(page) {
             if (!page || page === this.meta.current_page) return;
+            if (page === "...") return;
 
-            store.dispatch(this.action, page).then(() => {
-                if (this.path) {
-                    this.$router.push({
-                        path: this.path,
-                        query: { page: page },
-                    });
-                }
-            });
+            if (this.path) {
+                this.$router.push({
+                    path: this.path,
+                    query: { page: page },
+                });
+            }
+        },
+        pageClass(page) {
+            if (page === "...") {
+                return "cursor-default border-gray-300 text-gray-500";
+            }
+
+            return this.meta.current_page === page
+                ? "z-10 bg-blue-50 border-blue-500 text-blue-600"
+                : "bg-white border-gray-300 text-gray-500 hover:bg-gray-50";
         },
     },
 };
