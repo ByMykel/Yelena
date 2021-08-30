@@ -4,7 +4,7 @@
             <tr>
                 <th
                     scope="col"
-                    class="py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase px-7"
+                    class="py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase  px-7"
                 >
                     Name
                 </th>
@@ -30,17 +30,17 @@
                 :class="[deck.due_cards_count == 0 ? 'bg-gray-50' : 'bg-white']"
             >
                 <td
-                    class="relative py-4 text-sm font-medium text-gray-900 px-7 whitespace-nowrap"
+                    class="relative py-4 text-sm font-medium text-gray-900  px-7 whitespace-nowrap"
                 >
                     <div
-                        class="absolute inset-0 flex items-center justify-center w-7"
+                        class="absolute inset-0 flex items-center justify-center  w-7"
                     >
                         <span
                             v-if="deck.favorite"
                             @click="handleFavorite(deck)"
                         >
                             <svg
-                                class="w-5 h-5 text-yellow-300 cursor-pointer hover:text-yellow-200"
+                                class="w-5 h-5 text-yellow-300 cursor-pointer  hover:text-yellow-200"
                                 fill="currentColor"
                                 viewBox="0 0 20 20"
                                 xmlns="http://www.w3.org/2000/svg"
@@ -52,7 +52,7 @@
                         </span>
                         <span v-else @click="handleFavorite(deck)">
                             <svg
-                                class="w-5 h-5 text-gray-300 cursor-pointer hover:text-yellow-300"
+                                class="w-5 h-5 text-gray-300 cursor-pointer  hover:text-yellow-300"
                                 fill="none"
                                 stroke="currentColor"
                                 viewBox="0 0 24 24"
@@ -91,23 +91,77 @@
                     {{ deck.due_cards_count }}
                 </td>
                 <td
-                    class="px-6 py-4 text-sm font-medium text-right whitespace-nowrap"
+                    class="flex items-center justify-end px-6 py-4 text-sm font-medium text-right  whitespace-nowrap"
                 >
                     <button
-                        class="mr-4 font-semibold text-blue-600 cursor-pointer hover:text-blue-900"
+                        class="mr-4 font-semibold text-gray-900 cursor-pointer  hover:text-gray-600"
                         :class="{
                             'opacity-50 cursor-not-allowed':
                                 deck.due_cards_count == 0,
                         }"
+                        title="Study this deck"
                         @click="studySelectedDeck(deck)"
                     >
-                        Study
+                        <svg
+                            class="w-5 h-5"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg"
+                        >
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"
+                            ></path>
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                            ></path>
+                        </svg>
                     </button>
                     <router-link
                         :to="`/decks/${deck.id}`"
-                        class="mr-4 font-semibold text-red-600 hover:text-red-900"
-                        >Check Cards</router-link
+                        title="Check Cards"
+                        class="mr-4 font-semibold text-gray-900 cursor-pointer  hover:text-gray-600"
                     >
+                        <svg
+                            class="w-5 h-5"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg"
+                        >
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                            ></path>
+                        </svg>
+                    </router-link>
+                    <button
+                        title="Delete deck"
+                        class="ml-3 font-semibold text-red-600 cursor-pointer  hover:text-red-900"
+                    >
+                        <svg
+                            class="w-5 h-5"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg"
+                        >
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                            ></path>
+                        </svg>
+                    </button>
                 </td>
             </tr>
         </tbody>
