@@ -1,5 +1,5 @@
 <template>
-    <modal :show="show">
+    <base-modal :show="show">
         <div class="px-4 py-4">
             <label
                 for="deck-name"
@@ -25,15 +25,15 @@
                 Save
             </button>
         </div>
-    </modal>
+    </base-modal>
 </template>
 
 <script>
 import { mapActions } from "vuex";
-import Modal from "../components/Modal.vue";
+import BaseModal from "./BaseModal.vue";
 
 export default {
-    components: { Modal },
+    components: { BaseModal },
     props: {
         show: Boolean,
     },

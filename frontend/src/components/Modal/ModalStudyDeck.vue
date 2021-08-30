@@ -1,5 +1,5 @@
 <template>
-    <modal :show="show">
+    <base-modal :show="show">
         <div
             class="flex justify-center h-40"
             style="max-height: calc(100vh - 150px)"
@@ -43,17 +43,16 @@
                 </div>
             </div>
         </div>
-    </modal>
+    </base-modal>
 </template>
 
 <script>
 import { mapGetters } from "vuex";
-// import store from "../store";
-import repository from "../api/repository";
-import Modal from "./Modal.vue";
+import repository from "../../api/repository";
+import BaseModal from "./BaseModal.vue";
 
 export default {
-    components: { Modal },
+    components: { BaseModal },
     props: {
         show: Boolean,
         idDeck: Number,

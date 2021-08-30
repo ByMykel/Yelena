@@ -1,5 +1,5 @@
 <template>
-    <modal :show="show">
+    <base-modal :show="show">
         <div class="px-4 py-4">
             <label class="block text-sm font-medium text-gray-700">
                 Import cards
@@ -25,7 +25,7 @@
                     <div class="flex text-sm text-gray-600">
                         <label
                             for="file-upload"
-                            class="relative font-medium text-blue-600 bg-white rounded-md cursor-pointer  hover:text-blue-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-blue-500"
+                            class="relative font-medium text-blue-600 bg-white rounded-md cursor-pointer hover:text-blue-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-blue-500"
                         >
                             <span>Upload a file</span>
                             <input
@@ -45,24 +45,24 @@
             </div>
         </div>
         <div
-            class="px-4 py-3 text-right border-t border-gray-200  bg-gray-50 sm:px-6"
+            class="px-4 py-3 text-right border-t border-gray-200 bg-gray-50 sm:px-6"
         >
             <button
-                class="inline-flex justify-center px-4 py-2 text-sm font-medium text-white bg-blue-600 border border-transparent rounded-md shadow-sm  hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                class="inline-flex justify-center px-4 py-2 text-sm font-medium text-white bg-blue-600 border border-transparent rounded-md shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
                 @click="upload()"
             >
                 Upload
             </button>
         </div>
-    </modal>
+    </base-modal>
 </template>
 
 <script>
-import repository from "../api/repository";
-import Modal from "./Modal.vue";
+import repository from "../../api/repository";
+import BaseModal from "./BaseModal.vue";
 
 export default {
-    components: { Modal },
+    components: { BaseModal },
     props: {
         show: Boolean,
     },

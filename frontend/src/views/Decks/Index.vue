@@ -1,9 +1,9 @@
 <template>
     <div>
-        <study-deck
+        <modal-study-deck
             :show="showStudyModal"
             @close-modal="showStudyModal = false"
-        ></study-deck>
+        ></modal-study-deck>
         <div class="mb-10">
             <h1 class="text-4xl font-bold text-white">Manage Decks</h1>
             <p class="mt-0.5 mb-3 text-xl text-white text-bold">
@@ -39,11 +39,11 @@
 import { mapGetters } from "vuex";
 import store from "../../store";
 import BasePagination from "../../components/BasePagination.vue";
-import StudyDeck from "../../components/StudyDeck.vue";
+import ModalStudyDeck from "../../components/Modal/ModalStudyDeck.vue";
 import TableForDecks from "../../components/Deck/TableForDecks.vue";
 
 export default {
-    components: { BasePagination, StudyDeck, TableForDecks },
+    components: { BasePagination, ModalStudyDeck, TableForDecks },
     data() {
         return {
             showStudyModal: false,
