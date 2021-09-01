@@ -112,7 +112,10 @@ export default {
 
             if (first != 1) {
                 pages.push(1);
-                pages.push("...");
+
+                if (first != 2) {
+                    pages.push("...");
+                }
             }
 
             for (let i = first; i <= last; i++) {
@@ -120,7 +123,10 @@ export default {
             }
 
             if (last != this.meta.last_page) {
-                pages.push("...");
+                if (last + 1 != this.meta.last_page) {
+                    pages.push("...");
+                }
+
                 pages.push(this.meta.last_page);
             }
 
