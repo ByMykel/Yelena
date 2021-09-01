@@ -1,23 +1,34 @@
 <template>
     <base-modal :show="show">
         <div
-            class="flex justify-center h-40"
+            class="flex justify-center p-2 h-44"
             style="max-height: calc(100vh - 150px)"
         >
-            <div v-if="finished">Your finished your deck</div>
-            <div v-else class="flex flex-col items-center justify-between">
-                <div class="space-y-2 text-xl font-bold text-center">
-                    <div class="px-2 bg-blue-300 rounded-sm">
+            <div
+                v-if="finished"
+                class="flex items-center text-lg font-semibold"
+            >
+                You have finished this deck for now.
+            </div>
+            <div
+                v-else
+                class="flex flex-col items-center justify-between w-full"
+            >
+                <div class="w-2/4 space-y-2 text-xl font-bold text-center">
+                    <div class="px-2">
                         {{ actualCard.question }}
                     </div>
-                    <div v-if="showAnswer" class="px-2 bg-gray-300 rounded-sm">
+                    <div
+                        class="w-full h-2 border-b border-gray-800 border-opacity-50 "
+                    ></div>
+                    <div v-if="showAnswer" class="px-2">
                         {{ actualCard.answer }}
                     </div>
                 </div>
                 <div>
                     <button
                         v-if="!showAnswer"
-                        class="px-2 text-white bg-gray-700 rounded-sm"
+                        class="px-2 text-white bg-blue-600 rounded-sm hover:bg-blue-700"
                         @click="showAnswer = true"
                     >
                         Show
@@ -26,15 +37,12 @@
                         <button
                             v-for="option in [
                                 { number: 2, name: 'Incorrect' },
-                                {
-                                    number: 3,
-                                    name: 'Hard',
-                                },
+                                { number: 3, name: 'Hard' },
                                 { number: 4, name: 'Good' },
                                 { number: 5, name: 'Easy' },
                             ]"
                             :key="option.number"
-                            class="px-2 text-white bg-gray-700 rounded-sm"
+                            class="px-2 text-white bg-blue-600 rounded-sm hover:bg-blue-700"
                             @click="selectedOption(option.number)"
                         >
                             {{ option.name }}
@@ -78,22 +86,6 @@ export default {
             }
         },
     },
-    beforeMount() {
-        // if (this.idDeck === null) return;
-        // store.dispatch("study/fetchStudyDeck", this.idDeck).then(() => {
-        // });
-        // this.initialDeck = [...this.getStudyDeck.cards];
-        // this.finished = this.getStudyDeck.cards.length === 0;
-        // this.actualCard = this.initialDeck.shift();
-    },
-    // beforeRouteEnter(to, from, next) {
-    //     const id = this.idDeck;
-
-    //     store.dispatch("study/fetchStudyDeck", id).then(() => {
-    //         to.params.page = id;
-    //         next();
-    //     });
-    // },
     methods: {
         selectedOption(quality) {
             let data = this.superMemo(quality, this.actualCard);
