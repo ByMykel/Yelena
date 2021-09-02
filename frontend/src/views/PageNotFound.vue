@@ -1,8 +1,13 @@
 <template>
-    <div class="flex items-center justify-center text-6xl font-medium mt-10">
-        <div>
-            <span class="text-purple-600 mr-5">404</span>
-            <span class="text-gray-800">Page not Found</span>
+    <div>
+        <div class="mb-10">
+            <h1 class="text-4xl font-bold text-white">Page not found</h1>
+            <p class="mt-0.5 mb-3 text-xl text-white text-bold">
+                Sorry, we couldn't find the page you're looking for.
+            </p>
         </div>
+        <div
+            class="pb-48 overflow-hidden bg-white border-b border-gray-200 shadow  sm:rounded-lg"
+        ></div>
     </div>
 </template>
