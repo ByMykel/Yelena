@@ -48,3 +48,14 @@ services:
             - 9000:9000
         networks:
             - laravel
+
+    vue-ui:
+        build:
+            context: .
+            dockerfile: vue.dockerfile
+        container_name: vue-ui
+        ports:
+            - 8080:8080
+        volumes:
+            - ./frontend:/var/www/docker-vue
+            - /var/www/docker-vue/node_modules
