@@ -2,7 +2,7 @@
     <div>
         <button
             v-if="confirmed"
-            title="Delete card"
+            title="Confirm to delete this card"
             class="ml-3 font-semibold text-red-600 cursor-pointer hover:text-red-900"
             @click="$emit('delete-card', cardId)"
         >
@@ -21,7 +21,7 @@
         </button>
         <button
             v-else
-            title="Delete card"
+            title="Delete this card"
             class="ml-3 font-semibold text-red-600 cursor-pointer hover:text-red-900"
             @click="confirmAction()"
         >
