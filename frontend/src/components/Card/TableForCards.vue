@@ -4,7 +4,7 @@
             <tr>
                 <th
                     scope="col"
-                    class="py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase px-7"
+                    class="py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase  px-7"
                 >
                     Question
                 </th>
@@ -30,17 +30,17 @@
                 :class="[wasReviewed(card) ? 'bg-gray-50' : 'bg-white']"
             >
                 <td
-                    class="relative py-4 text-sm font-medium text-gray-900 px-7 whitespace-nowrap"
+                    class="relative py-4 text-sm font-medium text-gray-900  px-7 whitespace-nowrap"
                 >
                     <div
-                        class="absolute inset-0 flex items-center justify-center w-7"
+                        class="absolute inset-0 flex items-center justify-center  w-7"
                     >
                         <button
                             v-if="card.favorite"
                             @click="handleFavorite(card)"
                         >
                             <svg
-                                class="w-5 h-5 text-yellow-300 cursor-pointer hover:text-yellow-200"
+                                class="w-5 h-5 text-yellow-300 cursor-pointer  hover:text-yellow-200"
                                 fill="currentColor"
                                 viewBox="0 0 20 20"
                                 xmlns="http://www.w3.org/2000/svg"
@@ -52,7 +52,7 @@
                         </button>
                         <button v-else @click="handleFavorite(card)">
                             <svg
-                                class="w-5 h-5 text-gray-300 cursor-pointer hover:text-yellow-300"
+                                class="w-5 h-5 text-gray-300 cursor-pointer  hover:text-yellow-300"
                                 fill="none"
                                 stroke="currentColor"
                                 viewBox="0 0 24 24"
@@ -76,7 +76,7 @@
                     </span>
                 </td>
                 <td
-                    class="px-6 py-4 text-sm font-medium text-gray-900 whitespace-nowrap"
+                    class="px-6 py-4 text-sm font-medium text-gray-900  whitespace-nowrap"
                     :class="{
                         'opacity-50': wasReviewed(card),
                     }"
@@ -92,27 +92,12 @@
                     {{ card.review_date_human }}
                 </td>
                 <td
-                    class="flex items-center justify-end px-6 py-4 text-sm font-medium text-right whitespace-nowrap"
+                    class="flex items-center justify-end px-6 py-4 text-sm font-medium text-right  whitespace-nowrap"
                 >
-                    <button
-                        title="Delete card"
-                        class="ml-3 font-semibold text-red-600 cursor-pointer hover:text-red-900"
-                    >
-                        <svg
-                            class="w-5 h-5"
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                            xmlns="http://www.w3.org/2000/svg"
-                        >
-                            <path
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                stroke-width="2"
-                                d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
-                            ></path>
-                        </svg>
-                    </button>
+                    <action-delete-card
+                        :card-id="card.id"
+                        @delete-card="deleteCard(card.id)"
+                    ></action-delete-card>
                 </td>
             </tr>
         </tbody>
@@ -122,11 +107,14 @@
 <script>
 import { mapGetters } from "vuex";
 import repository from "../../api/repository";
+import router from "../../router";
 import store from "../../store";
+import ActionDeleteCard from "./ActionDeleteCard.vue";
 
 export default {
+    components: { ActionDeleteCard },
     computed: {
-        ...mapGetters("card", ["getCards"]),
+        ...mapGetters("card", ["getCards", "getCardsDeck"]),
     },
     methods: {
         wasReviewed(card) {
@@ -144,6 +132,16 @@ export default {
             repository
                 .handleFavoriteCard(card.id)
                 .then(() => store.dispatch("card/handleFavorite", card.id));
+        },
+        deleteCard(id) {
+            let deckId = this.getCardsDeck.id;
+            let page = router.currentRoute.params.page || 1;
+
+            repository
+                .deleteCardById(id)
+                .then(() =>
+                    store.dispatch("card/fetchCards", { id: deckId, page })
+                );
         },
     },
 };
