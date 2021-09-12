@@ -4,41 +4,59 @@ const BASE_URL = "http://localhost:8000/api";
 
 export default {
     // Decks
-    getAllDecks() {
-        return api.get(`${BASE_URL}/decks_list`);
+    async getAllDecks() {
+        return await api.get(`${BASE_URL}/decks_list`);
     },
-    getDecks(page) {
-        return api.get(`${BASE_URL}/decks/?page=${page}`);
+
+    async getDecks(page) {
+        return await api.get(`${BASE_URL}/decks/?page=${page}`);
     },
-    getDeckById(id) {
-        return api.get(`${BASE_URL}/decks/${id}`);
+
+    async getDeckById(id) {
+        return await api.get(`${BASE_URL}/decks/${id}`);
     },
-    createDeck(data) {
-        return api.post(`${BASE_URL}/decks/store`, data);
+
+    async createDeck(data) {
+        return await api.post(`${BASE_URL}/decks/store`, data);
     },
-    handleFavoriteDeck(id) {
-        return api.post(`${BASE_URL}/decks/${id}/favorite`);
+
+    async handleFavoriteDeck(id) {
+        return await api.post(`${BASE_URL}/decks/${id}/favorite`);
     },
+
+    async deleteDeckById(id) {
+        return await api.delete(`${BASE_URL}/decks/${id}/destroy`)
+    },
+
     // Cards
-    getCardsByDeckId(id, page) {
-        return api.get(`${BASE_URL}/decks/${id}/?page=${page}`);
+    async getCardsByDeckId(id, page) {
+        return await api.get(`${BASE_URL}/decks/${id}/?page=${page}`);
     },
-    createCard(data) {
-        return api.post(`${BASE_URL}/cards/store`, data);
+
+    async createCard(data) {
+        return await api.post(`${BASE_URL}/cards/store`, data);
     },
-    handleFavoriteCard(id) {
-        return api.post(`${BASE_URL}/cards/${id}/favorite`);
+
+    async handleFavoriteCard(id) {
+        return await api.post(`${BASE_URL}/cards/${id}/favorite`);
     },
+
+    async deleteCardById(id) {
+        return await api.delete(`${BASE_URL}/cards/${id}/destroy`)
+    },
+
     // Study
-    getStudyDeck(id) {
-        return api.get(`${BASE_URL}/decks/${id}/study`);
+    async getStudyDeck(id) {
+        return await api.get(`${BASE_URL}/decks/${id}/study`);
     },
-    updateStudyCard(id, data) {
-        return api.put(`${BASE_URL}/cards/${id}/study/update`, data);
+
+    async updateStudyCard(id, data) {
+        return await api.put(`${BASE_URL}/cards/${id}/study/update`, data);
     },
+
     // Import deck
-    importDeck(data) {
-        return api.post(`${BASE_URL}/import_deck`, data, {
+    async importDeck(data) {
+        return await api.post(`${BASE_URL}/import_deck`, data, {
             headers: {
                 "Content-Type": "multipart/form-data",
             },
