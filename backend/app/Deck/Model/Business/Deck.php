@@ -50,7 +50,7 @@ final class Deck
 
     public function update(Request $request, ModelsDeck $deck)
     {
-        $deck->update($request->all());
+        $deck->update(['name' => $request->name]);
     }
 
     public function delete(ModelsDeck $deck)

@@ -28,6 +28,10 @@ export default {
         return await api.delete(`${BASE_URL}/decks/${id}/destroy`)
     },
 
+    async updateDeckById(id, data) {
+        return await api.put(`${BASE_URL}/decks/${id}/update`, data)
+    },
+
     // Cards
     async getCardsByDeckId(id, page) {
         return await api.get(`${BASE_URL}/decks/${id}/?page=${page}`);

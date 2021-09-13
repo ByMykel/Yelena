@@ -67,12 +67,12 @@
                             </svg>
                         </button>
                     </div>
-                    <span
+                    <action-update-deck
                         :class="{
                             'opacity-50': deck.due_cards_count == 0,
                         }"
-                        >{{ deck.name }}</span
-                    >
+                        :deck="deck"
+                    ></action-update-deck>
                 </td>
                 <td
                     class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap"
@@ -156,9 +156,10 @@ import repository from "../../api/repository";
 import router from "../../router";
 import store from "../../store";
 import ActionDeleteDeck from "./ActionDeleteDeck.vue";
+import ActionUpdateDeck from "./ActionUpdateDeck.vue";
 
 export default {
-    components: { ActionDeleteDeck },
+    components: { ActionDeleteDeck, ActionUpdateDeck },
     computed: {
         ...mapGetters("deck", ["getDecks"]),
     },

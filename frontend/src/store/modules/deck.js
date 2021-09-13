@@ -22,6 +22,13 @@ export const mutations = {
             }
         });
     },
+    UPDATE_DECK_NAME(state, { id, newName }) {
+        state.decks.map((deck) => {
+            if (deck.id === id) {
+                deck.name = newName;
+            }
+        });
+    },
 };
 
 export const actions = {
@@ -40,6 +47,9 @@ export const actions = {
     },
     async handleFavorite({ commit }, id) {
         commit("UPDATE_FAVORITE", id);
+    },
+    updateDeckName({ commit }, { id, newName }) {
+        commit("UPDATE_DECK_NAME", { id, newName });
     },
 };
 
