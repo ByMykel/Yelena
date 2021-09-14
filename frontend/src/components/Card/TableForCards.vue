@@ -67,13 +67,12 @@
                             </svg>
                         </button>
                     </div>
-                    <span
+                    <action-update-card-question
                         :class="{
                             'opacity-50': wasReviewed(card),
                         }"
-                    >
-                        {{ card.question }}
-                    </span>
+                        :card="card"
+                    ></action-update-card-question>
                 </td>
                 <td
                     class="px-6 py-4 text-sm font-medium text-gray-900  whitespace-nowrap"
@@ -110,9 +109,10 @@ import repository from "../../api/repository";
 import router from "../../router";
 import store from "../../store";
 import ActionDeleteCard from "./ActionDeleteCard.vue";
+import ActionUpdateCardQuestion from "./ActionUpdateCardQuestion.vue";
 
 export default {
-    components: { ActionDeleteCard },
+    components: { ActionDeleteCard, ActionUpdateCardQuestion },
     computed: {
         ...mapGetters("card", ["getCards", "getCardsDeck"]),
     },

@@ -49,6 +49,10 @@ export default {
         return await api.delete(`${BASE_URL}/cards/${id}/destroy`)
     },
 
+    async updateCardById(id, data) {
+        return await api.put(`${BASE_URL}/cards/${id}/update`, data)
+    },
+
     // Study
     async getStudyDeck(id) {
         return await api.get(`${BASE_URL}/decks/${id}/study`);

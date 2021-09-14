@@ -36,7 +36,10 @@ final class Card
 
     public function update(Request $request, ModelsCard $card)
     {
-        $card->update($request->all());
+        $card->update([
+            'question' => $request->question,
+            'answer' => $request->answer
+        ]);
     }
 
     public function delete(ModelsCard $card)

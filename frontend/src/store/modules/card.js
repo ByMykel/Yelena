@@ -26,6 +26,13 @@ export const mutations = {
             }
         });
     },
+    UPDATE_CARD_QUESTION(state, { id, newQuestion }) {
+        state.cards.map((card) => {
+            if (card.id === id) {
+                card.question = newQuestion;
+            }
+        });
+    },
 };
 
 export const actions = {
@@ -54,6 +61,9 @@ export const actions = {
     },
     async handleFavorite({ commit }, id) {
         commit("UPDATE_FAVORITE", id);
+    },
+    updateDeckQuestion({ commit }, { id, newQuestion }) {
+        commit("UPDATE_CARD_QUESTION", { id, newQuestion });
     },
 };
 
