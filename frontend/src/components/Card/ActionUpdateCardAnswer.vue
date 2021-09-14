@@ -4,12 +4,12 @@
             class="w-full p-0 m-0 text-sm font-medium border-0 focus:ring-0"
             v-show="editMode"
             type="text"
-            v-model="editableCard.question"
+            v-model="editableCard.answer"
             @blur="finishEditing()"
             @keyup.enter="finishEditing()"
             v-todo-focus="true"
         />
-        <div v-show="!editMode" @click="editMode = true">{{ card.question }}</div>
+        <div v-show="!editMode" @click="editMode = true">{{ card.answer }}</div>
         <svg
             v-show="!editMode"
             class="w-3 h-3 ml-1 text-gray-500"
@@ -44,16 +44,16 @@ export default {
     },
     methods: {
         finishEditing() {
-            this.saveNewQuestion();
+            this.saveNewAnswer();
             this.editMode = false;
         },
-        saveNewQuestion() {
-            if (this.card.question === this.editableCard.question) return;
-            if (!this.editableCard.question) return;
+        saveNewAnswer() {
+            if (this.card.answer === this.editableCard.answer) return;
+            if (!this.editableCard.answer) return;
 
-            store.dispatch("card/updateCardQuestion", {
+            store.dispatch("card/updateCardAnswer", {
                 id: this.card.id,
-                newQuestion: this.editableCard.question,
+                newAnswer: this.editableCard.answer,
             });
 
             repository.updateCardById(this.card.id, this.editableCard);

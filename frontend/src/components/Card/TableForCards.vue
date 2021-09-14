@@ -4,7 +4,7 @@
             <tr>
                 <th
                     scope="col"
-                    class="py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase  px-7"
+                    class="py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase px-7"
                 >
                     Question
                 </th>
@@ -30,17 +30,17 @@
                 :class="[wasReviewed(card) ? 'bg-gray-50' : 'bg-white']"
             >
                 <td
-                    class="relative py-4 text-sm font-medium text-gray-900  px-7 whitespace-nowrap"
+                    class="relative py-4 text-sm font-medium text-gray-900 px-7 whitespace-nowrap"
                 >
                     <div
-                        class="absolute inset-0 flex items-center justify-center  w-7"
+                        class="absolute inset-0 flex items-center justify-center w-7"
                     >
                         <button
                             v-if="card.favorite"
                             @click="handleFavorite(card)"
                         >
                             <svg
-                                class="w-5 h-5 text-yellow-300 cursor-pointer  hover:text-yellow-200"
+                                class="w-5 h-5 text-yellow-300 cursor-pointer hover:text-yellow-200"
                                 fill="currentColor"
                                 viewBox="0 0 20 20"
                                 xmlns="http://www.w3.org/2000/svg"
@@ -52,7 +52,7 @@
                         </button>
                         <button v-else @click="handleFavorite(card)">
                             <svg
-                                class="w-5 h-5 text-gray-300 cursor-pointer  hover:text-yellow-300"
+                                class="w-5 h-5 text-gray-300 cursor-pointer hover:text-yellow-300"
                                 fill="none"
                                 stroke="currentColor"
                                 viewBox="0 0 24 24"
@@ -75,12 +75,14 @@
                     ></action-update-card-question>
                 </td>
                 <td
-                    class="px-6 py-4 text-sm font-medium text-gray-900  whitespace-nowrap"
-                    :class="{
-                        'opacity-50': wasReviewed(card),
-                    }"
+                    class="px-6 py-4 text-sm font-medium text-gray-900 whitespace-nowrap"
                 >
-                    {{ card.answer }}
+                    <action-update-card-answer
+                        :class="{
+                            'opacity-50': wasReviewed(card),
+                        }"
+                        :card="card"
+                    ></action-update-card-answer>
                 </td>
                 <td
                     class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap"
@@ -91,7 +93,7 @@
                     {{ card.review_date_human }}
                 </td>
                 <td
-                    class="flex items-center justify-end px-6 py-4 text-sm font-medium text-right  whitespace-nowrap"
+                    class="flex items-center justify-end px-6 py-4 text-sm font-medium text-right whitespace-nowrap"
                 >
                     <action-delete-card
                         :card-id="card.id"
@@ -109,10 +111,15 @@ import repository from "../../api/repository";
 import router from "../../router";
 import store from "../../store";
 import ActionDeleteCard from "./ActionDeleteCard.vue";
+import ActionUpdateCardAnswer from "./ActionUpdateCardAnswer.vue";
 import ActionUpdateCardQuestion from "./ActionUpdateCardQuestion.vue";
 
 export default {
-    components: { ActionDeleteCard, ActionUpdateCardQuestion },
+    components: {
+        ActionDeleteCard,
+        ActionUpdateCardQuestion,
+        ActionUpdateCardAnswer,
+    },
     computed: {
         ...mapGetters("card", ["getCards", "getCardsDeck"]),
     },
