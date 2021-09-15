@@ -39,6 +39,9 @@ services:
 
     php:
         build:
+            args:
+                user: nebula
+                uid: 1000
             context: .
             dockerfile: php.dockerfile
         container_name: php
