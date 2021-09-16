@@ -23,6 +23,7 @@ class ImportDeckController extends Controller
     public function import(Request $request)
     {
         $deckCreated = false;
+        $cards_count = 0;
 
         $file_handle = fopen($request->file('file'), 'r');
 
@@ -35,8 +36,12 @@ class ImportDeckController extends Controller
             }
 
             $this->card->createCardWithoutRequest($deck->id, $line_of_text[2], $line_of_text[3]);
+
+            $cards_count += 1;
         }
 
         fclose($file_handle);
+
+        return ['deck' => $deck, 'cards_count' => $cards_count];
     }
 }
