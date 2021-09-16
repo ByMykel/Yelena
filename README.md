@@ -53,6 +53,12 @@ Seed Database
 docker-compose exec php php artisan db:seed
 ```
 
+App running at
+
+```
+http://localhost:8080/
+```
+
 If you are going to use docker to setup this project you can skip the last points of this README.
 
 ### Install
