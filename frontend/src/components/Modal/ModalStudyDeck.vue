@@ -1,7 +1,7 @@
 <template>
     <base-modal :show="show">
         <div
-            class="flex justify-center p-2 h-44"
+            class="flex justify-center h-56"
             style="max-height: calc(100vh - 150px)"
         >
             <div
@@ -12,23 +12,31 @@
             </div>
             <div
                 v-else
-                class="flex flex-col items-center justify-between w-full"
+                class="flex flex-col items-center justify-between w-full pb-2"
             >
-                <div class="w-2/4 space-y-2 text-xl font-bold text-center">
-                    <div class="px-2">
-                        {{ actualCard.question }}
-                    </div>
-                    <div
-                        class="w-full h-2 border-b border-gray-800 border-opacity-50 "
-                    ></div>
+                <div
+                    class="w-full px-4 py-3 font-bold text-center text-gray-900 border-b border-gray-200  bg-gray-50 sm:px-6"
+                >
+                    {{ studyDeckTitle }}
+                </div>
+                <div class="w-2/4 space-y-2 text-3xl font-bold text-center">
                     <div v-if="showAnswer" class="px-2">
-                        {{ actualCard.answer }}
+                        <div>{{ actualCard.answer }}</div>
+                        <div class="text-xs font-medium text-purple-400">
+                            answer
+                        </div>
+                    </div>
+                    <div v-else class="px-2">
+                        <div>{{ actualCard.question }}</div>
+                        <div class="text-xs font-medium text-red-400">
+                            question
+                        </div>
                     </div>
                 </div>
                 <div>
                     <button
                         v-if="!showAnswer"
-                        class="px-2 text-white bg-blue-600 rounded-sm hover:bg-blue-700"
+                        class="inline-flex justify-center px-4 py-2 text-sm font-medium text-white bg-blue-600 border border-transparent rounded-md shadow-sm  hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
                         @click="showAnswer = true"
                     >
                         Show
@@ -42,7 +50,7 @@
                                 { number: 5, name: 'Easy' },
                             ]"
                             :key="option.number"
-                            class="px-2 text-white bg-blue-600 rounded-sm hover:bg-blue-700"
+                            class="inline-flex justify-center px-4 py-2 text-sm font-medium text-white bg-blue-600 border border-transparent rounded-md shadow-sm  hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
                             @click="selectedOption(option.number)"
                         >
                             {{ option.name }}
@@ -57,6 +65,8 @@
 <script>
 import { mapGetters } from "vuex";
 import repository from "../../api/repository";
+import router from "../../router";
+import store from "../../store";
 import BaseModal from "./BaseModal.vue";
 
 export default {
@@ -75,6 +85,9 @@ export default {
     },
     computed: {
         ...mapGetters("study", ["getStudyDeck"]),
+        studyDeckTitle() {
+            return `${this.getStudyDeck.name}`;
+        },
     },
     watch: {
         show(value) {
@@ -83,7 +96,11 @@ export default {
                 this.initialDeck = [...this.getStudyDeck.cards];
                 this.finished = this.getStudyDeck.cards.length === 0;
                 this.actualCard = this.initialDeck.shift();
+                return;
             }
+
+            let page = router.currentRoute.params.page || 1;
+            store.dispatch("deck/fetchDecks", { page });
         },
     },
     methods: {
