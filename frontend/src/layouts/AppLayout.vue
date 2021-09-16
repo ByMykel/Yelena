@@ -27,7 +27,7 @@
 import Navbar from "../components/Navbar.vue";
 import ModalCreateDeck from "../components/Modal/ModalCreateDeck.vue";
 import ModalCreateCard from "../components/Modal/ModalCreateCard.vue";
-import ModalImportCards from "../components/Modal/ModalImportCards.vue";
+import ModalImportCards from "../components/Modal/ModalUploadFiles.vue";
 
 export default {
     components: { Navbar, ModalCreateDeck, ModalCreateCard, ModalImportCards },
