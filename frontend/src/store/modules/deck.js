@@ -1,5 +1,4 @@
 import repository from "../../api/repository";
-import router from "../../router";
 
 export const namespaced = true;
 
@@ -36,13 +35,6 @@ export const actions = {
         await repository.getDecks(page).then((data) => {
             commit("SET_DECKS", data.data.data);
             commit("SET_META", data.data.meta);
-        });
-    },
-    async createDeck({ dispatch }, deckForm) {
-        await repository.createDeck(deckForm).then(() => {
-            if (router.currentRoute.name === "Decks") {
-                dispatch("fetchDecks", router.currentRoute.params.page || 1);
-            }
         });
     },
     async handleFavorite({ commit }, id) {
