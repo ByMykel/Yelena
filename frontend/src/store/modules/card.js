@@ -1,5 +1,4 @@
 import repository from "../../api/repository";
-import router from "../../router";
 
 export const namespaced = true;
 
@@ -54,16 +53,6 @@ export const actions = {
                 to: data.data.data.cards.to,
                 total: data.data.data.cards.total,
             });
-        });
-    },
-    async createCard({ dispatch }, cardForm) {
-        await repository.createCard(cardForm).then(() => {
-            if (router.currentRoute.name === "DeckById") {
-                dispatch("fetchCards", {
-                    id: router.currentRoute.params.id,
-                    page: router.currentRoute.params.page || 1,
-                });
-            }
         });
     },
     async handleFavorite({ commit }, id) {
