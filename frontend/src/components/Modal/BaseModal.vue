@@ -6,7 +6,7 @@
     >
         <div
             v-show="show"
-            class="fixed inset-0 z-50 flex items-center justify-center w-full h-screen bg-black bg-opacity-25 "
+            class="fixed inset-0 z-50 flex items-center justify-center w-full h-screen bg-black bg-opacity-50 "
         >
             <transition
                 enter-active-class="transition duration-300 ease-out"
@@ -19,7 +19,7 @@
                 <div v-show="show" class="w-full mx-2" style="max-width: 28rem">
                     <div class="relative">
                         <button
-                            class="absolute right-0 flex items-center justify-center w-6 h-6 bg-black rounded-full shadow cursor-pointer bg-opacity-80 -top-8 hover:bg-opacity-100"
+                            class="absolute right-0 flex items-center justify-center w-6 h-6 rounded-full cursor-pointer hover:shadow hover:bg-black bg-opacity-80 -top-8 hover:bg-opacity-100"
                             @click="$parent.$emit('close-modal')"
                         >
                             <svg
