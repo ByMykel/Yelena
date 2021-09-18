@@ -4,9 +4,13 @@ Yelena is a self-hosted flashcard program using spaced repetition, a technique f
 
 ### Images
 
-![Decks](https://i.imgur.com/1bcMami.jpg)
-![Individual Deck](https://i.imgur.com/ZUvcIqg.jpg)
-![Studying a Deck](https://i.imgur.com/BbK14HL.jpg)
+![Decks page](https://i.imgur.com/lFIurpF.jpg)
+![Individual deck](https://i.imgur.com/dDkUBqd.jpg)
+![Studying a deck - Question](https://i.imgur.com/LZcwNmE.jpg)
+![Studying a deck - Answer](https://i.imgur.com/bPngsvS.jpg)
+![Create new a deck](https://i.imgur.com/J0BhPsA.jpg)
+![Create new a card](https://i.imgur.com/Xp4Hj2V.jpg)
+![Import cards from a file](https://i.imgur.com/IWif3sQ.jpg)
 
 ### Docker
 
