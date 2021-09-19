@@ -40,7 +40,12 @@ final class Deck
 
     public function create(Request $request)
     {
-        ModelsDeck::create($request->all());
+        $deck = ModelsDeck::create([
+            'name' => $request->name,
+            'favorite' => 0
+        ]);
+
+        return new DeckResource($deck); 
     }
 
     public function createDeck($name)
