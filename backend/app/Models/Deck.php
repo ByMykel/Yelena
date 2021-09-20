@@ -14,6 +14,8 @@ class Deck extends Model
 
     protected $casts = [
         'favorite' => 'boolean',
+        'cards_count' => 'integer',
+        'due_cards_count' => 'integer'
     ];
 
     public function cards()
