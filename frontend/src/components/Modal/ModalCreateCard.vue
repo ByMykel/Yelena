@@ -77,6 +77,7 @@
 <script>
 import BaseModal from "./BaseModal.vue";
 import repository from "../../api/repository";
+import updateState from "../../store/updateState";
 
 export default {
     components: { BaseModal },
@@ -112,6 +113,8 @@ export default {
                 this.form.question = "";
                 this.form.answer = "";
                 this.loading = false;
+
+                updateState();
             });
         },
         getDecksList() {

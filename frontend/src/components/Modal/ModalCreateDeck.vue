@@ -43,6 +43,7 @@
 <script>
 import repository from "../../api/repository";
 import BaseModal from "./BaseModal.vue";
+import updateState from "../../store/updateState";
 
 export default {
     components: { BaseModal },
@@ -64,6 +65,8 @@ export default {
             repository.createDeck(this.deckForm).then(() => {
                 this.deckForm.name = "";
                 this.loading = false;
+
+                updateState();
             });
         },
     },
