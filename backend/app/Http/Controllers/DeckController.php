@@ -68,7 +68,7 @@ class DeckController extends Controller
      */
     public function update(Request $request, Deck $deck)
     {
-        $this->deck->updateDeck($request, $deck);
+        return $this->deck->updateDeck($request, $deck);
     }
 
     /**

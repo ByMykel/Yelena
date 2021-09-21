@@ -56,6 +56,8 @@ final class Deck
     public function update(Request $request, ModelsDeck $deck)
     {
         $deck->update(['name' => $request->name]);
+        
+        return $deck;
     }
 
     public function delete(ModelsDeck $deck)

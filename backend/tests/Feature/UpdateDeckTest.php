@@ -24,6 +24,6 @@ class UpdateDeckTest extends TestCase
 
         $response->assertStatus(Response::HTTP_OK);
 
-        $this->assertEquals($deck->fresh()->name, 'new test name');
+        $this->assertEquals('new test name', $deck->fresh()->name);
     }
 }
