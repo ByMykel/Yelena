@@ -6,10 +6,6 @@ class SuperMemo
 {
     public function calculate($quality, $oldInterval, $oldRepetitions, $oldEaseFactor)
     {
-        $interval = 0;
-        $repetitions = 0;
-        $easeFactor = 0;
-
         if ($quality >= 3) {
             switch ($oldRepetitions) {
                 case 0:
