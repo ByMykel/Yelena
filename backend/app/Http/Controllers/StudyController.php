@@ -78,7 +78,7 @@ class StudyController extends Controller
      */
     public function update(Request $request, Card $card)
     {
-        $this->study->update($request, $card);
+        return $this->study->update($request, $card);
     }
 
     /**

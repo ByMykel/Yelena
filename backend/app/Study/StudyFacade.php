@@ -23,6 +23,6 @@ final class StudyFacade
 
     public function update(Request $request, Card $card)
     {
-        $this->studyFactory->createStudy()->update($request, $card);
+        return $this->studyFactory->createStudy()->update($request, $card);
     }
 }

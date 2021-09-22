@@ -105,9 +105,9 @@ export default {
     },
     methods: {
         selectedOption(quality) {
-            let data = this.superMemo(quality, this.actualCard);
-
-            repository.updateStudyCard(this.actualCard.id, data);
+            repository.updateStudyCard(this.actualCard.id, {
+                quality: quality,
+            });
 
             if (this.initialDeck.length === 0) {
                 this.finished = true;
@@ -119,37 +119,6 @@ export default {
         nextCard() {
             this.showAnswer = false;
             this.actualCard = this.initialDeck.shift();
-        },
-        superMemo(quality, card) {
-            let interval;
-            let repetitions;
-            let ease_factor;
-
-            if (quality >= 3) {
-                switch (card.repetitions) {
-                    case 0:
-                        interval = 1;
-                        break;
-                    case 1:
-                        interval = 6;
-                        break;
-                    default:
-                        interval = Math.round(card.interval * card.ease_factor);
-                }
-
-                repetitions = card.repetitions + 1;
-            } else {
-                repetitions = 0;
-                interval = 1;
-            }
-
-            ease_factor =
-                card.ease_factor +
-                (0.1 - (5 - quality) * (0.08 + (5 - quality) * 0.02));
-
-            ease_factor = Math.max(ease_factor, 1.3);
-
-            return { interval, repetitions, ease_factor };
         },
     },
 };

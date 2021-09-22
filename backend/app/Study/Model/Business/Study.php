@@ -7,6 +7,7 @@ namespace App\Study\Model\Business;
 use App\Http\Resources\StudyResource;
 use App\Models\Deck as ModelsDeck;
 use App\Models\Card as ModelsCard;
+use App\Services\SuperMemo;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -29,11 +30,15 @@ final class Study
 
     public function update(Request $request, ModelsCard $card)
     {
+        $superMemo = (new SuperMemo())->calculate($request->quality, $card->interval, $card->repetitions,  $card->ease_factor);
+
         $card->update([
-            'interval' => $request->interval,
-            'ease_factor' => $request->ease_factor,
-            'repetitions' => $request->repetitions,
-            'review_date' => Carbon::today()->addDays($request->interval)->toDateString()
+            'interval' => $superMemo['interval'],
+            'ease_factor' => $superMemo['ease_factor'],
+            'repetitions' => $superMemo['repetitions'],
+            'review_date' => Carbon::today()->addDays($superMemo['interval'])->toDateString()
         ]);
+
+        return $card;
     }
 }

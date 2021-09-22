@@ -30,7 +30,7 @@ class SuperMemo
         return [
             'interval' => $interval,
             'repetitions' => $repetitions,
-            'easeFactor' => $easeFactor
+            'ease_factor' => $easeFactor
         ];
     }
 }
