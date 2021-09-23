@@ -2,6 +2,8 @@
 
 Yelena is a self-hosted flashcard program using spaced repetition, a technique for fast and long-lasting memorization.
 
+https://user-images.githubusercontent.com/38622893/134591864-c1804169-d21b-4699-98eb-6c0083ada61d.mp4
+
 ### Images
 
 ![Decks page](https://i.imgur.com/lFIurpF.jpg)
