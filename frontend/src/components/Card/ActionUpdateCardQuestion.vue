@@ -1,15 +1,20 @@
 <template>
-    <div class="flex items-center">
+    <div
+        class="flex items-center"
+        tabindex="0"
+        @keyup.enter="editMode = !editMode"
+    >
         <input
-            class="w-full p-0 m-0 text-sm font-medium border-0 focus:ring-0"
             v-show="editMode"
+            class="w-full p-0 m-0 text-sm font-medium border-0 focus:ring-0"
             type="text"
             v-model="editableCard.question"
-            @blur="finishEditing()"
-            @keyup.enter="finishEditing()"
             v-todo-focus="true"
+            @blur="finishEditing()"
         />
-        <div v-show="!editMode" @click="editMode = true">{{ card.question }}</div>
+        <div v-show="!editMode" @click="editMode = true">
+            {{ card.question }}
+        </div>
         <svg
             v-show="!editMode"
             class="w-3 h-3 ml-1 text-gray-500"
