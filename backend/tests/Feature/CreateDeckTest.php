@@ -2,7 +2,7 @@
 
 namespace Tests\Feature;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Http\Response;
 use Tests\TestCase;
@@ -10,6 +10,7 @@ use Tests\TestCase;
 class CreateDeckTest extends TestCase
 {
     use WithFaker;
+    use DatabaseMigrations;
 
     public function test_deck_is_created_successfully()
     {
