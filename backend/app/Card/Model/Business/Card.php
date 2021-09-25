@@ -10,11 +10,6 @@ use Illuminate\Http\Request;
 
 final class Card
 {
-    public function all()
-    {
-        return CardResource::collection(ModelsCard::with("deck")->get());
-    }
-
     public function findOrFail($id)
     {
         return new CardResource(ModelsCard::findOrFail($id));

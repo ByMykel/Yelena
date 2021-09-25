@@ -15,12 +15,7 @@ final class CardFacade
     {
         $this->cardFactory = $cardFactory;
     }
-
-    public function getCards()
-    {
-        return $this->cardFactory->createCard()->all();
-    }
-
+    
     public function getCardById($id)
     {
         return $this->cardFactory->createCard()->findOrFail($id);

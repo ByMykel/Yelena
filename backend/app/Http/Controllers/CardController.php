@@ -16,14 +16,6 @@ class CardController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        return $this->card->getCards();
-    }
-
-    /**
      * Show the form for creating a new resource.
      */
     public function create()

@@ -18,7 +18,6 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::prefix('cards')->group(function () {
-    Route::get('/', [CardController::class, 'index']);
     Route::post('/store', [CardController::class, 'store']);
 
     Route::prefix('{card}')->group(function () {
