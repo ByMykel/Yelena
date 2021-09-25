@@ -38,8 +38,8 @@ class IndexDecksTest extends TestCase
         $response->assertExactJson([
             'data' => $data,
             'links' => [
-                'first' => 'http://backend.test/api/decks?page=1',
-                'last' => 'http://backend.test/api/decks?page=1',
+                'first' => 'http://localhost/api/decks?page=1',
+                'last' => 'http://localhost/api/decks?page=1',
                 'prev' => null,
                 'next' => null
             ],
@@ -54,7 +54,7 @@ class IndexDecksTest extends TestCase
                         'active' => false
                     ],
                     [
-                        'url' => 'http://backend.test/api/decks?page=1',
+                        'url' => 'http://localhost/api/decks?page=1',
                         'label' => '1',
                         'active' => true
                     ],
@@ -64,7 +64,7 @@ class IndexDecksTest extends TestCase
                         'active' => false
                     ]
                 ],
-                'path' => 'http://backend.test/api/decks',
+                'path' => 'http://localhost/api/decks',
                 'per_page' => 15,
                 'to' => 10,
                 'total' => 10

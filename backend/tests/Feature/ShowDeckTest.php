@@ -33,10 +33,10 @@ class ShowDeckTest extends TestCase
                 'cards' => [
                     'current_page' => 1,
                     'data' => [],
-                    'first_page_url' => "http://backend.test/api/decks/$deck->id?page=1",
+                    'first_page_url' => "http://localhost/api/decks/$deck->id?page=1",
                     'from' => null,
                     'last_page' => 1,
-                    'last_page_url' => "http://backend.test/api/decks/$deck->id?page=1",
+                    'last_page_url' => "http://localhost/api/decks/$deck->id?page=1",
                     'links' => [
                         [
                             'url' => null,
@@ -44,7 +44,7 @@ class ShowDeckTest extends TestCase
                             'active' => false
                         ],
                         [
-                            'url' => "http://backend.test/api/decks/$deck->id?page=1",
+                            'url' => "http://localhost/api/decks/$deck->id?page=1",
                             'label' => '1',
                             'active' => true
                         ],
@@ -55,7 +55,7 @@ class ShowDeckTest extends TestCase
                         ]
                     ],
                     'next_page_url' => null,
-                    'path' => "http://backend.test/api/decks/$deck->id",
+                    'path' => "http://localhost/api/decks/$deck->id",
                     'per_page' => 15,
                     'prev_page_url' => null,
                     'to' => null,
