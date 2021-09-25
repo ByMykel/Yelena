@@ -1,13 +1,16 @@
 <template>
-    <div class="flex items-center">
+    <div
+        class="flex items-center"
+        tabindex="0"
+        @keyup.enter="editMode = !editMode"
+    >
         <input
-            class="w-full p-0 m-0 text-sm font-medium border-0 focus:ring-0"
             v-show="editMode"
+            class="w-full p-0 m-0 text-sm font-medium border-0 focus:ring-0"
             type="text"
             v-model="editableDeck.name"
-            @blur="finishEditing()"
-            @keyup.enter="finishEditing()"
             v-todo-focus="true"
+            @blur="finishEditing()"
         />
         <div v-show="!editMode" @click="editMode = true">{{ deck.name }}</div>
         <svg
