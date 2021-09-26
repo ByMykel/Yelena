@@ -19,7 +19,7 @@
                 <div v-show="show" class="w-full mx-2" style="max-width: 28rem">
                     <div class="relative">
                         <button
-                            class="absolute right-0 flex items-center justify-center w-6 h-6 rounded-full cursor-pointer hover:shadow hover:bg-black bg-opacity-80 -top-8 hover:bg-opacity-100"
+                            class="absolute right-0 flex items-center justify-center w-6 h-6 rounded-full cursor-pointer  hover:shadow hover:bg-black bg-opacity-80 -top-8 hover:bg-opacity-100"
                             @click="$parent.$emit('close-modal')"
                         >
                             <svg
@@ -62,6 +62,19 @@ export default {
 
             document.querySelector("body").classList.remove("overflow-hidden");
             return;
+        },
+    },
+    beforeMount() {
+        window.addEventListener("keydown", this.onEscapeKeyUp);
+    },
+    beforeDestroy() {
+        window.removeEventListener("keydown", this.onEscapeKeyUp);
+    },
+    methods: {
+        onEscapeKeyUp(event) {
+            if (event.which === 27 && this.show) {
+                this.$parent.$emit("close-modal");
+            }
         },
     },
 };
