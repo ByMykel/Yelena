@@ -8,23 +8,8 @@
     >
         <div class="flex flex-row items-center justify-center h-full">
             <div
-                class="
-                    opacity-0
-                    group-hover:opacity-100 group-focus:opacity-100
-                    transform
-                    scale-0
-                    group-hover:scale-100 group-focus:scale-100
-                    transition
-                    duration-300
-                    ease-out
-                    w-7
-                    h-7
-                    dark:bg-purple-600
-                    bg-opacity-12.5
-                    dark:bg-opacity-100
-                    rounded-full
-                "
-                :class="{ 'bg-transparent bg-gray-300': !disabledIcon }"
+                class="transition duration-300 ease-out transform scale-0 rounded-full opacity-0 group-hover:opacity-100 group-focus:opacity-100 group-hover:scale-100 group-focus:scale-100 w-7 h-7"
+                :class="{ 'bg-transparent bg-blue-600 bg-opacity-20': !disabledIcon }"
             ></div>
         </div>
         <div class="absolute inset-0">
