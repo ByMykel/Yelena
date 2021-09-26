@@ -4,7 +4,7 @@
             <tr>
                 <th
                     scope="col"
-                    class="py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase px-7"
+                    class="py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase  px-7"
                 >
                     Name
                 </th>
@@ -30,17 +30,17 @@
                 :class="[deck.due_cards_count == 0 ? 'bg-gray-50' : 'bg-white']"
             >
                 <td
-                    class="relative py-4 text-sm font-medium text-gray-900 px-7 whitespace-nowrap"
+                    class="relative py-4 text-sm font-medium text-gray-900  px-7 whitespace-nowrap"
                 >
                     <div
-                        class="absolute inset-0 flex items-center justify-center w-7"
+                        class="absolute inset-0 flex items-center justify-center  w-7"
                     >
                         <button
                             v-if="deck.favorite"
                             @click="handleFavorite(deck)"
                         >
                             <svg
-                                class="w-5 h-5 text-yellow-300 cursor-pointer hover:text-yellow-200"
+                                class="w-5 h-5 text-yellow-300 cursor-pointer  hover:text-yellow-200"
                                 fill="currentColor"
                                 viewBox="0 0 20 20"
                                 xmlns="http://www.w3.org/2000/svg"
@@ -52,7 +52,7 @@
                         </button>
                         <button v-else @click="handleFavorite(deck)">
                             <svg
-                                class="w-5 h-5 text-gray-300 cursor-pointer hover:text-yellow-300"
+                                class="w-5 h-5 text-gray-300 cursor-pointer  hover:text-yellow-300"
                                 fill="none"
                                 stroke="currentColor"
                                 viewBox="0 0 24 24"
@@ -91,13 +91,14 @@
                     {{ deck.due_cards_count }}
                 </td>
                 <td
-                    class="flex items-center justify-end px-6 py-4 text-sm font-medium text-right whitespace-nowrap"
+                    class="flex items-center justify-end px-6 py-4 text-sm font-medium text-right  whitespace-nowrap"
                 >
-                    <button
-                        class="mr-4 font-semibold text-gray-900 cursor-pointer hover:text-gray-600 disabled:opacity-50 disabled:cursor-not-allowed"
-                        :disabled="deck.due_cards_count == 0"
+                    <icon-background
+                        class="mr-2"
                         title="Study this deck"
-                        @click="studySelectedDeck(deck)"
+                        :disabledIcon="deck.due_cards_count == 0"
+                        @hover-icon="studySelectedDeck(deck)"
+                        @click-icon="studySelectedDeck(deck)"
                     >
                         <svg
                             class="w-5 h-5"
@@ -119,11 +120,11 @@
                                 d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
                             ></path>
                         </svg>
-                    </button>
-                    <router-link
-                        :to="`/decks/${deck.id}`"
+                    </icon-background>
+                    <icon-background
+                        class="mr-2"
                         title="Check Cards"
-                        class="mr-4 font-semibold text-gray-900 cursor-pointer hover:text-gray-600"
+                        @click-icon="visitCardsPage(deck)"
                     >
                         <svg
                             class="w-5 h-5"
@@ -139,7 +140,7 @@
                                 d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
                             ></path>
                         </svg>
-                    </router-link>
+                    </icon-background>
                     <action-delete-deck
                         :deck-id="deck.id"
                         @delete-deck="deleteDeck(deck.id)"
@@ -155,11 +156,12 @@ import { mapGetters } from "vuex";
 import repository from "../../api/repository";
 import router from "../../router";
 import store from "../../store";
+import IconBackground from "../IconBackground.vue";
 import ActionDeleteDeck from "./ActionDeleteDeck.vue";
 import ActionUpdateDeck from "./ActionUpdateDeckName.vue";
 
 export default {
-    components: { ActionDeleteDeck, ActionUpdateDeck },
+    components: { ActionDeleteDeck, ActionUpdateDeck, IconBackground },
     computed: {
         ...mapGetters("deck", ["getDecks"]),
     },
@@ -182,6 +184,9 @@ export default {
             repository
                 .deleteDeckById(id)
                 .then(() => store.dispatch("deck/fetchDecks", { page }));
+        },
+        visitCardsPage(deck) {
+            router.push({ path: `/decks/${deck.id}` });
         },
     },
 };
