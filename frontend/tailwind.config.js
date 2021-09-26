@@ -10,8 +10,10 @@ module.exports = {
     variants: {
         extend: {
             borderWidth: ["hover", "focus"],
-            opacity: ["disabled"],
+            opacity: ["disabled", "group-focus"],
             cursor: ["disabled"],
+            scale: ["group-hover", "group-focus"],
+            textColor: ["group-focus"]
         },
     },
     plugins: [require("@tailwindcss/forms")],
