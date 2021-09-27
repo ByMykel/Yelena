@@ -4,16 +4,19 @@ namespace App\Http\Controllers;
 
 use App\Models\Card;
 use App\Models\Deck;
+use App\Stat\StatFacade;
 use App\Study\StudyFacade;
 use Illuminate\Http\Request;
 
 class StudyController extends Controller
 {
     protected $study;
+    protected $stat;
 
-    public function __construct(StudyFacade $study)
+    public function __construct(StudyFacade $study, StatFacade $stat)
     {
         $this->study = $study;
+        $this->stat = $stat;
     }
 
     /**
@@ -78,6 +81,8 @@ class StudyController extends Controller
      */
     public function update(Request $request, Card $card)
     {
+        $this->stat->createStat($card->id, $request->name);
+
         return $this->study->update($request, $card);
     }
 

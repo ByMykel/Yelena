@@ -15,7 +15,7 @@
                 class="flex flex-col items-center justify-between w-full pb-2"
             >
                 <div
-                    class="w-full px-4 py-3 font-bold text-center text-gray-900 border-b border-gray-200  bg-gray-50 sm:px-6"
+                    class="w-full px-4 py-3 font-bold text-center text-gray-900 border-b border-gray-200 bg-gray-50 sm:px-6"
                 >
                     {{ studyDeckTitle }}
                 </div>
@@ -36,7 +36,7 @@
                 <div>
                     <button
                         v-if="!showAnswer"
-                        class="inline-flex justify-center px-4 py-2 text-sm font-medium text-white bg-blue-600 border border-transparent rounded-md shadow-sm  hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                        class="inline-flex justify-center px-4 py-2 text-sm font-medium text-white bg-blue-600 border border-transparent rounded-md shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
                         @click="(showAnswer = true), slotProps.mountedHook()"
                     >
                         Show
@@ -50,9 +50,9 @@
                                 { number: 5, name: 'Easy' },
                             ]"
                             :key="option.number"
-                            class="inline-flex justify-center px-4 py-2 text-sm font-medium text-white bg-blue-600 border border-transparent rounded-md shadow-sm  hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                            class="inline-flex justify-center px-4 py-2 text-sm font-medium text-white bg-blue-600 border border-transparent rounded-md shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
                             @click="
-                                selectedOption(option.number),
+                                selectedOption(option),
                                     slotProps.mountedHook()
                             "
                         >
@@ -107,9 +107,10 @@ export default {
         },
     },
     methods: {
-        selectedOption(quality) {
+        selectedOption(option) {
             repository.updateStudyCard(this.actualCard.id, {
-                quality: quality,
+                name: option.name,
+                quality: option.number,
             });
 
             if (this.initialDeck.length === 0) {
