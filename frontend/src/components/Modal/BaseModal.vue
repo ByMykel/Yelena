@@ -6,7 +6,10 @@
     >
         <div
             v-show="show"
+            ref="modal"
             class="fixed inset-0 z-50 flex items-center justify-center w-full h-screen bg-black bg-opacity-50 "
+            role="dialog"
+            aria-modal="true"
         >
             <transition
                 enter-active-class="transition duration-300 ease-out"
@@ -19,7 +22,7 @@
                 <div v-show="show" class="w-full mx-2" style="max-width: 28rem">
                     <div class="relative">
                         <button
-                            class="absolute right-0 flex items-center justify-center w-6 h-6 rounded-full cursor-pointer  hover:shadow hover:bg-black bg-opacity-80 -top-8 hover:bg-opacity-100"
+                            class="absolute right-0 flex items-center justify-center w-6 h-6 rounded-full cursor-pointer hover:shadow hover:bg-black bg-opacity-80 -top-8 hover:bg-opacity-100"
                             @click="$parent.$emit('close-modal')"
                         >
                             <svg
@@ -40,7 +43,7 @@
                         class="overflow-y-auto bg-white rounded-md shadow"
                         style="max-height: calc(100vh - 150px)"
                     >
-                        <slot></slot>
+                        <slot :mounted-hook="mountedHook"></slot>
                     </div>
                 </div>
             </transition>
@@ -56,6 +59,10 @@ export default {
     watch: {
         show(value) {
             if (value) {
+                setTimeout(() => {
+                    this.mountedHook();
+                }, 10);
+
                 document.querySelector("body").classList.add("overflow-hidden");
                 return;
             }
@@ -65,15 +72,63 @@ export default {
         },
     },
     beforeMount() {
-        window.addEventListener("keydown", this.onEscapeKeyUp);
+        window.addEventListener("keydown", this.onEscapeKeyDown);
+        window.addEventListener("keydown", this.onTabKeyDown);
     },
     beforeDestroy() {
-        window.removeEventListener("keydown", this.onEscapeKeyUp);
+        window.removeEventListener("keydown", this.onEscapeKeyDown);
+        window.removeEventListener("keydown", this.onTabKeyDown);
     },
     methods: {
-        onEscapeKeyUp(event) {
+        onEscapeKeyDown(event) {
             if (event.which === 27 && this.show) {
                 this.$parent.$emit("close-modal");
+            }
+        },
+        onTabKeyDown(event) {
+            if (event.which === 9 && this.show) {
+                this.focusHandler(event);
+            }
+        },
+        focusHandler(e) {
+            const { activeElement } = document;
+
+            const focusableElements = this.getFocusableElements();
+
+            if (!focusableElements.length) return;
+
+            const firstFocusableElement = focusableElements[0];
+            const lastFocusedElement =
+                focusableElements[focusableElements.length - 1];
+
+            let element;
+
+            if (activeElement === firstFocusableElement && e.shiftKey) {
+                element = lastFocusedElement;
+            } else if (activeElement === lastFocusedElement && !e.shiftKey) {
+                element = firstFocusableElement;
+            }
+
+            if (element) {
+                e.preventDefault();
+                element.focus();
+            }
+        },
+        getFocusableElements() {
+            const { modal } = this.$refs;
+            const elements = modal.querySelectorAll(
+                'a[href], area[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), button:not([disabled]), [tabindex="0"]'
+            );
+
+            return Array.from(elements).filter(
+                (element) => element.offsetParent !== null
+            );
+        },
+        mountedHook() {
+            const focusableElements = this.getFocusableElements();
+
+            if (focusableElements.length !== 0) {
+                focusableElements[0].focus();
             }
         },
     },

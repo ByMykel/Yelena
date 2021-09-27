@@ -1,5 +1,5 @@
 <template>
-    <base-modal :show="show">
+    <base-modal :show="show" v-slot:default="slotProps">
         <div
             class="flex justify-center h-56"
             style="max-height: calc(100vh - 150px)"
@@ -37,7 +37,7 @@
                     <button
                         v-if="!showAnswer"
                         class="inline-flex justify-center px-4 py-2 text-sm font-medium text-white bg-blue-600 border border-transparent rounded-md shadow-sm  hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-                        @click="showAnswer = true"
+                        @click="(showAnswer = true), slotProps.mountedHook()"
                     >
                         Show
                     </button>
@@ -51,7 +51,10 @@
                             ]"
                             :key="option.number"
                             class="inline-flex justify-center px-4 py-2 text-sm font-medium text-white bg-blue-600 border border-transparent rounded-md shadow-sm  hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-                            @click="selectedOption(option.number)"
+                            @click="
+                                selectedOption(option.number),
+                                    slotProps.mountedHook()
+                            "
                         >
                             {{ option.name }}
                         </button>
