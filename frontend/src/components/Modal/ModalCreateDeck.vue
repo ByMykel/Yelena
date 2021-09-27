@@ -1,5 +1,5 @@
 <template>
-    <base-modal :show="show">
+    <base-modal :show="show" v-slot:default="slotProps">
         <div class="px-4 py-4">
             <label
                 for="deck-name"
@@ -10,18 +10,18 @@
                 id="deck-name"
                 v-model="deckForm.name"
                 type="text"
-                class="flex-1 block w-full mt-1 border-gray-300 rounded-md  focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                class="flex-1 block w-full mt-1 border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                 placeholder="Vocabulary - Spanish to English"
             />
         </div>
 
         <div
-            class="px-4 py-3 text-right border-t border-gray-200  bg-gray-50 sm:px-6"
+            class="px-4 py-3 text-right border-t border-gray-200 bg-gray-50 sm:px-6"
         >
             <button
-                class="inline-flex items-center justify-center px-4 py-2 text-sm font-medium text-white bg-blue-600 border border-transparent rounded-md shadow-sm  disabled:cursor-wait disabled:opacity-80 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                class="inline-flex items-center justify-center px-4 py-2 text-sm font-medium text-white bg-blue-600 border border-transparent rounded-md shadow-sm disabled:cursor-wait disabled:opacity-80 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
                 :disabled="loading"
-                @click="handleForm()"
+                @click="handleForm(), slotProps.mountedHook()"
             >
                 <svg
                     v-if="loading"
