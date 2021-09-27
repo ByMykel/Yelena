@@ -55,7 +55,7 @@ class StudyDeckTest extends TestCase
         Deck::factory()->create();
         $card = Card::factory()->create();
 
-        $response = $this->put("api/cards/$card->id/study/update", ["quality" => 5]);
+        $response = $this->put("api/cards/$card->id/study/update", ["name" => "Easy", "quality" => 5]);
 
         $response->assertStatus(Response::HTTP_OK);
 
