@@ -3,6 +3,7 @@
 use App\Http\Controllers\CardController;
 use App\Http\Controllers\DeckController;
 use App\Http\Controllers\ImportDeckController;
+use App\Http\Controllers\StatController;
 use App\Http\Controllers\StudyController;
 use Illuminate\Support\Facades\Route;
 
@@ -46,3 +47,5 @@ Route::prefix('decks')->group(function () {
         Route::post('/favorite', [DeckController::class, 'favorite']);
     });
 });
+
+Route::get('/card_stats', [StatController::class, 'index']);
