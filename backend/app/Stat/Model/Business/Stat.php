@@ -9,6 +9,17 @@ use Illuminate\Support\Facades\DB;
 
 final class Stat
 {
+    public function getAllCardStats()
+    {
+        $cardStats = DB::table('card_stats')
+            ->selectRaw('quality, count(*) as total')
+            ->groupBy('quality')
+            ->pluck('total', 'quality')
+            ->all();
+
+        return $cardStats;
+    }
+
     public function create($cardId, $quality)
     {
         DB::table('card_stats')->insert([
