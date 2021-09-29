@@ -13,7 +13,10 @@ module.exports = {
             opacity: ["disabled", "group-focus"],
             cursor: ["disabled"],
             scale: ["group-hover", "group-focus"],
-            textColor: ["group-focus"]
+            textColor: ["group-hover", "group-focus"],
+            animation: ["group-hover", "group-focus"],
+            width: ["group-hover", "group-focus"],
+            height: ["group-hover", "group-focus"],
         },
     },
     plugins: [require("@tailwindcss/forms")],
