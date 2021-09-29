@@ -8,13 +8,17 @@
             v-todo-focus="true"
             @blur="finishEditing()"
         />
-        <span class="flex items-center group focus:outline-none" tabindex="0">
-            <div v-show="!editMode" @click="editMode = true">
+        <span
+            class="flex items-center group focus:outline-none"
+            tabindex="0"
+            @click="editMode = true"
+        >
+            <div v-show="!editMode">
                 {{ deck.name }}
             </div>
             <hero-icons-outline
                 v-show="!editMode"
-                class="w-3 h-3 ml-1 text-gray-500 duration-300 group-focus:w-4 group-hover:w-4 group-focus:h-4 group-hover:h-4 group-focus:text-blue-600 group-hover:text-blue-600 group-focus:animate-bounce group-hover:animate-bounce"
+                class="w-3 h-3 ml-1 text-gray-500 duration-300 cursor-pointer group-focus:w-4 group-hover:w-4 group-focus:h-4 group-hover:h-4 group-focus:text-blue-600 group-hover:text-blue-600 group-focus:animate-bounce group-hover:animate-bounce"
                 name="pencil"
             ></hero-icons-outline>
         </span>
