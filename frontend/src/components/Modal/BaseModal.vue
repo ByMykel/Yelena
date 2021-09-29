@@ -7,9 +7,10 @@
         <div
             v-show="show"
             ref="modal"
-            class="fixed inset-0 z-50 flex items-center justify-center w-full h-screen bg-black bg-opacity-50 "
+            class="fixed inset-0 z-50 flex items-center justify-center w-full h-screen bg-black bg-opacity-50  focus:outline-none"
             role="dialog"
             aria-modal="true"
+            tabindex="0"
         >
             <transition
                 enter-active-class="transition duration-300 ease-out"
@@ -145,11 +146,11 @@ export default {
             );
         },
         mountedHook() {
-            const focusableElements = this.getFocusableElements();
+            setTimeout(() => {
+                const { modal } = this.$refs;
 
-            if (focusableElements.length !== 0) {
-                focusableElements[0].focus();
-            }
+                modal.focus();
+            }, 10);
         }
     }
 };
