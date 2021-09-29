@@ -28,7 +28,7 @@ class CardController extends Controller
      */
     public function store(Request $request)
     {
-        $this->card->createCard($request);
+        return $this->card->createCard($request);
     }
 
     /**

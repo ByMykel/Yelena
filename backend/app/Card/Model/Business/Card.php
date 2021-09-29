@@ -17,7 +17,9 @@ final class Card
 
     public function create(Request $request)
     {
-        ModelsCard::create($request->all());
+        $card = ModelsCard::create($request->all());
+        
+        return new CardResource($card);
     }
 
     public function createCard($id, $question, $answer)
