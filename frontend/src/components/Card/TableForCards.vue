@@ -4,7 +4,7 @@
             <tr>
                 <th
                     scope="col"
-                    class="py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase  px-7"
+                    class="px-8 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase "
                 >
                     Question
                 </th>
@@ -30,10 +30,10 @@
                 :class="[wasReviewed(card) ? 'bg-gray-50' : 'bg-white']"
             >
                 <td
-                    class="relative py-4 text-sm font-medium text-gray-900  px-7 whitespace-nowrap"
+                    class="relative px-8 py-4 text-sm font-medium text-gray-900  whitespace-nowrap"
                 >
                     <div
-                        class="absolute inset-0 flex items-center justify-center  w-7"
+                        class="absolute inset-0 flex items-center justify-center w-8 "
                     >
                         <icon-background
                             color="yellow"
