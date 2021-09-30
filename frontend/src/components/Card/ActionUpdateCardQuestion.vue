@@ -1,9 +1,5 @@
 <template>
-    <div
-        class="flex items-center"
-        tabindex="0"
-        @keyup.enter="editMode = !editMode"
-    >
+    <div class="flex" @keyup.enter="editMode = !editMode">
         <input
             v-show="editMode"
             class="w-full p-0 m-0 text-sm font-medium border-0 focus:ring-0"
@@ -12,39 +8,37 @@
             v-todo-focus="true"
             @blur="finishEditing()"
         />
-        <div v-show="!editMode" @click="editMode = true">
-            {{ card.question }}
-        </div>
-        <svg
-            v-show="!editMode"
-            class="w-3 h-3 ml-1 text-gray-500"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-            xmlns="http://www.w3.org/2000/svg"
+        <span
+            class="flex items-center group focus:outline-none"
+            tabindex="0"
+            @click="editMode = true"
         >
-            <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"
-            ></path>
-        </svg>
+            <div v-show="!editMode">
+                {{ card.question }}
+            </div>
+            <hero-icons-outline
+                v-show="!editMode"
+                class="w-3 h-3 ml-1 text-gray-500 duration-300 cursor-pointer  group-focus:w-4 group-hover:w-4 group-focus:h-4 group-hover:h-4 group-focus:text-blue-600 group-hover:text-blue-600 group-focus:animate-bounce group-hover:animate-bounce"
+                name="pencil"
+            ></hero-icons-outline>
+        </span>
     </div>
 </template>
 
 <script>
 import repository from "../../api/repository";
 import store from "../../store";
+import HeroIconsOutline from "../HeroIconsOutline.vue";
 
 export default {
+    components: { HeroIconsOutline },
     props: {
-        card: Object,
+        card: Object
     },
     data() {
         return {
             editableCard: { ...this.card },
-            editMode: false,
+            editMode: false
         };
     },
     methods: {
@@ -58,18 +52,18 @@ export default {
 
             store.dispatch("card/updateCardQuestion", {
                 id: this.card.id,
-                newQuestion: this.editableCard.question,
+                newQuestion: this.editableCard.question
             });
 
             repository.updateCardById(this.card.id, this.editableCard);
-        },
+        }
     },
     directives: {
-        "todo-focus": function (el, binding) {
+        "todo-focus": function(el, binding) {
             if (binding.value) {
                 el.focus();
             }
-        },
-    },
+        }
+    }
 };
 </script>
