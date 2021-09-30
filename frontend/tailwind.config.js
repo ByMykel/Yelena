@@ -5,7 +5,11 @@ module.exports = {
     },
     darkMode: false,
     theme: {
-        extend: {},
+        extend: {
+            transitionProperty: {
+                'width': 'width'
+            },
+        },
     },
     variants: {
         extend: {
