@@ -103,7 +103,7 @@ export default {
     computed: {
         ...mapGetters("study", ["getStudyDeck"]),
         studyDeckTitle() {
-            return `${this.getStudyDeck.name}`;
+            return this.getStudyDeck?.name;
         },
         progressBarPercentage() {
             return Math.trunc((1 - this.dueCards / this.numberCard) * 100);
