@@ -57,13 +57,13 @@
             </div>
         </div>
         <div v-if="showSelectedFileData" class="px-4 py-4">
+            <div class="text-sm font-medium text-gray-700 mb-0.5">
+                The file that you have uploaded contains this data
+            </div>
             <div
                 class="h-full space-y-2 overflow-auto"
-                style="max-height: calc(100vh - 245px)"
+                style="max-height: calc(100vh - 267px)"
             >
-                <div class="text-sm font-medium text-gray-700">
-                    The file that you have uploaded contains this data
-                </div>
                 <file-deck-information
                     v-for="(deck, index) in selectedFileData.decks"
                     :key="index"
