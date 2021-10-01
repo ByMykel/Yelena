@@ -64,10 +64,6 @@ export default {
 
     // Import deck
     async importDeck(data) {
-        return await api.post(`${BASE_URL}/import_deck`, data, {
-            headers: {
-                "Content-Type": "multipart/form-data",
-            },
-        });
+        return await api.post(`${BASE_URL}/import_deck`, data);
     },
 };

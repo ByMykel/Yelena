@@ -22,26 +22,22 @@ class ImportDeckController extends Controller
      */
     public function import(Request $request)
     {
-        $deckCreated = false;
-        $cards_count = 0;
+        $numberDecks = 0;
+        $numberCards = 0;
 
-        $file_handle = fopen($request->file('file'), 'r');
+        foreach ($request->decks as $deckName => $cards) {
+            $deckName = explode("-", $deckName);
+            $deck = $this->deck->createDeckWithoutRequest("Vocabulary - $deckName[0] to $deckName[1]");
 
-        while (!feof($file_handle)) {
-            $line_of_text = fgetcsv($file_handle, 0);
+            $numberDecks += 1;
 
-            if (!$deckCreated) {
-                $deck = $this->deck->createDeckWithoutRequest("Vocabulary | $line_of_text[0] to $line_of_text[1]");
-                $deckCreated = true;
+            foreach ($cards as $card) {
+                $this->card->createCardWithoutRequest($deck->id, $card['question'], $card['answer']);
+
+                $numberCards += 1;
             }
-
-            $this->card->createCardWithoutRequest($deck->id, $line_of_text[2], $line_of_text[3]);
-
-            $cards_count += 1;
         }
 
-        fclose($file_handle);
-
-        return ['deck' => $deck, 'cards_count' => $cards_count];
+        return ["message" => "Created successfully $numberDecks decks and $numberCards cards."];
     }
 }
