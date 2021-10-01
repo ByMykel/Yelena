@@ -23,7 +23,7 @@
                 <div
                     v-show="show"
                     class="relative w-full mx-2"
-                    style="max-width: 28rem"
+                    style="max-width: 34rem"
                 >
                     <div
                         class="absolute right-0 flex items-center justify-center  -top-8"
