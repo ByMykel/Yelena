@@ -1,61 +1,80 @@
 <template>
-    <base-modal :show="show">
-        <div v-if="showUploadFiles" class="px-4 py-4">
-            <label class="block text-sm font-medium text-gray-700">
-                Import cards
-            </label>
-            <div
-                class="flex justify-center px-6 pt-5 pb-6 mt-1 border-2 border-gray-300 border-dashed rounded-md "
-            >
-                <div class="space-y-1 text-center">
-                    <svg
-                        class="w-12 h-12 mx-auto text-gray-400"
-                        stroke="currentColor"
-                        fill="none"
-                        viewBox="0 0 48 48"
-                        aria-hidden="true"
+    <base-modal :show="show" v-slot:default="slotProps">
+        <div v-if="showUploadFileInput" class="px-4 py-4">
+            <div class="flex flex-col items-center">
+                <div class="flex items-center text-gray-600 text-md">
+                    <label
+                        for="file-upload"
+                        class="relative font-medium text-blue-600 bg-white rounded-md cursor-pointer hover:text-blue-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-blue-500"
                     >
-                        <path
-                            d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02"
-                            stroke-width="2"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
+                        <span>Upload a file</span>
+                        <input
+                            id="file-upload"
+                            class="sr-only"
+                            type="file"
+                            ref="file"
+                            @change="selectFile"
                         />
-                    </svg>
-                    <div>
-                        <div class="flex text-sm text-gray-600">
-                            <label
-                                for="file-upload"
-                                class="relative font-medium text-blue-600 bg-white rounded-md cursor-pointer  hover:text-blue-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-blue-500"
-                            >
-                                <span>Upload a file</span>
-                                <input
-                                    id="file-upload"
-                                    class="sr-only"
-                                    type="file"
-                                    ref="file"
-                                    @change="selectFile"
-                                />
-                            </label>
-                            <p class="pl-1">or drag and drop</p>
-                        </div>
-                        <p class="text-xs text-gray-500">CSV up to 10MB</p>
-                    </div>
+                    </label>
+                </div>
+                <div class="text-xs text-gray-500">
+                    Upload a .csv with your saved translations in
+                    <a
+                        class="text-blue-500"
+                        target="_blank"
+                        href="https://translate.google.com/saved?hl=en"
+                        >Google Translate</a
+                    >
                 </div>
             </div>
-
-            <div v-if="selectedFileName" class="mt-3">
-                <span class="text-sm font-medium text-blue-600"
-                    >Selected file:
-                </span>
-                <span class="text-sm text-gray-600">{{
-                    selectedFileName
-                }}</span>
+            <div
+                v-if="getFileName"
+                class="flex items-center p-2 mt-3 bg-blue-100 rounded-md"
+            >
+                <div class="mr-3">
+                    <hero-icons-solid
+                        class="w-8 h-8 text-blue-300"
+                        name="document-text"
+                    ></hero-icons-solid>
+                </div>
+                <div
+                    class="w-full text-sm"
+                    style="max-width: calc(100% - 80px)"
+                >
+                    <div class="w-full font-medium text-gray-900 truncate">
+                        {{ getFileName }}
+                    </div>
+                    <div class="font-normal text-gray-800">
+                        {{ getFileSize }}
+                    </div>
+                </div>
+                <button class="ml-auto">
+                    <hero-icons-outline
+                        class="w-6 h-6 text-gray-500"
+                        name="x"
+                    ></hero-icons-outline>
+                </button>
+            </div>
+        </div>
+        <div v-if="showSelectedFileData" class="px-4 py-4">
+            <div
+                class="h-full space-y-2 overflow-auto"
+                style="max-height: calc(100vh - 245px)"
+            >
+                <div class="text-sm font-medium text-gray-700">
+                    The file that you have uploaded contains this data
+                </div>
+                <file-deck-information
+                    v-for="(deck, index) in selectedFileData.decks"
+                    :key="index"
+                    :deckName="index"
+                    :deck="deck"
+                ></file-deck-information>
             </div>
         </div>
         <div
-            v-if="showLoadingFile"
-            class="flex items-center justify-center px-4 py-4"
+            v-if="showUploadingData"
+            class="flex items-center justify-center p-4"
         >
             <svg
                 class="text-gray-600 fill-current animate-spin"
@@ -67,25 +86,33 @@
                 <path fill="none" d="M0 0h24v24H0z" />
                 <path d="M12 3a9 9 0 0 1 9 9h-2a7 7 0 0 0-7-7V3z" />
             </svg>
-            <span class="ml-1 text-sm text-gray-600">Uploading file</span>
+            <span class="ml-1 text-sm text-gray-600">Uploading data</span>
         </div>
-        <div v-if="showCreatedDeck" class="px-4 py-4">
-            <span class="text-sm text-gray-600">{{ deckCreatedMessage }}</span>
+        <div v-if="showCreatedDecksInfo" class="p-4 text-sm text-gray-600">
+            {{ CreatedDecksInfo }}
         </div>
         <div
-            class="px-4 py-3 text-right border-t border-gray-200  bg-gray-50 sm:px-6"
+            v-if="showSomeButton"
+            class="px-4 py-3 space-x-2 text-right border-t border-gray-200 bg-gray-50 sm:px-6"
         >
             <button
-                v-if="!uploadedFile"
-                class="inline-flex justify-center px-4 py-2 text-sm font-medium text-white bg-blue-600 border border-transparent rounded-md shadow-sm  hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-                @click="upload()"
+                v-if="showUploadButton"
+                class="inline-flex justify-center px-4 py-2 text-sm font-medium text-white bg-blue-600 border border-transparent rounded-md shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                @click="upload(), slotProps.mountedHook()"
             >
                 Upload
             </button>
             <button
-                v-else
-                class="inline-flex justify-center px-4 py-2 text-sm font-medium text-white bg-blue-600 border border-transparent rounded-md shadow-sm  hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-                @click="goBackToUploadModal()"
+                v-if="showCreateButton"
+                class="inline-flex justify-center px-4 py-2 text-sm font-medium text-white bg-blue-600 border border-transparent rounded-md shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                @click="create(), slotProps.mountedHook()"
+            >
+                Create
+            </button>
+            <button
+                v-if="showGoBackButton"
+                class="inline-flex justify-center px-4 py-2 text-sm font-medium text-white bg-blue-600 border border-transparent rounded-md shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                @click="goBackToUploadModal(), slotProps.mountedHook()"
             >
                 Go back
             </button>
@@ -94,67 +121,167 @@
 </template>
 
 <script>
+import HeroIconsOutline from "../HeroIconsOutline.vue";
+import HeroIconsSolid from "../HeroIconsSolid.vue";
 import repository from "../../api/repository";
 import router from "../../router";
 import store from "../../store";
 import BaseModal from "./BaseModal.vue";
+import FileDeckInformation from "../Deck/FileDeckInformation.vue";
 
 export default {
-    components: { BaseModal },
+    components: {
+        BaseModal,
+        HeroIconsSolid,
+        HeroIconsOutline,
+        FileDeckInformation
+    },
     props: {
-        show: Boolean,
+        show: Boolean
     },
     data() {
         return {
-            selectedFiles: undefined,
-            uploadedFile: false,
-            createdDeck: undefined,
+            showUploadFileInput: true,
+            showUploadingData: false,
+            showDecksCreated: false,
+            showCreatedDecksInfo: false,
+            selectedFile: undefined,
+            selectedFileData: undefined,
+            CreatedDecksInfo: undefined
         };
     },
     computed: {
-        deckCreatedMessage() {
-            return `Deck #${this.createdDeck.deck.id} named '${this.createdDeck.deck.name}' has been created with ${this.createdDeck.cards_count} cards.`;
+        showSelectedFile() {
+            return this.selectedFile !== undefined;
         },
-        showUploadFiles() {
-            return !this.uploadedFile;
-        },
-        showLoadingFile() {
+        showSelectedFileData() {
             return (
-                this.selectedFiles !== undefined &&
-                this.uploadedFile &&
-                this.createdDeck === undefined
+                this.selectedFileData !== undefined &&
+                !this.showCreatedDecksInfo &&
+                !this.showUploadingData
             );
         },
-        showCreatedDeck() {
-            return this.createdDeck !== undefined;
+        showUploadButton() {
+            return (
+                this.selectedFile !== undefined &&
+                this.selectedFileData === undefined &&
+                this.selectedFileData === undefined
+            );
         },
-        selectedFileName() {
-            return this.selectedFiles?.item(0)?.name;
+        showGoBackButton() {
+            return !this.showUploadFileInput;
         },
+        showCreateButton() {
+            return (
+                this.selectedFileData !== undefined &&
+                !this.showCreatedDecksInfo &&
+                !this.showUploadingData
+            );
+        },
+        showSomeButton() {
+            return (
+                this.showUploadButton ||
+                this.showGoBackButton ||
+                this.showCreateButton
+            );
+        },
+        getFileName() {
+            return this.selectedFile?.item(0)?.name;
+        },
+        getFileSize() {
+            return this.formatBytes(this.selectedFile?.item(0)?.size);
+        }
     },
     methods: {
         selectFile() {
-            this.selectedFiles = this.$refs.file.files;
+            this.selectedFile = this.$refs.file.files;
         },
         upload() {
-            this.uploadedFile = true;
+            this.showUploadFileInput = false;
 
-            let formData = new FormData();
-            formData.append("file", this.selectedFiles.item(0));
+            const input = this.selectedFile.item(0);
+            const reader = new FileReader();
+
+            reader.onload = e => {
+                const text = e.target.result;
+                const data = this.csvToArray(text);
+
+                this.selectedFileData = data;
+            };
+
+            reader.readAsText(input);
+        },
+        create() {
+            this.showUploadingData = true;
 
             repository
-                .importDeck(formData)
-                .then((data) => (this.createdDeck = data.data))
+                .importDeck(this.selectedFileData)
+                .then(data => {
+                    this.showUploadingData = false;
+                    this.showCreatedDecksInfo = true;
+                    this.CreatedDecksInfo = data.data.message;
+                })
                 .then(() => {
                     let page = router.currentRoute.params.page || 1;
                     store.dispatch("deck/fetchDecks", { page });
                 });
         },
         goBackToUploadModal() {
-            this.uploadedFile = false;
-            this.selectedFiles = undefined;
-            this.createdDeck = undefined;
+            this.showUploadFileInput = true;
+            this.showUploadingData = false;
+            this.showDecksCreated = false;
+            this.showCreatedDecksInfo = false;
+            this.selectedFile = undefined;
+            this.selectedFileData = undefined;
+            this.CreatedDecksInfo = undefined;
         },
-    },
+        csvToArray(str, delimiter = ",") {
+            const rows = str
+                .split(/\r\n/)
+                .map(element => element.replaceAll('"', "").split(delimiter));
+
+            let result = {};
+
+            rows.forEach(row => {
+                const deck = `${row[0]}-${row[1]}`;
+
+                if (!(deck in result)) {
+                    result[deck] = [];
+                }
+
+                result[deck].push({
+                    question: row[2],
+                    answer: row[3]
+                });
+            });
+
+            return { decks: result };
+        },
+        formatBytes(bytes = 0, decimals = 2) {
+            if (bytes === 0) return "0 Bytes";
+
+            const k = 1024;
+            const dm = decimals < 0 ? 0 : decimals;
+            const sizes = [
+                "Bytes",
+                "KB",
+                "MB",
+                "GB",
+                "TB",
+                "PB",
+                "EB",
+                "ZB",
+                "YB"
+            ];
+
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+
+            return (
+                parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) +
+                " " +
+                sizes[i]
+            );
+        }
+    }
 };
 </script>
