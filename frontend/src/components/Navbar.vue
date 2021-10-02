@@ -22,7 +22,7 @@
                     <button
                         v-for="(action, index) in actions"
                         :key="index"
-                        class="flex items-center px-2 py-2 text-sm font-medium text-white bg-blue-500 bg-opacity-50 rounded  focus:outline-none jutify-center focus:bg-opacity-75 hover:bg-opacity-75"
+                        class="flex items-center px-2 py-2 text-sm font-medium text-white bg-blue-500 bg-opacity-50 rounded focus:outline-none jutify-center focus:bg-opacity-75 hover:bg-opacity-75"
                         @click="$emit(action.emit)"
                     >
                         <hero-icons-outline
@@ -47,35 +47,40 @@ export default {
                 {
                     name: "Home",
                     route_name: "Home",
-                    to: "/",
+                    to: "/"
                 },
                 {
                     name: "Decks",
                     route_name: "Decks",
-                    to: "/decks",
+                    to: "/decks"
                 },
+                {
+                    name: "Stats",
+                    route_name: "Stats",
+                    to: "/stats"
+                }
             ],
             actions: [
                 {
                     name: "Deck",
                     emit: "create-deck",
                     icon: "plus",
-                    class: "w-5 h-5",
+                    class: "w-5 h-5"
                 },
                 {
                     name: "Card",
                     emit: "create-card",
                     icon: "plus",
-                    class: "w-5 h-5",
+                    class: "w-5 h-5"
                 },
                 {
                     name: "Import Cards",
                     emit: "import-card",
                     icon: "upload",
-                    class: "w-5 h-5",
-                },
-            ],
+                    class: "w-5 h-5"
+                }
+            ]
         };
-    },
+    }
 };
 </script>
