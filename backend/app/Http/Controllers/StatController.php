@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\StatResource;
 use App\Stat\StatFacade;
 
 class StatController extends Controller
@@ -18,6 +19,9 @@ class StatController extends Controller
      */
     public function index()
     {
-        return $this->stat->getAllCardStats();
+        return new StatResource([
+            "StudiedCardsByQuality" => $this->stat->getStudiedCardsByQuality(),
+            "CreatedCardsWeekly" => $this->stat->getCreatedCardsWeekly()
+        ]);
     }
 }

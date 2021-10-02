@@ -41,4 +41,29 @@ final class Stat
         return $data;
     }
 
+    public function getCreatedCardsWeekly()
+    {
+        $createdCardsWeekly = DB::table('cards')
+            ->whereBetween('created_at', [Carbon::now()->startOfWeek(Carbon::MONDAY), Carbon::now()->endOfWeek(Carbon::SUNDAY)])
+            ->selectRaw('DATE(created_at) AS date, COUNT(*) AS total')
+            ->groupBy('date')
+            ->get()
+            ->toArray();
+
+        for ($i = 0; $i < 7; $i++) {
+            $date = Carbon::now()->startOfWeek(Carbon::MONDAY)->addDay($i)->toDateString();
+            $CreatedCards = array_filter($createdCardsWeekly, function ($item) use ($date) {
+                return $item->date === $date;
+            });
+
+            $data[] = [
+                'date' => $date,
+                'day' => $i + 1,
+                'created_cards_count' => $CreatedCards ? intval(array_pop($CreatedCards)->total) : 0
+            ];
+        }
+
+
+        return $data;
+    }
 }

@@ -13,9 +13,14 @@ final class StatFacade
         $this->statFactory = $statFactory;
     }
 
-    public function getAllCardStats()
+    public function getStudiedCardsByQuality()
     {
-        return $this->statFactory->createStat()->getAllCardStats();
+        return $this->statFactory->createStat()->getStudiedCardsByQuality();
+    }
+
+    public function getCreatedCardsWeekly()
+    {
+        return $this->statFactory->createStat()->getCreatedCardsWeekly();
     }
 
     public function createStat($cardId, $quality)
