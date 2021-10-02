@@ -21,6 +21,7 @@ module.exports = {
             animation: ["group-hover", "group-focus"],
             width: ["group-hover", "group-focus"],
             height: ["group-hover", "group-focus"],
+            display: ["group-hover"]
         },
     },
     plugins: [require("@tailwindcss/forms")],
