@@ -64,6 +64,6 @@ export default {
 
     // Import deck
     async importDeck(data) {
-        return await api.post(`${BASE_URL}/import_deck`, data);
+        return await api.post(`${BASE_URL}/import`, data);
     },
 };

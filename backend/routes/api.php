@@ -32,7 +32,7 @@ Route::prefix('cards')->group(function () {
 });
 
 Route::get('/decks_list', [DeckController::class, 'list']);
-Route::post('/import_deck', [ImportDeckController::class, 'import']);
+Route::post('/import', [ImportDeckController::class, 'import']);
 
 Route::prefix('decks')->group(function () {
     Route::get('/', [DeckController::class, 'index']);
