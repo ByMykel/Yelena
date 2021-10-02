@@ -9,17 +9,6 @@ use Illuminate\Support\Facades\DB;
 
 final class Stat
 {
-    public function getAllCardStats()
-    {
-        $cardStats = DB::table('card_stats')
-            ->selectRaw('quality, count(*) as total')
-            ->groupBy('quality')
-            ->pluck('total', 'quality')
-            ->all();
-
-        return $cardStats;
-    }
-
     public function create($cardId, $quality)
     {
         DB::table('card_stats')->insert([
@@ -29,4 +18,27 @@ final class Stat
             'updated_at' => Carbon::now(),
         ]);
     }
+
+    public function getStudiedCardsByQuality()
+    {
+        $StudiedCardsByQuality = DB::table('card_stats')
+            ->selectRaw('quality, COUNT(*) AS total')
+            ->groupBy('quality')
+            ->pluck('total', 'quality')
+            ->all();
+
+        $qualities = ["Incorrect", "Hard", "Good", "Easy"];
+
+        foreach($qualities as $quality) {
+            $cardsCount = $StudiedCardsByQuality[$quality];
+
+            $data[] = [
+                'quality' => $quality,
+                'cards_count' => $cardsCount ? intval($cardsCount) : 0
+            ];
+        }
+
+        return $data;
+    }
+
 }
