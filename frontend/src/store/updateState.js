@@ -4,6 +4,12 @@ import store from "../store";
 export default function update(currentCardIdRoute = null) {
     let page = router.currentRoute.params.page || 1;
 
+    if (router.currentRoute.name === "Stats") {
+        store.dispatch("stats/fetchCardStats");
+
+        return;
+    }
+
     if (router.currentRoute.name === "DeckById") {
         if (
             currentCardIdRoute !== null &&

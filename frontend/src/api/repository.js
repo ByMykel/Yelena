@@ -66,4 +66,9 @@ export default {
     async importDeck(data) {
         return await api.post(`${BASE_URL}/import`, data);
     },
+
+    // Statistics
+    async getCardStats() {
+        return await api.get(`${BASE_URL}/card_stats`);
+    },
 };
