@@ -5,7 +5,7 @@
                 <div class="flex items-center text-gray-600 text-md">
                     <label
                         for="file-upload"
-                        class="relative font-medium text-blue-600 bg-white rounded-md cursor-pointer  hover:text-blue-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-blue-500"
+                        class="relative font-medium text-blue-600 bg-white rounded-md cursor-pointer hover:text-blue-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-blue-500"
                     >
                         <span>Upload a file</span>
                         <input
@@ -56,12 +56,14 @@
                 </button>
             </div>
         </div>
-        <div v-if="showSelectedFileData" class="px-4 py-4">
-            <div class="text-sm font-medium text-gray-700 mb-0.5">
+        <div v-if="showSelectedFileData">
+            <div
+                class="px-4 py-3 text-sm font-medium text-gray-700 border-b border-gray-200"
+            >
                 The file that you have uploaded contains this data
             </div>
             <div
-                class="h-full space-y-2 overflow-auto"
+                class="h-full px-4 py-2 space-y-1 overflow-auto"
                 style="max-height: calc(100vh - 267px)"
             >
                 <file-deck-information
@@ -93,25 +95,25 @@
         </div>
         <div
             v-if="showSomeButton"
-            class="px-4 py-3 space-x-2 text-right border-t border-gray-200  bg-gray-50 sm:px-6"
+            class="px-4 py-3 space-x-2 text-right border-t border-gray-200 bg-gray-50 sm:px-6"
         >
             <button
                 v-if="showUploadButton"
-                class="inline-flex justify-center px-4 py-2 text-sm font-medium text-white bg-blue-600 border border-transparent rounded-md shadow-sm  hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                class="inline-flex justify-center px-4 py-2 text-sm font-medium text-white bg-blue-600 border border-transparent rounded-md shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
                 @click="upload(), slotProps.mountedHook()"
             >
                 Upload
             </button>
             <button
                 v-if="showCreateButton"
-                class="inline-flex justify-center px-4 py-2 text-sm font-medium text-white bg-blue-600 border border-transparent rounded-md shadow-sm  hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                class="inline-flex justify-center px-4 py-2 text-sm font-medium text-white bg-blue-600 border border-transparent rounded-md shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
                 @click="create(), slotProps.mountedHook()"
             >
                 Create
             </button>
             <button
                 v-if="showGoBackButton"
-                class="inline-flex justify-center px-4 py-2 text-sm font-medium text-white bg-blue-600 border border-transparent rounded-md shadow-sm  hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                class="inline-flex justify-center px-4 py-2 text-sm font-medium text-white bg-blue-600 border border-transparent rounded-md shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
                 @click="goBackToUploadModal(), slotProps.mountedHook()"
             >
                 Go back
