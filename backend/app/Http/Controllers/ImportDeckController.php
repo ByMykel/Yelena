@@ -25,13 +25,21 @@ class ImportDeckController extends Controller
         $numberDecks = 0;
         $numberCards = 0;
 
-        foreach ($request->decks as $deckName => $cards) {
+        foreach ($request->decks as $deckName => $deckData) {
+            if (!$deckData['checked']) {
+                continue;
+            }
+
             $deckName = explode("-", $deckName);
             $deck = $this->deck->createDeckWithoutRequest("Vocabulary - $deckName[0] to $deckName[1]");
 
             $numberDecks += 1;
 
-            foreach ($cards as $card) {
+            foreach ($deckData['cards'] as $card) {
+                if (!$card['checked']) {
+                    continue;
+                }
+
                 $this->card->createCardWithoutRequest($deck->id, $card['question'], $card['answer']);
 
                 $numberCards += 1;
