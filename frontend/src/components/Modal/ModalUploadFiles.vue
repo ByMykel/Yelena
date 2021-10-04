@@ -71,6 +71,7 @@
                     :key="index"
                     :deckName="index"
                     :deck="deck"
+                    @toggle-check-deck="toggleCheckDeck($event)"
                 ></file-deck-information>
             </div>
         </div>
@@ -252,10 +253,14 @@ export default {
                 const deck = `${row[0]}-${row[1]}`;
 
                 if (!(deck in result)) {
-                    result[deck] = [];
+                    result[deck] = {
+                        checked: true,
+                        cards: []
+                    }
                 }
 
-                result[deck].push({
+                result[deck].cards.push({
+                    checked: true,
                     question: row[2],
                     answer: row[3]
                 });
