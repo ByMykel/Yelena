@@ -49,7 +49,10 @@
                         {{ getFileSize }}
                     </div>
                 </div>
-                <button class="ml-auto" @click="selectedFile = undefined, slotProps.mountedHook()">
+                <button
+                    class="ml-auto"
+                    @click="(selectedFile = undefined), slotProps.mountedHook()"
+                >
                     <hero-icons-outline
                         class="w-6 h-6 text-gray-500"
                         name="x"
@@ -59,12 +62,12 @@
         </div>
         <div v-if="showSelectedFileData">
             <div
-                class="px-4 py-3 text-sm font-medium text-gray-700 border-b border-gray-200"
+                class="px-4 py-3 text-sm font-medium text-gray-700 border-b border-gray-200 "
             >
                 The file that you have uploaded contains this data
             </div>
             <div
-                class="h-full px-4 py-2 space-y-1 overflow-auto"
+                class="h-full px-4 py-2 space-y-1 overflow-auto bg-gray-100"
                 style="max-height: calc(100vh - 267px)"
             >
                 <file-deck-information
@@ -257,7 +260,7 @@ export default {
                     result[deck] = {
                         checked: true,
                         cards: []
-                    }
+                    };
                 }
 
                 result[deck].cards.push({
