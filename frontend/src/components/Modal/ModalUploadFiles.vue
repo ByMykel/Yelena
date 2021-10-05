@@ -13,6 +13,7 @@
                             class="sr-only"
                             type="file"
                             ref="file"
+                            @click="$refs.file.value = ''"
                             @change="selectFile"
                         />
                     </label>
@@ -48,7 +49,7 @@
                         {{ getFileSize }}
                     </div>
                 </div>
-                <button class="ml-auto">
+                <button class="ml-auto" @click="selectedFile = undefined, slotProps.mountedHook()">
                     <hero-icons-outline
                         class="w-6 h-6 text-gray-500"
                         name="x"
