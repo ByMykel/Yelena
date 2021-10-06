@@ -48,15 +48,22 @@ import updateState from "../../store/updateState";
 export default {
     components: { BaseModal },
     props: {
-        show: Boolean,
+        show: Boolean
     },
     data() {
         return {
             loading: false,
             deckForm: {
-                name: "",
-            },
+                name: ""
+            }
         };
+    },
+    watch: {
+        show(value) {
+            if (!value) {
+                setTimeout(() => this.resetData(), 200);
+            }
+        }
     },
     methods: {
         handleForm() {
@@ -69,6 +76,12 @@ export default {
                 updateState();
             });
         },
-    },
+        resetData() {
+            this.loading = false;
+            this.deckForm = {
+                name: ""
+            };
+        }
+    }
 };
 </script>
