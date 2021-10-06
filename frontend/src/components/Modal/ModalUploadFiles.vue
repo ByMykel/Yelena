@@ -119,7 +119,7 @@
             <button
                 v-if="showGoBackButton"
                 class="inline-flex justify-center px-4 py-2 text-sm font-medium text-white bg-blue-600 border border-transparent rounded-md shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-                @click="goBackToUploadModal(), slotProps.mountedHook()"
+                @click="resetData(), slotProps.mountedHook()"
             >
                 Go back
             </button>
@@ -200,6 +200,13 @@ export default {
             return this.formatBytes(this.selectedFile?.item(0)?.size);
         }
     },
+    watch: {
+        show(value) {
+            if (!value) {
+                setTimeout(() => this.resetData(), 200);
+            }
+        }
+    },
     methods: {
         selectFile() {
             this.selectedFile = this.$refs.file.files;
@@ -237,7 +244,7 @@ export default {
                     updateState();
                 });
         },
-        goBackToUploadModal() {
+        resetData() {
             this.showUploadFileInput = true;
             this.showUploadingData = false;
             this.showDecksCreated = false;
