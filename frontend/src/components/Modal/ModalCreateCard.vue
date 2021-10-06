@@ -82,7 +82,7 @@ import updateState from "../../store/updateState";
 export default {
     components: { BaseModal },
     props: {
-        show: Boolean,
+        show: Boolean
     },
     data() {
         return {
@@ -91,16 +91,19 @@ export default {
             form: {
                 deck_id: null,
                 question: "",
-                answer: "",
-            },
+                answer: ""
+            }
         };
     },
     watch: {
         show(value) {
-            if (!value) return;
+            if (!value) {
+                setTimeout(() => this.resetData(), 200);
+                return;
+            }
 
             this.getDecksList();
-        },
+        }
     },
     mounted() {
         this.getDecksList();
@@ -118,11 +121,20 @@ export default {
             });
         },
         getDecksList() {
-            repository.getAllDecks().then((data) => {
+            repository.getAllDecks().then(data => {
                 this.decksList = data.data.data;
                 this.form.deck_id = this.decksList[0]?.id;
             });
         },
-    },
+        resetData() {
+            this.loading = false;
+            this.decksList = [];
+            this.form = {
+                deck_id: null,
+                question: "",
+                answer: ""
+            };
+        }
+    }
 };
 </script>
