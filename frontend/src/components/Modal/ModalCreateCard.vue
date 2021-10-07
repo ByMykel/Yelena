@@ -1,6 +1,6 @@
 <template>
     <base-modal :show="show" v-slot:default="slotProps">
-        <div class="px-4 py-4">
+        <div class="px-4 py-4 space-y-4">
             <div class="mb-3">
                 <label
                     for="select-deck"
@@ -48,6 +48,21 @@
                     class="flex-1 block w-full mt-1 border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                 />
             </div>
+            <div class="flex items-start">
+                <div class="flex items-center h-5">
+                    <input
+                        id="favorite-card"
+                        v-model="form.favorite"
+                        type="checkbox"
+                        class="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+                    />
+                </div>
+                <div class="ml-3 text-sm">
+                    <label for="favorite-card" class="font-medium text-gray-700"
+                        >Favorite</label
+                    >
+                </div>
+            </div>
         </div>
         <div
             class="px-4 py-3 text-right border-t border-gray-200 bg-gray-50 sm:px-6"
@@ -91,7 +106,8 @@ export default {
             form: {
                 deck_id: null,
                 question: "",
-                answer: ""
+                answer: "",
+                favorite: false
             }
         };
     },
@@ -115,6 +131,7 @@ export default {
             repository.createCard(this.form).then(() => {
                 this.form.question = "";
                 this.form.answer = "";
+                this.form.favorite = "";
                 this.loading = false;
 
                 updateState(this.form.deck_id);
@@ -132,7 +149,8 @@ export default {
             this.form = {
                 deck_id: null,
                 question: "",
-                answer: ""
+                answer: "",
+                favorite: false
             };
         }
     }
