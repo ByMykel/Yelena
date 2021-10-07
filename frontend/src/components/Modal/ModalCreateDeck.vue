@@ -1,20 +1,36 @@
 <template>
     <base-modal :show="show" v-slot:default="slotProps">
-        <div class="px-4 py-4">
-            <label
-                for="deck-name"
-                class="block text-sm font-medium text-gray-700"
-                >Deck name</label
-            >
-            <input
-                id="deck-name"
-                v-model="deckForm.name"
-                type="text"
-                class="flex-1 block w-full mt-1 border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                placeholder="Vocabulary - Spanish to English"
-            />
+        <div class="px-4 py-4 space-y-4">
+            <div>
+                <label
+                    for="deck-name"
+                    class="block text-sm font-medium text-gray-700"
+                    >Deck name</label
+                >
+                <input
+                    id="deck-name"
+                    v-model="deckForm.name"
+                    type="text"
+                    class="flex-1 block w-full mt-1 border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                    placeholder="Vocabulary - Spanish to English"
+                />
+            </div>
+            <div class="flex items-start">
+                <div class="flex items-center h-5">
+                    <input
+                        id="favorite-deck"
+                        v-model="deckForm.favorite"
+                        type="checkbox"
+                        class="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+                    />
+                </div>
+                <div class="ml-3 text-sm">
+                    <label for="favorite-deck" class="font-medium text-gray-700"
+                        >Favorite</label
+                    >
+                </div>
+            </div>
         </div>
-
         <div
             class="px-4 py-3 text-right border-t border-gray-200 bg-gray-50 sm:px-6"
         >
@@ -54,7 +70,8 @@ export default {
         return {
             loading: false,
             deckForm: {
-                name: ""
+                name: "",
+                favorite: false
             }
         };
     },
@@ -70,16 +87,15 @@ export default {
             this.loading = true;
 
             repository.createDeck(this.deckForm).then(() => {
-                this.deckForm.name = "";
-                this.loading = false;
-
+                this.resetData();
                 updateState();
             });
         },
         resetData() {
             this.loading = false;
             this.deckForm = {
-                name: ""
+                name: "",
+                favorite: false
             };
         }
     }

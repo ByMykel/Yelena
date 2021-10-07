@@ -42,7 +42,7 @@ final class Deck
     {
         $deck = ModelsDeck::create([
             'name' => $request->name,
-            'favorite' => 0
+            'favorite' => $request->favorite
         ]);
 
         return new DeckResource($deck); 
