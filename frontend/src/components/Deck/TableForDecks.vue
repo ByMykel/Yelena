@@ -125,18 +125,21 @@ export default {
         ActionUpdateDeck,
         IconBackground,
         HeroIconsOutline,
-        HeroIconsSolid
+        HeroIconsSolid,
     },
     computed: {
-        ...mapGetters("deck", ["getDecks"])
+        ...mapGetters("deck", ["getDecks"]),
     },
     methods: {
         studySelectedDeck(deck) {
             if (deck.due_cards_count == 0) return;
 
-            store
-                .dispatch("study/fetchStudyDeck", deck.id)
-                .then(() => this.$emit("open-study-modal"));
+            store.dispatch("study/fetchStudyDeck", deck.id).then(() => {
+                store.dispatch("modals/toggleModalVisibility", {
+                    modal: 'study_modal',
+                    visibility: true,
+                });
+            });
         },
         handleFavorite(deck) {
             repository
@@ -152,7 +155,7 @@ export default {
         },
         visitCardsPage(deck) {
             router.push({ path: `/decks/${deck.id}` });
-        }
-    }
+        },
+    },
 };
 </script>

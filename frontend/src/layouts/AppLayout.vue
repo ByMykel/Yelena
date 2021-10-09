@@ -1,22 +1,15 @@
 <template>
     <div>
         <modal-create-deck
-            :show="showDeckModal"
-            @close-modal="showDeckModal = false"
+            :show="getModalVisibility('create_deck')"
         ></modal-create-deck>
         <modal-create-card
-            :show="showCardModal"
-            @close-modal="showCardModal = false"
+            :show="getModalVisibility('create_card')"
         ></modal-create-card>
         <modal-import-cards
-            :show="showImportCardModal"
-            @close-modal="showImportCardModal = false"
+            :show="getModalVisibility('import_card')"
         ></modal-import-cards>
-        <navbar
-            @create-deck="showDeckModal = true"
-            @create-card="showCardModal = true"
-            @import-card="showImportCardModal = true"
-        ></navbar>
+        <navbar></navbar>
         <div class="mx-auto my-10 -mt-56 max-w-7xl sm:px-6 lg:px-8">
             <slot></slot>
         </div>
@@ -28,15 +21,12 @@ import Navbar from "../components/Navbar.vue";
 import ModalCreateDeck from "../components/Modal/ModalCreateDeck.vue";
 import ModalCreateCard from "../components/Modal/ModalCreateCard.vue";
 import ModalImportCards from "../components/Modal/ModalUploadFiles.vue";
+import { mapGetters } from "vuex";
 
 export default {
     components: { Navbar, ModalCreateDeck, ModalCreateCard, ModalImportCards },
-    data() {
-        return {
-            showDeckModal: false,
-            showCardModal: false,
-            showImportCardModal: false,
-        };
+    computed: {
+        ...mapGetters("modals", ["getModalVisibility"]),
     },
 };
 </script>

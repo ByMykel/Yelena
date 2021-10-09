@@ -30,8 +30,8 @@
                     >
                         <button
                             class="relative block focus:outline-none group"
-                            @keydown.enter="$parent.$emit('close-modal')"
-                            @click="$parent.$emit('close-modal')"
+                            @keydown.enter="closeModal()"
+                            @click="closeModal()"
                         >
                             <div
                                 class="flex flex-row items-center justify-center h-full "
@@ -73,9 +73,10 @@
 </template>
 
 <script>
+import store from "../../store";
 export default {
     props: {
-        show: Boolean
+        show: Boolean,
     },
     watch: {
         show(value) {
@@ -90,7 +91,7 @@ export default {
 
             document.querySelector("body").classList.remove("overflow-hidden");
             return;
-        }
+        },
     },
     beforeMount() {
         window.addEventListener("keydown", this.onEscapeKeyDown);
@@ -103,7 +104,7 @@ export default {
     methods: {
         onEscapeKeyDown(event) {
             if (event.which === 27 && this.show) {
-                this.$parent.$emit("close-modal");
+                store.dispatch("modals/closeModals");
             }
         },
         onTabKeyDown(event) {
@@ -142,7 +143,7 @@ export default {
             );
 
             return Array.from(elements).filter(
-                element => element.offsetParent !== null
+                (element) => element.offsetParent !== null
             );
         },
         mountedHook() {
@@ -151,7 +152,10 @@ export default {
 
                 modal.focus();
             }, 10);
-        }
-    }
+        },
+        closeModal() {
+            store.dispatch("modals/closeModals");
+        },
+    },
 };
 </script>

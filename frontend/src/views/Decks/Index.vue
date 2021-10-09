@@ -1,8 +1,7 @@
 <template>
     <div>
         <modal-study-deck
-            :show="showStudyModal"
-            @close-modal="showStudyModal = false"
+            :show="getModalVisibility('study_modal')"
         ></modal-study-deck>
         <div class="mb-10">
             <h1 class="text-4xl font-bold text-white">Manage Decks</h1>
@@ -19,7 +18,6 @@
                         class="overflow-hidden border-b border-gray-200 shadow sm:rounded-lg"
                     >
                         <table-for-decks
-                            @open-study-modal="showStudyModal = true"
                         ></table-for-decks>
                         <div class="bg-white border-t border-gray-200">
                             <base-pagination
@@ -44,13 +42,9 @@ import TableForDecks from "../../components/Deck/TableForDecks.vue";
 
 export default {
     components: { BasePagination, ModalStudyDeck, TableForDecks },
-    data() {
-        return {
-            showStudyModal: false,
-        };
-    },
     computed: {
         ...mapGetters("deck", ["getDecksMeta"]),
+        ...mapGetters("modals", ["getModalVisibility"]),
     },
     beforeRouteEnter(to, from, next) {
         const currentPage = parseInt(to.query.page) || 1;

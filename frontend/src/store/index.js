@@ -5,6 +5,7 @@ import * as deck from "./modules/deck";
 import * as card from "./modules/card";
 import * as study from "./modules/study";
 import * as stats from "./modules/stats";
+import * as modals from "./modules/modals";
 
 Vue.use(Vuex);
 
@@ -15,6 +16,7 @@ export default new Vuex.Store({
         deck,
         card,
         study,
-        stats
+        stats,
+        modals
     },
 });
