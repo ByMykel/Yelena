@@ -1,10 +1,81 @@
 <template>
     <div class="pb-64 bg-blue-600">
-        <div class="px-2 mx-auto max-w-7xl sm:px-6 lg:px-8">
-            <div
-                class="flex items-center justify-between py-2 border-b border-blue-300 border-opacity-25 "
-            >
-                <nav class="flex space-x-2">
+        <nav class="bg-blue-600">
+            <div class="px-2 mx-auto max-w-7xl sm:px-6 lg:px-8">
+                <div
+                    class="relative flex items-center justify-between h-16 border-b border-blue-300 border-opacity-25 "
+                >
+                    <div
+                        class="absolute inset-y-0 left-0 flex items-center  sm:hidden"
+                    >
+                        <!-- Mobile menu button-->
+                        <button
+                            type="button"
+                            class="inline-flex items-center justify-center p-2 text-gray-400 rounded-md outline-none  hover:text-white hover:bg-blue-500"
+                            aria-controls="mobile-menu"
+                            aria-expanded="false"
+                            @click="showMobileMenu = !showMobileMenu"
+                        >
+                            <span class="sr-only">Open main menu</span>
+                            <hero-icons-outline
+                                class="w-6 h-6"
+                                :class="[showMobileMenu ? 'hidden' : 'block']"
+                                name="menu"
+                            ></hero-icons-outline>
+                            <hero-icons-outline
+                                class="w-6 h-6"
+                                :class="[showMobileMenu ? 'block' : 'hidden']"
+                                name="x"
+                            ></hero-icons-outline>
+                        </button>
+                    </div>
+                    <div
+                        class="flex items-center justify-center flex-1  sm:items-stretch sm:justify-start"
+                    >
+                        <div
+                            class="flex items-center text-3xl font-bold text-white "
+                        >
+                            YELENA
+                        </div>
+                        <div class="hidden sm:block sm:ml-8">
+                            <div class="flex space-x-4">
+                                <router-link
+                                    v-for="(link, index) in links"
+                                    :key="index"
+                                    :to="link.to"
+                                    class="block px-3 py-2 font-medium text-white rounded-md "
+                                    :class="
+                                        $route.name === link.route_name
+                                            ? 'bg-blue-700 text-white'
+                                            : 'text-gray-300 hover:bg-blue-500 hover:text-white'
+                                    "
+                                    >{{ link.name }}</router-link
+                                >
+                            </div>
+                        </div>
+                    </div>
+                    <div
+                        class="absolute inset-y-0 right-0 flex items-center pr-2 space-x-1  sm:static sm:inset-auto sm:ml-6 sm:pr-0"
+                    >
+                        <button
+                            v-for="(action, index) in actions"
+                            :key="index"
+                            type="button"
+                            class="p-2 text-white bg-blue-700 rounded-full outline-none  hover:bg-blue-500 focus:bg-blue-500"
+                            @click="openModal(action.modal)"
+                        >
+                            <hero-icons-outline
+                                :class="action.class"
+                                :name="action.icon"
+                            ></hero-icons-outline>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mobile menu, show/hide based on menu state. -->
+            <div v-show="showMobileMenu" class="sm:hidden" id="mobile-menu">
+                <div class="px-2 pt-2 pb-3 space-y-1">
                     <router-link
                         v-for="(link, index) in links"
                         :key="index"
@@ -12,28 +83,17 @@
                         class="block px-3 py-2 font-medium text-white rounded-md "
                         :class="
                             $route.name === link.route_name
-                                ? 'bg-blue-700 bg-opacity-40'
-                                : 'hover:bg-blue-500 hover:bg-opacity-50'
+                                ? 'bg-blue-700 text-white'
+                                : 'text-gray-300 hover:bg-blue-500 hover:text-white'
                         "
                         >{{ link.name }}</router-link
                     >
-                </nav>
-                <div class="flex space-x-2">
-                    <button
-                        v-for="(action, index) in actions"
-                        :key="index"
-                        class="flex items-center px-2 py-2 text-sm font-medium text-white bg-blue-500 bg-opacity-50 rounded focus:outline-none jutify-center focus:bg-opacity-75 hover:bg-opacity-75"
-                        @click="openModal(action.modal)"
-                    >
-                        <hero-icons-outline
-                            :class="action.class"
-                            :name="action.icon"
-                        ></hero-icons-outline>
-                        <span class="mx-1">{{ action.name }}</span>
-                    </button>
+                    <div
+                        class="h-2 border-b border-blue-300 border-opacity-25"
+                    ></div>
                 </div>
             </div>
-        </div>
+        </nav>
     </div>
 </template>
 
@@ -44,6 +104,7 @@ export default {
     components: { HeroIconsOutline },
     data() {
         return {
+            showMobileMenu: false,
             links: [
                 {
                     name: "Home",
@@ -65,13 +126,13 @@ export default {
                 {
                     name: "Deck",
                     modal: "create_deck",
-                    icon: "plus",
+                    icon: "collection",
                     class: "w-5 h-5",
                 },
                 {
                     name: "Card",
                     modal: "create_card",
-                    icon: "plus",
+                    icon: "document-text",
                     class: "w-5 h-5",
                 },
                 {
