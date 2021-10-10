@@ -6,12 +6,12 @@
                     class="relative flex items-center justify-between h-16 border-b border-blue-300 border-opacity-25 "
                 >
                     <div
-                        class="absolute inset-y-0 left-0 flex items-center  sm:hidden"
+                        class="absolute inset-y-0 left-0 flex items-center sm:hidden"
                     >
                         <!-- Mobile menu button-->
                         <button
                             type="button"
-                            class="inline-flex items-center justify-center p-2 text-gray-400 rounded-md outline-none  hover:text-white hover:bg-blue-500"
+                            class="inline-flex items-center justify-center p-2 text-gray-400 rounded-md outline-none hover:text-white hover:bg-blue-500"
                             aria-controls="mobile-menu"
                             aria-expanded="false"
                             @click="showMobileMenu = !showMobileMenu"
@@ -30,7 +30,7 @@
                         </button>
                     </div>
                     <div
-                        class="flex items-center justify-center flex-1  sm:items-stretch sm:justify-start"
+                        class="flex items-center justify-start flex-1 ml-12 sm:ml-0 sm:items-stretch"
                     >
                         <div
                             class="flex items-center text-3xl font-bold text-white "
@@ -55,13 +55,13 @@
                         </div>
                     </div>
                     <div
-                        class="absolute inset-y-0 right-0 flex items-center pr-2 space-x-1  sm:static sm:inset-auto sm:ml-6 sm:pr-0"
+                        class="absolute inset-y-0 right-0 flex items-center pr-2 space-x-1 sm:static sm:inset-auto sm:ml-6 sm:pr-0"
                     >
                         <button
                             v-for="(action, index) in actions"
                             :key="index"
                             type="button"
-                            class="p-2 text-white bg-blue-700 rounded-full outline-none  hover:bg-blue-500 focus:bg-blue-500"
+                            class="p-2 text-white bg-blue-700 rounded-full outline-none hover:bg-blue-500 focus:bg-blue-500"
                             @click="openModal(action.modal)"
                         >
                             <hero-icons-outline
