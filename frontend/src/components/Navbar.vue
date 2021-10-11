@@ -61,7 +61,7 @@
                             v-for="(action, index) in actions"
                             :key="index"
                             type="button"
-                            class="p-2 text-white bg-blue-700 rounded-full outline-none hover:bg-blue-500 focus:bg-blue-500"
+                            class="p-2 text-white rounded-full outline-none hover:bg-blue-500 focus:bg-blue-500"
                             @click="openModal(action.modal)"
                         >
                             <hero-icons-outline
