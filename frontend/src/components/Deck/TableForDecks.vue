@@ -37,7 +37,7 @@
                     >
                         <icon-background
                             color="yellow"
-                            @click-icon="handleFavorite(deck)"
+                            @click-icon="handleFavoriteDeck(deck)"
                         >
                             <hero-icons-solid
                                 v-if="deck.favorite"
@@ -109,10 +109,9 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 import repository from "../../api/repository";
 import router from "../../router";
-import store from "../../store";
 import HeroIconsOutline from "../HeroIconsOutline.vue";
 import HeroIconsSolid from "../HeroIconsSolid.vue";
 import IconBackground from "../IconBackground.vue";
@@ -131,27 +130,28 @@ export default {
         ...mapGetters("deck", ["getDecks"]),
     },
     methods: {
+        ...mapActions("deck", ["handleFavorite", "fetchDecks"]),
+        ...mapActions("study", ["fetchStudyDeck"]),
+        ...mapActions("modals", ["toggleModalVisibility"]),
         studySelectedDeck(deck) {
             if (deck.due_cards_count == 0) return;
 
-            store.dispatch("study/fetchStudyDeck", deck.id).then(() => {
-                store.dispatch("modals/toggleModalVisibility", {
-                    modal: 'study_modal',
+            this.fetchStudyDeck(deck.id).then(() => {
+                this.toggleModalVisibility({
+                    modal: "study_modal",
                     visibility: true,
                 });
             });
         },
-        handleFavorite(deck) {
+        handleFavoriteDeck(deck) {
             repository
                 .handleFavoriteDeck(deck.id)
-                .then(() => store.dispatch("deck/handleFavorite", deck.id));
+                .then(() => this.handleFavorite(deck.id));
         },
         deleteDeck(id) {
             let page = router.currentRoute.params.page || 1;
 
-            repository
-                .deleteDeckById(id)
-                .then(() => store.dispatch("deck/fetchDecks", { page }));
+            repository.deleteDeckById(id).then(() => this.fetchDecks({ page }));
         },
         visitCardsPage(deck) {
             router.push({ path: `/decks/${deck.id}` });

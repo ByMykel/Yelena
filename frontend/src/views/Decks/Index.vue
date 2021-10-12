@@ -34,8 +34,7 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
-import store from "../../store";
+import { mapActions, mapGetters } from "vuex";
 import BasePagination from "../../components/BasePagination.vue";
 import ModalStudyDeck from "../../components/Modal/ModalStudyDeck.vue";
 import TableForDecks from "../../components/Deck/TableForDecks.vue";
@@ -49,7 +48,7 @@ export default {
     beforeRouteEnter(to, from, next) {
         const currentPage = parseInt(to.query.page) || 1;
 
-        store.dispatch("deck/fetchDecks", { page: currentPage }).then(() => {
+        this.fetchDecks({ page: currentPage }).then(() => {
             to.params.page = currentPage;
             next();
         });
@@ -57,10 +56,13 @@ export default {
     beforeRouteUpdate(to, from, next) {
         const currentPage = parseInt(to.query.page) || 1;
 
-        store.dispatch("deck/fetchDecks", { page: currentPage }).then(() => {
+        this.fetchDecks({ page: currentPage }).then(() => {
             to.params.page = currentPage;
             next();
         });
     },
+    methods: {
+        ...mapActions("deck", ["fetchDecks"]),
+    }
 };
 </script>

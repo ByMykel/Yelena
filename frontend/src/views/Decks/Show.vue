@@ -32,10 +32,9 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 import BasePagination from "../../components/BasePagination.vue";
 import TableForCards from "../../components/Card/TableForCards.vue";
-import store from "../../store";
 
 export default {
     components: { BasePagination, TableForCards },
@@ -46,7 +45,7 @@ export default {
         const id = parseInt(to.params.id);
         const page = parseInt(to.query.page) || 1;
 
-        store.dispatch("card/fetchCards", { id, page }).then(() => {
+        this.fetchCards({ id, page }).then(() => {
             to.params.id = id;
             to.params.page = page;
             next();
@@ -56,11 +55,14 @@ export default {
         const id = parseInt(to.params.id);
         const page = parseInt(to.query.page) || 1;
 
-        store.dispatch("card/fetchCards", { id, page }).then(() => {
+        this.fetchCards({ id, page }).then(() => {
             to.params.id = id;
             to.params.page = page;
             next();
         });
     },
+    methods: {
+        ...mapActions("card", ["fetchCards"]),
+    }
 };
 </script>

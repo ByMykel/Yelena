@@ -5,10 +5,10 @@
         </div>
         <div class="space-y-4">
             <div
-                class="overflow-hidden bg-white border-b border-gray-200 shadow  sm:rounded-lg"
+                class="overflow-hidden bg-white border-b border-gray-200 shadow sm:rounded-lg"
             >
                 <div
-                    class="px-4 py-3 font-medium text-gray-700 border-b border-gray-200  bg-gray-50 sm:px-6"
+                    class="px-4 py-3 font-medium text-gray-700 border-b border-gray-200 bg-gray-50 sm:px-6"
                 >
                     Created cards this week
                 </div>
@@ -19,10 +19,10 @@
                 </div>
             </div>
             <div
-                class="space-y-4 overflow-hidden text-gray-700 bg-white border-b border-gray-200 shadow  sm:rounded-lg"
+                class="space-y-4 overflow-hidden text-gray-700 bg-white border-b border-gray-200 shadow sm:rounded-lg"
             >
                 <div
-                    class="px-4 py-3 font-medium border-b border-gray-200  bg-gray-50 sm:px-6"
+                    class="px-4 py-3 font-medium border-b border-gray-200 bg-gray-50 sm:px-6"
                 >
                     Studied cards by quality
                 </div>
@@ -37,26 +37,24 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 import CreatedCardsWeek from "../components/Charts/CreatedCardsWeek.vue";
 import StudiedCardsQuality from "../components/Charts/StudiedCardsQuality.vue";
-import store from "../store";
 
 export default {
     name: "Stats",
     components: { CreatedCardsWeek, StudiedCardsQuality },
     computed: {
-        ...mapGetters("stats", ["getCardStats"])
+        ...mapGetters("stats", ["getCardStats"]),
     },
     beforeRouteEnter(to, from, next) {
-        store.dispatch("stats/fetchCardStats").then(() => {
-            next();
-        });
+        this.fetchCardStats().then(() => next());
     },
     beforeRouteUpdate(to, from, next) {
-        store.dispatch("stats/fetchCardStats").then(() => {
-            next();
-        });
-    }
+        this.fetchCardStats().then(() => next());
+    },
+    methods: {
+        ...mapActions("stats", ["fetchCardStats"]),
+    },
 };
 </script>

@@ -72,10 +72,9 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 import repository from "../../api/repository";
 import router from "../../router";
-import store from "../../store";
 import BaseModal from "./BaseModal.vue";
 
 export default {
@@ -122,10 +121,11 @@ export default {
             }
 
             let page = router.currentRoute.params.page || 1;
-            store.dispatch("deck/fetchDecks", { page });
+            this.fetchDecks({ page })
         }
     },
     methods: {
+        ...mapActions("deck", ["fetchDecks"]),
         selectedOption(option) {
             repository.updateStudyCard(this.actualCard.id, {
                 name: option.name,

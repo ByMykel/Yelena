@@ -98,7 +98,7 @@
 </template>
 
 <script>
-import store from "../store";
+import { mapActions } from "vuex";
 import HeroIconsOutline from "./HeroIconsOutline.vue";
 export default {
     components: { HeroIconsOutline },
@@ -145,8 +145,9 @@ export default {
         };
     },
     methods: {
+        ...mapActions("modals", ["toggleModalVisibility"]),
         openModal(modal) {
-            store.dispatch("modals/toggleModalVisibility", {
+            this.toggleModalVisibility({
                 modal,
                 visibility: true,
             });

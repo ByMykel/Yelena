@@ -132,10 +132,10 @@ import HeroIconsOutline from "../HeroIconsOutline.vue";
 import HeroIconsSolid from "../HeroIconsSolid.vue";
 import repository from "../../api/repository";
 import router from "../../router";
-import store from "../../store";
 import BaseModal from "./BaseModal.vue";
 import FileDeckInformation from "../Deck/FileDeckInformation.vue";
 import updateState from "../../store/updateState";
+import { mapActions } from 'vuex';
 
 export default {
     components: {
@@ -208,6 +208,7 @@ export default {
         }
     },
     methods: {
+        ...mapActions("deck", ["fetchDecks"]),
         selectFile() {
             this.selectedFile = this.$refs.file.files;
         },
@@ -238,7 +239,7 @@ export default {
                 })
                 .then(() => {
                     let page = router.currentRoute.params.page || 1;
-                    store.dispatch("deck/fetchDecks", { page });
+                    this.fetchDecks({ page })
                 })
                 .then(() => {
                     updateState();

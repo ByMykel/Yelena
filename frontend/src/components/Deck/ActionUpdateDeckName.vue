@@ -26,22 +26,23 @@
 </template>
 
 <script>
+import { mapActions } from "vuex";
 import repository from "../../api/repository";
-import store from "../../store";
 import HeroIconsOutline from "../HeroIconsOutline.vue";
 
 export default {
     components: { HeroIconsOutline },
     props: {
-        deck: Object
+        deck: Object,
     },
     data() {
         return {
             editableDeck: { ...this.deck },
-            editMode: false
+            editMode: false,
         };
     },
     methods: {
+        ...mapActions("deck", ["updateDeckName"]),
         finishEditing() {
             this.saveNewName();
             this.editMode = false;
@@ -50,20 +51,20 @@ export default {
             if (this.deck.name === this.editableDeck.name) return;
             if (!this.editableDeck.name) return;
 
-            store.dispatch("deck/updateDeckName", {
+            this.updateDeckName({
                 id: this.deck.id,
-                newName: this.editableDeck.name
+                newName: this.editableDeck.name,
             });
 
             repository.updateDeckById(this.deck.id, this.editableDeck);
-        }
+        },
     },
     directives: {
-        "todo-focus": function(el, binding) {
+        "todo-focus": function (el, binding) {
             if (binding.value) {
                 el.focus();
             }
-        }
-    }
+        },
+    },
 };
 </script>

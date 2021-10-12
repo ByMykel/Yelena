@@ -30,14 +30,14 @@
                 :class="[wasReviewed(card) ? 'bg-gray-50' : 'bg-white']"
             >
                 <td
-                    class="relative px-8 py-4 text-sm font-medium text-gray-900  whitespace-nowrap"
+                    class="relative px-8 py-4 text-sm font-medium text-gray-900 whitespace-nowrap"
                 >
                     <div
                         class="absolute inset-0 flex items-center justify-center w-8 "
                     >
                         <icon-background
                             color="yellow"
-                            @click-icon="handleFavorite(card)"
+                            @click-icon="handleFavoriteCard(card)"
                         >
                             <hero-icons-solid
                                 v-if="card.favorite"
@@ -59,7 +59,7 @@
                     ></action-update-card-question>
                 </td>
                 <td
-                    class="px-6 py-4 text-sm font-medium text-gray-900  whitespace-nowrap"
+                    class="px-6 py-4 text-sm font-medium text-gray-900 whitespace-nowrap"
                 >
                     <action-update-card-answer
                         :class="{
@@ -77,7 +77,7 @@
                     {{ card.review_date_human }}
                 </td>
                 <td
-                    class="flex items-center justify-end px-6 py-4 text-sm font-medium text-right  whitespace-nowrap"
+                    class="flex items-center justify-end px-6 py-4 text-sm font-medium text-right whitespace-nowrap"
                 >
                     <action-delete-card
                         :card-id="card.id"
@@ -90,10 +90,9 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 import repository from "../../api/repository";
 import router from "../../router";
-import store from "../../store";
 import HeroIconsOutline from "../HeroIconsOutline.vue";
 import HeroIconsSolid from "../HeroIconsSolid.vue";
 import IconBackground from "../IconBackground.vue";
@@ -108,12 +107,13 @@ export default {
         ActionUpdateCardAnswer,
         HeroIconsSolid,
         HeroIconsOutline,
-        IconBackground
+        IconBackground,
     },
     computed: {
-        ...mapGetters("card", ["getCards", "getCardsDeck"])
+        ...mapGetters("card", ["getCards", "getCardsDeck"]),
     },
     methods: {
+        ...mapActions("card", ["handleFavorite", "fetchCards"]),
         wasReviewed(card) {
             if (card.review_date_human === "Has never been reviewed") {
                 return false;
@@ -125,10 +125,10 @@ export default {
 
             return true;
         },
-        handleFavorite(card) {
+        handleFavoriteCard(card) {
             repository
                 .handleFavoriteCard(card.id)
-                .then(() => store.dispatch("card/handleFavorite", card.id));
+                .then(() => this.handleFavorite(card.id));
         },
         deleteCard(id) {
             let deckId = this.getCardsDeck.id;
@@ -136,10 +136,8 @@ export default {
 
             repository
                 .deleteCardById(id)
-                .then(() =>
-                    store.dispatch("card/fetchCards", { id: deckId, page })
-                );
-        }
-    }
+                .then(() => this.fetchCards({ id: deckId, page }));
+        },
+    },
 };
 </script>
