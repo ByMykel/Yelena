@@ -17,10 +17,10 @@
                     <div
                         class="overflow-hidden border-b border-gray-200 shadow sm:rounded-lg"
                     >
-                        <table-for-decks
-                        ></table-for-decks>
+                        <table-for-decks></table-for-decks>
                         <div class="bg-white border-t border-gray-200">
                             <base-pagination
+                                v-if="getDecksMeta"
                                 action="deck/fetchDecks"
                                 path="/decks"
                                 :meta="getDecksMeta"
@@ -48,9 +48,10 @@ export default {
     beforeRouteEnter(to, from, next) {
         const currentPage = parseInt(to.query.page) || 1;
 
-        this.fetchDecks({ page: currentPage }).then(() => {
-            to.params.page = currentPage;
-            next();
+        next((vm) => {
+            vm.fetchDecks({ page: currentPage }).then(() => {
+                to.params.page = currentPage;
+            });
         });
     },
     beforeRouteUpdate(to, from, next) {
@@ -63,6 +64,6 @@ export default {
     },
     methods: {
         ...mapActions("deck", ["fetchDecks"]),
-    }
+    },
 };
 </script>

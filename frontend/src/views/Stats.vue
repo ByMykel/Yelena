@@ -14,6 +14,7 @@
                 </div>
                 <div class="p-2 px-4 sm:px-6">
                     <created-cards-week
+                        v-if="getCardStats"
                         :data="getCardStats.CreatedCardsWeekly"
                     ></created-cards-week>
                 </div>
@@ -28,6 +29,7 @@
                 </div>
                 <div class="p-2 px-4 sm:px-6">
                     <studied-cards-quality
+                        v-if="getCardStats"
                         :data="getCardStats.StudiedCardsByQuality"
                     ></studied-cards-quality>
                 </div>
@@ -48,7 +50,9 @@ export default {
         ...mapGetters("stats", ["getCardStats"]),
     },
     beforeRouteEnter(to, from, next) {
-        this.fetchCardStats().then(() => next());
+        next((vm) => {
+            vm.fetchCardStats();
+        });
     },
     beforeRouteUpdate(to, from, next) {
         this.fetchCardStats().then(() => next());

@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="mb-10">
+        <div v-if="getCardsDeck" class="mb-10">
             <h1 class="text-4xl font-bold text-white">
                 Deck #{{ getCardsDeck.id }}
             </h1>
@@ -19,6 +19,7 @@
                         <table-for-cards></table-for-cards>
                         <div class="bg-white border-t border-gray-200">
                             <base-pagination
+                                v-if="getCardsMeta"
                                 action="card/fetchCards"
                                 :path="`/decks/${getCardsDeck.id}/`"
                                 :meta="getCardsMeta"
@@ -45,10 +46,11 @@ export default {
         const id = parseInt(to.params.id);
         const page = parseInt(to.query.page) || 1;
 
-        this.fetchCards({ id, page }).then(() => {
-            to.params.id = id;
-            to.params.page = page;
-            next();
+        next((vm) => {
+            vm.fetchCards({ id, page }).then(() => {
+                to.params.id = id;
+                to.params.page = page;
+            });
         });
     },
     beforeRouteUpdate(to, from, next) {
@@ -63,6 +65,6 @@ export default {
     },
     methods: {
         ...mapActions("card", ["fetchCards"]),
-    }
+    },
 };
 </script>
