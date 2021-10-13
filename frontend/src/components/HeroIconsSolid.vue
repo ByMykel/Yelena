@@ -37,13 +37,27 @@
             d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
             clip-rule="evenodd"
         ></path>
+        <!-- Icon: chevron-left -->
+        <path
+            v-if="name === 'chevron-left'"
+            fill-rule="evenodd"
+            d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
+            clip-rule="evenodd"
+        ></path>
+        <!-- Icon: chevron-right -->
+        <path
+            v-if="name === 'chevron-right'"
+            fill-rule="evenodd"
+            d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+            clip-rule="evenodd"
+        ></path>
     </svg>
 </template>
 
 <script>
 export default {
     props: {
-        name: String
-    }
+        name: String,
+    },
 };
 </script>
