@@ -1,5 +1,3 @@
-import repository from "../../api/repository";
-
 export const namespaced = true;
 
 export const state = {
@@ -17,9 +15,6 @@ export const actions = {
         await repository.getStudyDeck(id).then((data) => {
             commit("SET_STUDY_DECK", data.data.data);
         });
-    },
-    async updateStudyCard(obj, { id, data }) {
-        await repository.updateStudyCard(id, data);
     },
 };
 

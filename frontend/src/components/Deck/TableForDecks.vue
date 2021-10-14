@@ -110,7 +110,6 @@
 
 <script>
 import { mapActions, mapGetters } from "vuex";
-import repository from "../../api/repository";
 import router from "../../router";
 import HeroIconsOutline from "../HeroIconsOutline.vue";
 import HeroIconsSolid from "../HeroIconsSolid.vue";
@@ -130,7 +129,11 @@ export default {
         ...mapGetters("deck", ["getDecks"]),
     },
     methods: {
-        ...mapActions("deck", ["handleFavorite", "fetchDecks"]),
+        ...mapActions("deck", [
+            "handleFavorite",
+            "fetchDecks",
+            "deleteDeckById",
+        ]),
         ...mapActions("study", ["fetchStudyDeck"]),
         ...mapActions("modals", ["toggleModalVisibility"]),
         studySelectedDeck(deck) {
@@ -144,14 +147,10 @@ export default {
             });
         },
         handleFavoriteDeck(deck) {
-            repository
-                .handleFavoriteDeck(deck.id)
-                .then(() => this.handleFavorite(deck.id));
+            this.handleFavorite(deck.id);
         },
         deleteDeck(id) {
-            let page = router.currentRoute.params.page || 1;
-
-            repository.deleteDeckById(id).then(() => this.fetchDecks({ page }));
+            this.deleteDeckById(id);
         },
         visitCardsPage(deck) {
             router.push({ path: `/decks/${deck.id}` });

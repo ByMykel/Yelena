@@ -73,7 +73,6 @@
 
 <script>
 import { mapActions, mapGetters } from "vuex";
-import repository from "../../api/repository";
 import router from "../../router";
 import BaseModal from "./BaseModal.vue";
 
@@ -81,7 +80,7 @@ export default {
     components: { BaseModal },
     props: {
         show: Boolean,
-        idDeck: Number
+        idDeck: Number,
     },
     data() {
         return {
@@ -95,8 +94,8 @@ export default {
                 { number: 2, name: "Incorrect" },
                 { number: 3, name: "Hard" },
                 { number: 4, name: "Good" },
-                { number: 5, name: "Easy" }
-            ]
+                { number: 5, name: "Easy" },
+            ],
         };
     },
     computed: {
@@ -106,7 +105,7 @@ export default {
         },
         progressBarPercentage() {
             return Math.trunc((1 - this.dueCards / this.numberCard) * 100);
-        }
+        },
     },
     watch: {
         show(value) {
@@ -121,15 +120,19 @@ export default {
             }
 
             let page = router.currentRoute.params.page || 1;
-            this.fetchDecks({ page })
-        }
+            this.fetchDecks({ page });
+        },
     },
     methods: {
         ...mapActions("deck", ["fetchDecks"]),
+        ...mapActions("study", ["updateStudyCard"]),
         selectedOption(option) {
-            repository.updateStudyCard(this.actualCard.id, {
-                name: option.name,
-                quality: option.number
+            this.updateStudyCard({
+                id: this.actualCard.id,
+                data: {
+                    name: option.name,
+                    quality: option.number,
+                },
             });
 
             this.dueCards--;
@@ -144,7 +147,7 @@ export default {
         nextCard() {
             this.showAnswer = false;
             this.actualCard = this.initialDeck.shift();
-        }
-    }
+        },
+    },
 };
 </script>

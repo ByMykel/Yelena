@@ -28,7 +28,6 @@
 
 <script>
 import { mapActions } from "vuex";
-import repository from "../../api/repository";
 import HeroIconsOutline from "../HeroIconsOutline.vue";
 
 export default {
@@ -54,10 +53,6 @@ export default {
 
             this.updateCardAnswer({
                 id: this.card.id,
-                newAnswer: this.editableCard.answer,
-            });
-
-            repository.updateCardById(this.card.id, {
                 answer: this.editableCard.answer,
             });
         },

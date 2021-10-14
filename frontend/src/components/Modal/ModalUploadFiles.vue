@@ -130,22 +130,19 @@
 <script>
 import HeroIconsOutline from "../HeroIconsOutline.vue";
 import HeroIconsSolid from "../HeroIconsSolid.vue";
-import repository from "../../api/repository";
-import router from "../../router";
 import BaseModal from "./BaseModal.vue";
 import FileDeckInformation from "../Deck/FileDeckInformation.vue";
-import updateState from "../../store/updateState";
-import { mapActions } from 'vuex';
+import { mapActions } from "vuex";
 
 export default {
     components: {
         BaseModal,
         HeroIconsSolid,
         HeroIconsOutline,
-        FileDeckInformation
+        FileDeckInformation,
     },
     props: {
-        show: Boolean
+        show: Boolean,
     },
     data() {
         return {
@@ -155,7 +152,7 @@ export default {
             showCreatedDecksInfo: false,
             selectedFile: undefined,
             selectedFileData: undefined,
-            CreatedDecksInfo: undefined
+            CreatedDecksInfo: undefined,
         };
     },
     computed: {
@@ -198,17 +195,17 @@ export default {
         },
         getFileSize() {
             return this.formatBytes(this.selectedFile?.item(0)?.size);
-        }
+        },
     },
     watch: {
         show(value) {
             if (!value) {
                 setTimeout(() => this.resetData(), 200);
             }
-        }
+        },
     },
     methods: {
-        ...mapActions("deck", ["fetchDecks"]),
+        ...mapActions("deck", ["fetchDecks", "importDeck"]),
         selectFile() {
             this.selectedFile = this.$refs.file.files;
         },
@@ -218,7 +215,7 @@ export default {
             const input = this.selectedFile.item(0);
             const reader = new FileReader();
 
-            reader.onload = e => {
+            reader.onload = (e) => {
                 const text = e.target.result;
                 const data = this.csvToArray(text);
 
@@ -227,23 +224,14 @@ export default {
 
             reader.readAsText(input);
         },
-        create() {
+        async create() {
             this.showUploadingData = true;
 
-            repository
-                .importDeck(this.selectedFileData)
-                .then(data => {
-                    this.showUploadingData = false;
-                    this.showCreatedDecksInfo = true;
-                    this.CreatedDecksInfo = data.data.message;
-                })
-                .then(() => {
-                    let page = router.currentRoute.params.page || 1;
-                    this.fetchDecks({ page })
-                })
-                .then(() => {
-                    updateState();
-                });
+            this.importDeck(this.selectedFileData).then((message) => {
+                this.showUploadingData = false;
+                this.showCreatedDecksInfo = true;
+                this.CreatedDecksInfo = message;
+            });
         },
         resetData() {
             this.showUploadFileInput = true;
@@ -257,24 +245,24 @@ export default {
         csvToArray(str, delimiter = ",") {
             const rows = str
                 .split(/\r\n/)
-                .map(element => element.replaceAll('"', "").split(delimiter));
+                .map((element) => element.replaceAll('"', "").split(delimiter));
 
             let result = {};
 
-            rows.forEach(row => {
+            rows.forEach((row) => {
                 const deck = `${row[0]}-${row[1]}`;
 
                 if (!(deck in result)) {
                     result[deck] = {
                         checked: true,
-                        cards: []
+                        cards: [],
                     };
                 }
 
                 result[deck].cards.push({
                     checked: true,
                     question: row[2],
-                    answer: row[3]
+                    answer: row[3],
                 });
             });
 
@@ -294,7 +282,7 @@ export default {
                 "PB",
                 "EB",
                 "ZB",
-                "YB"
+                "YB",
             ];
 
             const i = Math.floor(Math.log(bytes) / Math.log(k));
@@ -304,7 +292,7 @@ export default {
                 " " +
                 sizes[i]
             );
-        }
-    }
+        },
+    },
 };
 </script>

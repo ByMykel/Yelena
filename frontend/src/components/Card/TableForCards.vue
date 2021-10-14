@@ -91,8 +91,6 @@
 
 <script>
 import { mapActions, mapGetters } from "vuex";
-import repository from "../../api/repository";
-import router from "../../router";
 import HeroIconsOutline from "../HeroIconsOutline.vue";
 import HeroIconsSolid from "../HeroIconsSolid.vue";
 import IconBackground from "../IconBackground.vue";
@@ -126,17 +124,10 @@ export default {
             return true;
         },
         handleFavoriteCard(card) {
-            repository
-                .handleFavoriteCard(card.id)
-                .then(() => this.handleFavorite(card.id));
+            this.handleFavorite(card.id);
         },
         deleteCard(id) {
-            let deckId = this.getCardsDeck.id;
-            let page = router.currentRoute.params.page || 1;
-
-            repository
-                .deleteCardById(id)
-                .then(() => this.fetchCards({ id: deckId, page }));
+            this.deleteCardById(id);
         },
     },
 };

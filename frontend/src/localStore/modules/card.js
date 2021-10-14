@@ -1,6 +1,3 @@
-import repository from "../../api/repository";
-import updateState from "../updateState";
-
 export const namespaced = true;
 
 export const state = {
@@ -26,17 +23,17 @@ export const mutations = {
             }
         });
     },
-    UPDATE_CARD_QUESTION(state, { id, question }) {
+    UPDATE_CARD_QUESTION(state, { id, newQuestion }) {
         state.cards.map((card) => {
             if (card.id === id) {
-                card.question = question;
+                card.question = newQuestion;
             }
         });
     },
-    UPDATE_CARD_ANSWER(state, { id, answer }) {
+    UPDATE_CARD_ANSWER(state, { id, newAnswer }) {
         state.cards.map((card) => {
             if (card.id === id) {
-                card.answer = answer;
+                card.answer = newAnswer;
             }
         });
     },
@@ -58,28 +55,12 @@ export const actions = {
     },
     async handleFavorite({ commit }, id) {
         commit("UPDATE_FAVORITE", id);
-
-        await repository.handleFavoriteCard(id);
     },
-    async updateCardQuestion({ commit }, { id, question }) {
-        commit("UPDATE_CARD_QUESTION", { id, question });
-
-        await repository.updateCardById(id, { question });
+    updateCardQuestion({ commit }, { id, newQuestion }) {
+        commit("UPDATE_CARD_QUESTION", { id, newQuestion });
     },
-    async updateCardAnswer({ commit }, { id, answer }) {
-        commit("UPDATE_CARD_ANSWER", { id, answer });
-
-        await repository.updateCardById(id, { answer });
-    },
-    async deleteCardById(obj, { id }) {
-        await repository.deleteCardById(id).then(() => {
-            updateState();
-        });
-    },
-    async createCard(obj, card) {
-        await repository.createCard(card).then(() => {
-            updateState(card.id);
-        });
+    updateCardAnswer({ commit }, { id, newAnswer }) {
+        commit("UPDATE_CARD_ANSWER", { id, newAnswer });
     },
 };
 

@@ -27,7 +27,6 @@
 
 <script>
 import { mapActions } from "vuex";
-import repository from "../../api/repository";
 import HeroIconsOutline from "../HeroIconsOutline.vue";
 
 export default {
@@ -53,10 +52,8 @@ export default {
 
             this.updateDeckName({
                 id: this.deck.id,
-                newName: this.editableDeck.name,
+                deck: this.editableDeck,
             });
-
-            repository.updateDeckById(this.deck.id, this.editableDeck);
         },
     },
     directives: {

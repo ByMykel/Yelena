@@ -1,4 +1,5 @@
 import repository from "../../api/repository";
+import updateState from "../updateState";
 
 export const namespaced = true;
 
@@ -39,10 +40,41 @@ export const actions = {
     },
     async handleFavorite({ commit }, id) {
         commit("UPDATE_FAVORITE", id);
+
+        await repository.handleFavoriteDeck(id);
     },
-    updateDeckName({ commit }, { id, newName }) {
-        commit("UPDATE_DECK_NAME", { id, newName });
+    async updateDeckName({ commit }, { id, deck }) {
+        commit("UPDATE_DECK_NAME", { id, newName: deck.name });
+
+        await repository.updateDeckById(deck.id, deck);
     },
+    async deleteDeckById(obj, { id }) {
+        await repository.deleteDeckById(id).then(() => {
+            updateState();
+        });
+    },
+    async createDeck(obj, deck) {
+        await repository.createDeck(deck).then(() => {
+            updateState();
+        });
+    },
+    async importDeck(obj, file) {
+        let message = "";
+
+        await repository
+            .importDeck(file)
+            .then((data) => {
+                message = data.data.message;
+            })
+            .then(() => {
+                updateState();
+            });
+
+        return message;
+    },
+    async getAllDecksName() {
+        return await repository.getAllDecks();
+    }
 };
 
 export const getters = {

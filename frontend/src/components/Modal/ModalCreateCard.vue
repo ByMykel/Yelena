@@ -91,13 +91,12 @@
 
 <script>
 import BaseModal from "./BaseModal.vue";
-import repository from "../../api/repository";
-import updateState from "../../store/updateState";
+import { mapActions } from "vuex";
 
 export default {
     components: { BaseModal },
     props: {
-        show: Boolean
+        show: Boolean,
     },
     data() {
         return {
@@ -107,8 +106,8 @@ export default {
                 deck_id: null,
                 question: "",
                 answer: "",
-                favorite: false
-            }
+                favorite: false,
+            },
         };
     },
     watch: {
@@ -119,26 +118,26 @@ export default {
             }
 
             this.getDecksList();
-        }
+        },
     },
     mounted() {
         this.getDecksList();
     },
     methods: {
+        ...mapActions("card", ["createCard"]),
+        ...mapActions("deck", ["getAllDecksName"]),
         handleForm() {
             this.loading = true;
 
-            repository.createCard(this.form).then(() => {
+            this.createCard(this.form).then(() => {
                 this.form.question = "";
                 this.form.answer = "";
                 this.form.favorite = "";
                 this.loading = false;
-
-                updateState(this.form.deck_id);
             });
         },
         getDecksList() {
-            repository.getAllDecks().then(data => {
+            this.getAllDecksName().then((data) => {
                 this.decksList = data.data.data;
                 this.form.deck_id = this.decksList[0]?.id;
             });
@@ -150,9 +149,9 @@ export default {
                 deck_id: null,
                 question: "",
                 answer: "",
-                favorite: false
+                favorite: false,
             };
-        }
-    }
+        },
+    },
 };
 </script>

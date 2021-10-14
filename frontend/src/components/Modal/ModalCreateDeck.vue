@@ -57,22 +57,21 @@
 </template>
 
 <script>
-import repository from "../../api/repository";
+import { mapActions } from "vuex";
 import BaseModal from "./BaseModal.vue";
-import updateState from "../../store/updateState";
 
 export default {
     components: { BaseModal },
     props: {
-        show: Boolean
+        show: Boolean,
     },
     data() {
         return {
             loading: false,
             deckForm: {
                 name: "",
-                favorite: false
-            }
+                favorite: false,
+            },
         };
     },
     watch: {
@@ -80,24 +79,24 @@ export default {
             if (!value) {
                 setTimeout(() => this.resetData(), 200);
             }
-        }
+        },
     },
     methods: {
+        ...mapActions("deck", ["createDeck"]),
         handleForm() {
             this.loading = true;
 
-            repository.createDeck(this.deckForm).then(() => {
+            this.createDeck(this.deckForm).then(() => {
                 this.resetData();
-                updateState();
             });
         },
         resetData() {
             this.loading = false;
             this.deckForm = {
                 name: "",
-                favorite: false
+                favorite: false,
             };
-        }
-    }
+        },
+    },
 };
 </script>
