@@ -1,14 +1,14 @@
 export default function createLocalStoragePlugin({
     moduleName,
     localStorageName,
-    dispatch
+    dispatch,
 }) {
     return (store) => {
         const loader = localStorage.getItem(localStorageName);
 
         if (loader !== null) {
             const parsed = JSON.parse(loader);
-            store.dispatch(dispatch, parsed.decks);
+            store.dispatch(dispatch, parsed);
         }
 
         store.subscribe((mutation) => {

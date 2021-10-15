@@ -26,7 +26,7 @@ export default new Vuex.Store({
         PersistentStore({
             moduleName: "deck",
             localStorageName: "deck",
-            dispatch: "deck/SET_DECKS"
+            dispatch: "deck/setState"
         }),
     ],
 });
