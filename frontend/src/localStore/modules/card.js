@@ -24,10 +24,10 @@ export const mutations = {
     SET_META(state, page) {
         state.meta = {
             current_page: page,
-            last_page: Math.floor((state.cards.length + 14) / 15),
+            last_page: Math.floor((state.cardsDisplayed.length + 14) / 15),
             from: (page - 1) * 15 + 1,
             to: (page - 1) * 15 + state.cardsDisplayed.length,
-            total: state.cards.length,
+            total: state.cardsDisplayed.length,
         };
     },
     UPDATE_FAVORITE(state, id) {
@@ -52,15 +52,11 @@ export const mutations = {
         });
     },
     DELETE_CARD(state, id) {
-        state.cards = state.cards.filter((card) => {
-            if (card.id !== id) {
-                return card;
-            }
-        });
+        state.cards = state.cards.filter((card) => card.id !== id);
     },
     CREATE_CARD(state, card) {
         state.cards.push({
-            id: Date.now(),
+            id: Math.floor(Math.random() * Date.now()),
             deck_id: card.deck_id,
             question: card.question,
             answer: card.answer,
@@ -76,17 +72,11 @@ export const actions = {
         commit("SET_STATE", data);
     },
     fetchCards({ commit, rootState }, { id, page }) {
-        const deck = rootState.deck.decks.find((deck) => {
-            if (deck.id === id) {
-                return deck;
-            }
-        });
+        const deck = rootState.deck.decks.find((deck) => deck.id === id);
 
-        const cards = rootState.card.cards.filter((card) => {
-            if (card.deck_id === deck.id) {
-                return card;
-            }
-        });
+        const cards = rootState.card.cards.filter(
+            (card) => card.deck_id === deck.id
+        );
 
         commit("SET_DECK", deck);
         commit("SET_CARDS", { cards, page });

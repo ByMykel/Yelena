@@ -41,19 +41,15 @@ export const mutations = {
         });
     },
     DELETE_DECK(state, id) {
-        state.decks = state.decks.filter((deck) => {
-            if (deck.id !== id) {
-                return deck;
-            }
-        });
+        state.decks = state.decks.filter((deck) => deck.id !== id);
     },
     CREATE_DECK(state, deck) {
         state.decks.push({
-            id: Date.now(),
+            id: deck.id ?? Math.floor(Math.random() * Date.now()),
             name: deck.name,
             favorite: deck.favorite,
-            cards_count: 0,
-            due_cards_count: 0,
+            cards_count: deck.cards_count ?? 0,
+            due_cards_count: deck.cards_count ?? 0,
             created_at: new Date(),
             updated_at: new Date(),
         });
@@ -98,10 +94,13 @@ export const actions = {
             if (!value.checked) continue;
 
             const deckName = key.split("-");
+            const deckId = Math.floor(Math.random() * Date.now());
 
             commit("CREATE_DECK", {
+                id: deckId,
                 name: `Vocabulary - ${deckName[0]} to ${deckName[1]}`,
                 favorite: false,
+                cards_count: value.cards.filter((card) => card.checked).length,
             });
 
             createdDecks += 1;
@@ -109,7 +108,11 @@ export const actions = {
             for (const card of value.cards) {
                 if (!card.checked) continue;
 
-                commit("card/CREATE_CARD", card, { root: true });
+                commit(
+                    "card/CREATE_CARD",
+                    { ...card, deck_id: deckId },
+                    { root: true }
+                );
 
                 createdCards += 1;
             }
