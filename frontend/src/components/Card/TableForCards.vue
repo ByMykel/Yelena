@@ -111,7 +111,7 @@ export default {
         ...mapGetters("card", ["getCards", "getCardsDeck"]),
     },
     methods: {
-        ...mapActions("card", ["handleFavorite", "fetchCards"]),
+        ...mapActions("card", ["handleFavorite", "deleteCardById"]),
         wasReviewed(card) {
             if (card.review_date_human === "Has never been reviewed") {
                 return false;

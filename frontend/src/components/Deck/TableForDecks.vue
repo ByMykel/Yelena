@@ -129,11 +129,7 @@ export default {
         ...mapGetters("deck", ["getDecks"]),
     },
     methods: {
-        ...mapActions("deck", [
-            "handleFavorite",
-            "fetchDecks",
-            "deleteDeckById",
-        ]),
+        ...mapActions("deck", ["handleFavorite", "deleteDeckById"]),
         ...mapActions("study", ["fetchStudyDeck"]),
         ...mapActions("modals", ["toggleModalVisibility"]),
         studySelectedDeck(deck) {
