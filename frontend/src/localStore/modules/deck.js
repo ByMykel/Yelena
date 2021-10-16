@@ -1,4 +1,4 @@
-import updateState from "../updateState"
+import updateState from "../updateState";
 
 export const namespaced = true;
 
@@ -58,6 +58,14 @@ export const mutations = {
             updated_at: new Date(),
         });
     },
+    INCREASE_CARD_COUNT(state, id) {
+        state.decks.map((deck) => {
+            if (deck.id === id) {
+                deck.cards_count += 1;
+                deck.due_cards_count += 1;
+            }
+        });
+    },
 };
 
 export const actions = {
@@ -82,20 +90,35 @@ export const actions = {
         commit("CREATE_DECK", deck);
         updateState();
     },
-    // async importDeck(obj, file) {
-    //     let message = "";
+    importDeck({ commit }, file) {
+        let createdDecks = 0;
+        let createdCards = 0;
 
-    //     await repository
-    //         .importDeck(file)
-    //         .then((data) => {
-    //             message = data.data.message;
-    //         })
-    //         .then(() => {
-    //             updateState();
-    //         });
+        for (const [key, value] of Object.entries(file.decks)) {
+            if (!value.checked) continue;
 
-    //     return message;
-    // },
+            const deckName = key.split("-");
+
+            commit("CREATE_DECK", {
+                name: `Vocabulary - ${deckName[0]} to ${deckName[1]}`,
+                favorite: false,
+            });
+
+            createdDecks += 1;
+
+            for (const card of value.cards) {
+                if (!card.checked) continue;
+
+                commit("card/CREATE_CARD", card, { root: true });
+
+                createdCards += 1;
+            }
+        }
+
+        updateState();
+
+        return `Created successfully ${createdDecks} decks and ${createdCards} cards.`;
+    },
     getAllDecksName({ state }) {
         return { data: { data: state.decks } };
     },

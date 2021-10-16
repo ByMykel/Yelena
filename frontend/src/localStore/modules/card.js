@@ -1,20 +1,34 @@
+import updateState from "../updateState";
+
 export const namespaced = true;
 
 export const state = {
     deck: null,
     cards: [],
+    cardsDisplayed: [],
     meta: null,
 };
 
 export const mutations = {
+    SET_STATE(state, data) {
+        Object.assign(state, data);
+    },
     SET_DECK(state, deck) {
         state.deck = deck;
     },
-    SET_CARDS(state, cards) {
-        state.cards = cards;
+    SET_CARDS(state, { cards, page }) {
+        state.cardsDisplayed = cards
+            .slice((page - 1) * 15, page * 15)
+            .map((card) => card);
     },
-    SET_META(state, meta) {
-        state.meta = meta;
+    SET_META(state, page) {
+        state.meta = {
+            current_page: page,
+            last_page: Math.floor((state.cards.length + 14) / 15),
+            from: (page - 1) * 15 + 1,
+            to: (page - 1) * 15 + state.cardsDisplayed.length,
+            total: state.cards.length,
+        };
     },
     UPDATE_FAVORITE(state, id) {
         state.cards.map((card) => {
@@ -37,23 +51,48 @@ export const mutations = {
             }
         });
     },
+    DELETE_CARD(state, id) {
+        state.cards = state.cards.filter((card) => {
+            if (card.id !== id) {
+                return card;
+            }
+        });
+    },
+    CREATE_CARD(state, card) {
+        state.cards.push({
+            id: Date.now(),
+            deck_id: card.deck_id,
+            question: card.question,
+            answer: card.answer,
+            favorite: card.favorite,
+            created_at: new Date(),
+            updated_at: new Date(),
+        });
+    },
 };
 
 export const actions = {
-    async fetchCards({ commit }, { id, page }) {
-        await repository.getCardsByDeckId(id, page).then((data) => {
-            commit("SET_DECK", data.data.data.deck);
-            commit("SET_CARDS", data.data.data.cards.data);
-            commit("SET_META", {
-                current_page: data.data.data.cards.current_page,
-                last_page: data.data.data.cards.last_page,
-                from: data.data.data.cards.from,
-                to: data.data.data.cards.to,
-                total: data.data.data.cards.total,
-            });
-        });
+    setState({ commit }, data) {
+        commit("SET_STATE", data);
     },
-    async handleFavorite({ commit }, id) {
+    fetchCards({ commit, rootState }, { id, page }) {
+        const deck = rootState.deck.decks.find((deck) => {
+            if (deck.id === id) {
+                return deck;
+            }
+        });
+
+        const cards = rootState.card.cards.filter((card) => {
+            if (card.deck_id === deck.id) {
+                return card;
+            }
+        });
+
+        commit("SET_DECK", deck);
+        commit("SET_CARDS", { cards, page });
+        commit("SET_META", page);
+    },
+    handleFavorite({ commit }, id) {
         commit("UPDATE_FAVORITE", id);
     },
     updateCardQuestion({ commit }, { id, newQuestion }) {
@@ -62,6 +101,15 @@ export const actions = {
     updateCardAnswer({ commit }, { id, newAnswer }) {
         commit("UPDATE_CARD_ANSWER", { id, newAnswer });
     },
+    deleteCardById({ commit }, id) {
+        commit("DELETE_CARD", id);
+        updateState();
+    },
+    createCard({ commit }, card) {
+        commit("CREATE_CARD", card);
+        commit("deck/INCREASE_CARD_COUNT", card.deck_id, { root: true });
+        updateState();
+    },
 };
 
 export const getters = {
@@ -69,7 +117,7 @@ export const getters = {
         return state.deck;
     },
     getCards(state) {
-        return state.cards;
+        return state.cardsDisplayed;
     },
     getCardsMeta(state) {
         return state.meta;
