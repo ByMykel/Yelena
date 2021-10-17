@@ -41,17 +41,17 @@ export const mutations = {
             }
         });
     },
-    UPDATE_CARD_QUESTION(state, { id, newQuestion }) {
+    UPDATE_CARD_QUESTION(state, { id, question }) {
         state.cards.map((card) => {
             if (card.id === id) {
-                card.question = newQuestion;
+                card.question = question;
             }
         });
     },
-    UPDATE_CARD_ANSWER(state, { id, newAnswer }) {
+    UPDATE_CARD_ANSWER(state, { id, answer }) {
         state.cards.map((card) => {
             if (card.id === id) {
-                card.answer = newAnswer;
+                card.answer = answer;
             }
         });
     },
@@ -81,7 +81,7 @@ export const mutations = {
                 item.repetitions = card.repetitions;
                 item.ease_factor = card.easeFactor;
                 item.review_date = card.review_date;
-                item.review_date_human = card.review_date
+                item.review_date_human = card.review_date;
             }
         });
     },
@@ -105,11 +105,11 @@ export const actions = {
     handleFavorite({ commit }, id) {
         commit("UPDATE_FAVORITE", id);
     },
-    updateCardQuestion({ commit }, { id, newQuestion }) {
-        commit("UPDATE_CARD_QUESTION", { id, newQuestion });
+    updateCardQuestion({ commit }, { id, question }) {
+        commit("UPDATE_CARD_QUESTION", { id, question });
     },
-    updateCardAnswer({ commit }, { id, newAnswer }) {
-        commit("UPDATE_CARD_ANSWER", { id, newAnswer });
+    updateCardAnswer({ commit }, { id, answer }) {
+        commit("UPDATE_CARD_ANSWER", { id, answer });
     },
     deleteCardById({ commit }, id) {
         commit("DELETE_CARD", id);
