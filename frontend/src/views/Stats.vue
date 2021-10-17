@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="mb-10">
+        <div class="px-2 mb-10 sm:px-0">
             <h1 class="text-4xl font-bold text-white">Statistics</h1>
         </div>
         <div class="space-y-4">
