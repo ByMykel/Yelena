@@ -22,12 +22,16 @@ export const mutations = {
             .map((card) => card);
     },
     SET_META(state, page) {
+        const numberOfCards = state.cards.filter(
+            (card) => card.deck_id === state.deck.id
+        ).length;
+
         state.meta = {
             current_page: page,
-            last_page: Math.floor((state.cardsDisplayed.length + 14) / 15),
-            from: (page - 1) * 15 + 1,
+            last_page: Math.floor((numberOfCards + 14) / 15),
+            from: (page - 1) * 15,
             to: (page - 1) * 15 + state.cardsDisplayed.length,
-            total: state.cardsDisplayed.length,
+            total: numberOfCards,
         };
     },
     UPDATE_FAVORITE(state, id) {
@@ -61,8 +65,24 @@ export const mutations = {
             question: card.question,
             answer: card.answer,
             favorite: card.favorite,
+            repetitions: 0,
+            ease_factor: 2.5,
+            interval: 0,
+            review_date: null,
+            review_date_human: "Has never been reviewed",
             created_at: new Date(),
             updated_at: new Date(),
+        });
+    },
+    UPDATE_CARD_SUPERMEMO(state, card) {
+        state.cards.map((item) => {
+            if (item.id === card.id) {
+                item.interval = card.interval;
+                item.repetitions = card.repetitions;
+                item.ease_factor = card.easeFactor;
+                item.review_date = card.review_date;
+                item.review_date_human = card.review_date
+            }
         });
     },
 };

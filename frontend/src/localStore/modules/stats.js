@@ -12,9 +12,7 @@ export const mutations = {
 
 export const actions = {
     async fetchCardStats({ commit }) {
-        await repository.getCardStats().then((data) => {
-            commit("SET_CARD_STATS", data.data.data);
-        });
+        commit("SET_CARD_STATS", null);
     },
 };
 

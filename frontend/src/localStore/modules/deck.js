@@ -62,6 +62,13 @@ export const mutations = {
             }
         });
     },
+    DECREASE_DUE_CARD_COUNT(state, id) {
+        state.decks.map((deck) => {
+            if (deck.id === id) {
+                deck.due_cards_count -= 1;
+            }
+        });
+    },
 };
 
 export const actions = {
