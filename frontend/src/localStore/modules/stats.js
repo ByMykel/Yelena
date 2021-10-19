@@ -1,3 +1,5 @@
+import axios from "axios";
+
 export const namespaced = true;
 
 export const state = {
@@ -12,7 +14,9 @@ export const mutations = {
 
 export const actions = {
     async fetchCardStats({ commit }) {
-        commit("SET_CARD_STATS", null);
+        await axios.get("/data/stats.json").then((data) => {
+            commit("SET_CARD_STATS", data.data.data);
+        });
     },
 };
 
