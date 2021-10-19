@@ -14,7 +14,7 @@ export const mutations = {
 
 export const actions = {
     async fetchCardStats({ commit }) {
-        await axios.get("/data/stats.json").then((data) => {
+        await axios.get("/Yelena/data/stats.json").then((data) => {
             commit("SET_CARD_STATS", data.data.data);
         });
     },

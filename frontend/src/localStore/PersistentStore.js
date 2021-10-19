@@ -15,7 +15,7 @@ export default function createLocalStoragePlugin({
 
         if (loader === null) {
             axios
-                .get(`/data/${localStorageName}.json`)
+                .get(`/Yelena/data/${localStorageName}.json`)
                 .then((data) => store.dispatch(dispatch, data.data));
         }
 
