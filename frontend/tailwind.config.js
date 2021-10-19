@@ -7,7 +7,10 @@ module.exports = {
     theme: {
         extend: {
             transitionProperty: {
-                'width': 'width'
+                width: "width",
+            },
+            zIndex: {
+                "-10": "-10",
             },
         },
     },
@@ -21,7 +24,7 @@ module.exports = {
             animation: ["group-hover", "group-focus"],
             width: ["group-hover", "group-focus"],
             height: ["group-hover", "group-focus"],
-            display: ["group-hover"]
+            display: ["group-hover"],
         },
     },
     plugins: [require("@tailwindcss/forms")],
