@@ -1,5 +1,5 @@
 <template>
-    <span class="flex" @keyup.enter="editMode = !editMode">
+    <span class="flex w-full" @keyup.enter="editMode = !editMode">
         <input
             v-show="editMode"
             class="w-full p-0 m-0 text-sm font-medium border-0 focus:ring-0"
@@ -13,7 +13,11 @@
             tabindex="0"
             @click="editMode = true"
         >
-            <div v-show="!editMode">
+            <div
+                v-show="!editMode"
+                class="w-full truncate"
+                style="max-width: 16rem"
+            >
                 {{ deck.name }}
             </div>
             <hero-icons-outline
