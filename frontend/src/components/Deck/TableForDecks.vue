@@ -1,12 +1,12 @@
 <template>
     <div class="divide-y divide-gray-200">
         <div
-            class="flex flex-col bg-white sm:flex-row"
+            class="grid grid-cols-1 bg-white sm:grid-cols-5"
             v-for="deck in getDecks"
             :key="deck.id"
         >
             <div
-                class="relative flex items-center px-8 py-4 text-sm font-medium text-gray-900 sm:w-3/5 whitespace-nowrap"
+                class="relative flex items-center col-span-3 px-8 py-4 text-sm font-medium text-gray-900 whitespace-nowrap"
             >
                 <div
                     class="absolute inset-0 flex items-center justify-center w-8 "
@@ -35,7 +35,7 @@
                 ></action-update-deck>
             </div>
             <div
-                class="flex items-center justify-between px-2 py-0 pb-2 sm:py-2 sm:w-2/5"
+                class="flex items-center justify-between col-span-2 px-2 py-0 pb-2 sm:py-2"
             >
                 <div
                     class="ml-6 text-sm text-gray-500 sm:ml-0 whitespace-nowrap"

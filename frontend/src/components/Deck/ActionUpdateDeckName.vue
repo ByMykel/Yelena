@@ -1,5 +1,5 @@
 <template>
-    <span class="flex w-full" @keyup.enter="editMode = !editMode">
+    <span class="w-full" @keyup.enter="editMode = !editMode">
         <input
             v-show="editMode"
             class="w-full p-0 m-0 text-sm font-medium border-0 focus:ring-0"
@@ -15,8 +15,8 @@
         >
             <div
                 v-show="!editMode"
-                class="w-full truncate"
-                style="max-width: 16rem"
+                class="truncate"
+                style="max-width: calc(100% - 1.5rem)"
             >
                 {{ deck.name }}
             </div>
