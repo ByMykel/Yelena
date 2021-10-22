@@ -1,8 +1,9 @@
 <template>
-    <div class="flex" @keyup.enter="editMode = true">
+    <div class="w-full" @keyup.enter="editMode = true">
         <input
             v-show="editMode"
             class="w-full p-0 m-0 text-sm font-medium border-0 focus:ring-0"
+            style="max-width: calc(100% - 2.5rem)"
             type="text"
             v-model="editableCard.answer"
             v-todo-focus="true"
@@ -14,7 +15,11 @@
             tabindex="0"
             @click="editMode = true"
         >
-            <div v-show="!editMode">
+            <div
+                v-show="!editMode"
+                class="truncate"
+                style="max-width: calc(100% - 1.5rem)"
+            >
                 {{ card.answer }}
             </div>
             <hero-icons-outline
