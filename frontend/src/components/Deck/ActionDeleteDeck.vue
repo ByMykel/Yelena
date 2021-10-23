@@ -48,7 +48,7 @@ export default {
             if (this.emitted) return;
 
             if (this.confirmed) {
-                this.$emit("delete-deck", this.deckId);
+                this.$emit("delete-deck");
                 this.emitted = true;
             }
 
