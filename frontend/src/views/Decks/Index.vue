@@ -1,8 +1,5 @@
 <template>
     <div>
-        <modal-study-deck
-            :show="getModalVisibility('study_modal')"
-        ></modal-study-deck>
         <div class="px-2 mb-10 sm:px-0">
             <h1 class="text-4xl font-bold text-white">Manage Decks</h1>
             <p class="mt-0.5 mb-3 text-xl text-white text-bold">

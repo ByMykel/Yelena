@@ -9,6 +9,9 @@
         <modal-import-cards
             :show="getModalVisibility('import_card')"
         ></modal-import-cards>
+        <modal-study-deck
+            :show="getModalVisibility('study_modal')"
+        ></modal-study-deck>
         <navbar></navbar>
         <div class="mx-auto mt-8 mb-20 max-w-7xl sm:px-6 lg:px-8">
             <slot></slot>
@@ -33,10 +36,11 @@ import Navbar from "../components/Navbar.vue";
 import ModalCreateDeck from "../components/Modal/ModalCreateDeck.vue";
 import ModalCreateCard from "../components/Modal/ModalCreateCard.vue";
 import ModalImportCards from "../components/Modal/ModalUploadFiles.vue";
+import ModalStudyDeck from "../components/Modal/ModalStudyDeck.vue";
 import { mapGetters } from "vuex";
 
 export default {
-    components: { Navbar, ModalCreateDeck, ModalCreateCard, ModalImportCards },
+    components: { Navbar, ModalCreateDeck, ModalCreateCard, ModalImportCards, ModalStudyDeck },
     computed: {
         ...mapGetters("modals", ["getModalVisibility"]),
     },
