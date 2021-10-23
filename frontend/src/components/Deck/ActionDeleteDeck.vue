@@ -1,6 +1,6 @@
 <template>
     <button
-        class="relative block ml-3 focus:outline-none group"
+        class="relative block focus:outline-none group"
         @click="deleteDeck()"
     >
         <div class="flex flex-row items-center justify-center h-full">

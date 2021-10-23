@@ -49,7 +49,7 @@
                 class="flex items-center justify-between col-span-2 px-2 py-0 pb-2 sm:py-2"
             >
                 <div
-                    class="ml-6 text-sm text-gray-500 sm:ml-0 whitespace-nowrap"
+                    class="ml-6 text-sm text-gray-500 truncate sm:ml-0 whitespace-nowrap"
                     :class="{
                         'opacity-50': wasReviewed(card),
                     }"
