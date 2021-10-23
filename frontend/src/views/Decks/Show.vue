@@ -35,7 +35,7 @@
 <script>
 import { mapActions, mapGetters } from "vuex";
 import BasePagination from "../../components/BasePagination.vue";
-import TableForCards from "../../components/Card/TableForCards.vue";
+import TableForCards from "../../components/Card/CardsList.vue";
 
 export default {
     components: { BasePagination, TableForCards },
