@@ -70,7 +70,6 @@
                         ></hero-icons-outline>
                     </icon-background>
                     <action-delete-deck
-                        :deck-id="deck.id"
                         @delete-deck="deleteDeck(deck.id)"
                     ></action-delete-deck>
                 </div>

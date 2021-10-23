@@ -60,7 +60,6 @@
                     class="flex items-center justify-end text-sm font-medium text-right whitespace-nowrap"
                 >
                     <action-delete-card
-                        :card-id="card.id"
                         @delete-card="deleteCard(card.id)"
                     ></action-delete-card>
                 </div>

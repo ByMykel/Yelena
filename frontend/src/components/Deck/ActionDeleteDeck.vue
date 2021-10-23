@@ -34,9 +34,6 @@ import HeroIconsOutline from "../HeroIconsOutline.vue";
 import HeroIconsSolid from "../HeroIconsSolid.vue";
 export default {
     components: { HeroIconsOutline, HeroIconsSolid },
-    props: {
-        deckId: Number,
-    },
     data() {
         return {
             confirmed: false,

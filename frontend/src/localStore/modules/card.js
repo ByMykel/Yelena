@@ -8,6 +8,7 @@ export const state = {
     cards: [],
     cardsDisplayed: [],
     meta: null,
+    loading: false,
 };
 
 export const mutations = {
@@ -139,5 +140,8 @@ export const getters = {
     },
     getCardsMeta(state) {
         return state.meta;
+    },
+    getLoading(state) {
+        return state.loading;
     },
 };

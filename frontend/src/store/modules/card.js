@@ -8,6 +8,7 @@ export const state = {
     deck: null,
     cards: [],
     meta: null,
+    loading: false,
 };
 
 export const mutations = {
@@ -41,6 +42,9 @@ export const mutations = {
             }
         });
     },
+    SET_LOADING(state, data) {
+        state.loading = data;
+    },
 };
 
 export const actions = {
@@ -60,6 +64,8 @@ export const actions = {
         updateState();
     },
     async fetchCards({ commit }, { id, page }) {
+        commit("SET_LOADING", true);
+
         await repository.getCardsByDeckId(id, page).then((data) => {
             commit("SET_DECK", data.data.data.deck);
             commit("SET_CARDS", data.data.data.cards.data);
@@ -70,6 +76,7 @@ export const actions = {
                 to: data.data.data.cards.to,
                 total: data.data.data.cards.total,
             });
+            commit("SET_LOADING", false);
         });
     },
     async handleFavorite({ commit }, id) {
@@ -87,7 +94,7 @@ export const actions = {
 
         await repository.updateCardById(id, { answer });
     },
-    async deleteCardById(obj, { id }) {
+    async deleteCardById(obj, id) {
         await repository.deleteCardById(id).then(() => {
             updateState();
         });
@@ -108,5 +115,8 @@ export const getters = {
     },
     getCardsMeta(state) {
         return state.meta;
+    },
+    getLoading(state) {
+        return state.loading;
     },
 };

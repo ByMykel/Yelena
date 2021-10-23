@@ -34,9 +34,6 @@ import HeroIconsOutline from "../HeroIconsOutline.vue";
 import HeroIconsSolid from "../HeroIconsSolid.vue";
 export default {
     components: { HeroIconsOutline, HeroIconsSolid },
-    props: {
-        cardId: Number,
-    },
     data() {
         return {
             confirmed: false,
@@ -48,7 +45,7 @@ export default {
             if (this.emitted) return;
 
             if (this.confirmed) {
-                this.$emit("delete-card", this.cardId);
+                this.$emit("delete-card");
                 this.emitted = true;
             }
 

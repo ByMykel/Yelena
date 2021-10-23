@@ -17,6 +17,7 @@
                 <!-- deck name -->
                 <div
                     class="block w-full h-5 bg-gray-400 rounded-sm animate-pulse"
+                    :style="{ maxWidth: getRandomWidth() + '%' }"
                 ></div>
             </div>
             <div
@@ -46,5 +47,11 @@
 </template>
 
 <script>
-export default {};
+export default {
+    methods: {
+        getRandomWidth() {
+            return Math.floor(Math.random() * 100) + 20;
+        },
+    },
+};
 </script>
