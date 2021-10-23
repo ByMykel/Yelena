@@ -14,7 +14,7 @@
                     <div
                         class="overflow-hidden border-b border-gray-200 shadow sm:rounded-lg"
                     >
-                        <loading-decks v-if="getLoading"></loading-decks>
+                        <loading-decks v-if="getLoading && !getDecks.length"></loading-decks>
                         <div v-else>
                             <div v-if="getDecks.length">
                                 <table-for-decks></table-for-decks>

@@ -1,4 +1,5 @@
 import updateState from "../updateState";
+import axios from "axios";
 
 export const namespaced = true;
 
@@ -6,7 +7,7 @@ export const state = {
     decks: [],
     decksDisplayed: [],
     meta: null,
-    loading: false
+    loading: false,
 };
 
 export const mutations = {
@@ -73,6 +74,12 @@ export const mutations = {
 };
 
 export const actions = {
+    async loadExampleDecks({ commit, dispatch }) {
+        await axios.get(`/Yelena/data/deck.json`).then((data) => {
+            commit("SET_STATE", data.data);
+            dispatch("card/loadExampleCards", {}, { root: true });
+        });
+    },
     setState({ commit }, data) {
         commit("SET_STATE", data);
     },
@@ -144,5 +151,5 @@ export const getters = {
     },
     getLoading(state) {
         return state.loading;
-    }
+    },
 };

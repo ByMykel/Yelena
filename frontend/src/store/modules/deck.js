@@ -1,5 +1,6 @@
 import repository from "../../api/repository";
 import updateState from "../updateState";
+import axios from "axios";
 
 export const namespaced = true;
 
@@ -36,6 +37,17 @@ export const mutations = {
 };
 
 export const actions = {
+    async loadExampleDecks({ dispatch }) {
+        const data = await axios
+            .get(`/data/deck.json`)
+            .then((data) => data.data);
+
+        const deck = await repository
+            .createDeck(data.decks.pop())
+            .then((data) => data.data.data);
+
+        dispatch("card/loadExampleCards", deck.id, { root: true });
+    },
     async fetchDecks({ commit }, { page }) {
         commit("SET_LOADING", true);
 
@@ -55,7 +67,7 @@ export const actions = {
 
         await repository.updateDeckById(deck.id, deck);
     },
-    async deleteDeckById(obj, { id }) {
+    async deleteDeckById(obj, id) {
         await repository.deleteDeckById(id).then(() => {
             updateState();
         });

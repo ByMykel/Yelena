@@ -1,4 +1,5 @@
 import updateState from "../updateState";
+import axios from "axios";
 
 export const namespaced = true;
 
@@ -88,6 +89,13 @@ export const mutations = {
 };
 
 export const actions = {
+    async loadExampleCards({ commit }) {
+        await axios.get(`/Yelena/data/card.json`).then((data) => {
+            commit("SET_STATE", data.data);
+        });
+
+        updateState();
+    },
     setState({ commit }, data) {
         commit("SET_STATE", data);
     },

@@ -1,5 +1,6 @@
 import repository from "../../api/repository";
 import updateState from "../updateState";
+import axios from "axios";
 
 export const namespaced = true;
 
@@ -43,6 +44,21 @@ export const mutations = {
 };
 
 export const actions = {
+    async loadExampleCards(obj, id) {
+        const cards = await axios.get(`/data/card.json`).then((data) => {
+            return data.data.cards;
+        });
+
+        for (const card of cards.slice(0, 10)) {
+            await repository.createCard({
+                deck_id: id,
+                question: card.question,
+                answer: card.answer,
+            });
+        }
+
+        updateState();
+    },
     async fetchCards({ commit }, { id, page }) {
         await repository.getCardsByDeckId(id, page).then((data) => {
             commit("SET_DECK", data.data.data.deck);
