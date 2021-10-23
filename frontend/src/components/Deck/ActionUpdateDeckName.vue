@@ -1,8 +1,9 @@
 <template>
-    <span class="w-full" @keyup.enter="editMode = !editMode">
+    <div class="w-full" @keyup.enter="editMode = !editMode">
         <input
             v-show="editMode"
             class="w-full p-0 m-0 text-sm font-medium border-0 focus:ring-0"
+            style="max-width: calc(100% - 2.3rem)"
             type="text"
             v-model="editableDeck.name"
             v-todo-focus="true"
@@ -26,7 +27,7 @@
                 name="pencil"
             ></hero-icons-outline>
         </span>
-    </span>
+    </div>
 </template>
 
 <script>
