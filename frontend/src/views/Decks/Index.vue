@@ -22,6 +22,7 @@
                                 path="/decks"
                                 :meta="getDecksMeta"
                             ></base-pagination>
+                            <decks-empty-text v-else></decks-empty-text>
                         </div>
                     </div>
                 </div>
@@ -35,9 +36,11 @@ import { mapActions, mapGetters } from "vuex";
 import BasePagination from "../../components/BasePagination.vue";
 import ModalStudyDeck from "../../components/Modal/ModalStudyDeck.vue";
 import TableForDecks from "../../components/Deck/TableForDecks.vue";
+import DecksEmptyText from "../../components/Deck/DecksEmptyText.vue";
 
 export default {
     components: { BasePagination, ModalStudyDeck, TableForDecks },
+    components: { BasePagination, TableForDecks, LoadingDecks, DecksEmptyText },
     computed: {
         ...mapGetters("deck", ["getDecksMeta"]),
         ...mapGetters("modals", ["getModalVisibility"]),
