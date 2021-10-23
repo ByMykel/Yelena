@@ -75,7 +75,8 @@
         <!-- Mobile menu, show/hide based on menu state. -->
         <div v-show="showMobileMenu" class="sm:hidden" id="mobile-menu">
             <div
-                class="absolute w-full px-2 pt-2 pb-3 space-y-1 bg-blue-600 shadow rounded-b-md"
+                class="absolute z-40 w-full px-2 pt-2 pb-3 space-y-1 bg-blue-600 shadow rounded-b-md"
+                @click="showMobileMenu = false"
             >
                 <router-link
                     v-for="(link, index) in links"
