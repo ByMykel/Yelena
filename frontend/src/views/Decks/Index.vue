@@ -14,14 +14,19 @@
                     <div
                         class="overflow-hidden border-b border-gray-200 shadow sm:rounded-lg"
                     >
-                        <table-for-decks></table-for-decks>
-                        <div class="bg-white border-t border-gray-200">
-                            <base-pagination
-                                v-if="getDecksMeta"
-                                action="deck/fetchDecks"
-                                path="/decks"
-                                :meta="getDecksMeta"
-                            ></base-pagination>
+                        <loading-decks v-if="getLoading"></loading-decks>
+                        <div v-else>
+                            <div v-if="getDecks.length">
+                                <table-for-decks></table-for-decks>
+                                <div class="bg-white border-t border-gray-200">
+                                    <base-pagination
+                                        v-if="getDecksMeta"
+                                        action="deck/fetchDecks"
+                                        path="/decks"
+                                        :meta="getDecksMeta"
+                                    ></base-pagination>
+                                </div>
+                            </div>
                             <decks-empty-text v-else></decks-empty-text>
                         </div>
                     </div>
@@ -34,15 +39,14 @@
 <script>
 import { mapActions, mapGetters } from "vuex";
 import BasePagination from "../../components/BasePagination.vue";
-import ModalStudyDeck from "../../components/Modal/ModalStudyDeck.vue";
-import TableForDecks from "../../components/Deck/TableForDecks.vue";
+import TableForDecks from "../../components/Deck/DecksList.vue";
+import LoadingDecks from "../../components/Deck/LoadingDecks.vue";
 import DecksEmptyText from "../../components/Deck/DecksEmptyText.vue";
 
 export default {
-    components: { BasePagination, ModalStudyDeck, TableForDecks },
     components: { BasePagination, TableForDecks, LoadingDecks, DecksEmptyText },
     computed: {
-        ...mapGetters("deck", ["getDecksMeta"]),
+        ...mapGetters("deck", ["getDecksMeta", "getDecks", "getLoading"]),
         ...mapGetters("modals", ["getModalVisibility"]),
     },
     beforeRouteEnter(to, from, next) {
