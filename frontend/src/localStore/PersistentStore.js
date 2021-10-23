@@ -1,5 +1,3 @@
-import axios from "axios";
-
 export default function createLocalStoragePlugin({
     moduleName,
     localStorageName,
@@ -11,12 +9,6 @@ export default function createLocalStoragePlugin({
         if (loader !== null) {
             const parsed = JSON.parse(loader);
             store.dispatch(dispatch, parsed);
-        }
-
-        if (loader === null) {
-            axios
-                .get(`/Yelena/data/${localStorageName}.json`)
-                .then((data) => store.dispatch(dispatch, data.data));
         }
 
         store.subscribe((mutation) => {
