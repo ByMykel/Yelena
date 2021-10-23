@@ -6,6 +6,7 @@ export const state = {
     decks: [],
     decksDisplayed: [],
     meta: null,
+    loading: false
 };
 
 export const mutations = {
@@ -141,4 +142,7 @@ export const getters = {
     getDecksMeta(state) {
         return state.meta;
     },
+    getLoading(state) {
+        return state.loading;
+    }
 };

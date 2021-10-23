@@ -6,6 +6,7 @@ export const namespaced = true;
 export const state = {
     decks: [],
     meta: null,
+    loading: false,
 };
 
 export const mutations = {
@@ -29,13 +30,19 @@ export const mutations = {
             }
         });
     },
+    SET_LOADING(state, data) {
+        state.loading = data;
+    },
 };
 
 export const actions = {
     async fetchDecks({ commit }, { page }) {
+        commit("SET_LOADING", true);
+
         await repository.getDecks(page).then((data) => {
             commit("SET_DECKS", data.data.data);
             commit("SET_META", data.data.meta);
+            commit("SET_LOADING", false);
         });
     },
     async handleFavorite({ commit }, id) {
@@ -74,7 +81,7 @@ export const actions = {
     },
     async getAllDecksName() {
         return await repository.getAllDecks();
-    }
+    },
 };
 
 export const getters = {
@@ -83,5 +90,8 @@ export const getters = {
     },
     getDecksMeta(state) {
         return state.meta;
+    },
+    getLoading(state) {
+        return state.loading;
     },
 };
