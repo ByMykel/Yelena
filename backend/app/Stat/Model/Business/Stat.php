@@ -30,7 +30,7 @@ final class Stat
         $qualities = ["Incorrect", "Hard", "Good", "Easy"];
 
         foreach($qualities as $quality) {
-            $cardsCount = $StudiedCardsByQuality[$quality];
+            $cardsCount = $StudiedCardsByQuality[$quality] ?? 0;
 
             $data[] = [
                 'quality' => $quality,
