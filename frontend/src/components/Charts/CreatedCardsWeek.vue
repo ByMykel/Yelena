@@ -1,5 +1,5 @@
 <template>
-    <div class="flex justify-center h-56 p-3 m-1 mx-10 space-x-2">
+    <div class="flex justify-center h-56 p-3 m-1 space-x-2 lg:mx-20">
         <div
             v-for="(item, index) in data"
             :key="index"
@@ -9,26 +9,33 @@
             }"
         >
             <div
-                class="relative w-full h-full rounded-md group"
+                class="relative w-full h-full"
                 :style="{
                     maxHeight:
                         calculateBarHeight(item.created_cards_count) + 'rem',
                 }"
             >
                 <span
-                    class="block h-full bg-gray-700 rounded-md cursor-pointer hover:bg-green-400"
+                    class="block h-full bg-gray-400 rounded-t-sm"
                     :style="{
                         maxHeight:
                             calculateBarHeight(item.created_cards_count) +
                             'rem',
                     }"
                 ></span>
-                <span
-                    class="absolute z-10 hidden px-2 py-1 truncate bg-gray-100 rounded-md shadow left-1 -top-6 group-hover:block"
-                >
-                    <p class="text-sm">{{ item.created_cards_count }} cards</p>
-                </span>
             </div>
+            <span
+                class="w-full text-center bg-gray-600 p-0.5"
+                :class="[
+                    calculateBarHeight(item.created_cards_count)
+                        ? 'rounded-b-sm'
+                        : 'rounded-sm',
+                ]"
+            >
+                <p class="px-2 text-xs text-white truncate sm:text-sm">
+                    {{ item.created_cards_count }}
+                </p>
+            </span>
             <span class="text-xs text-gray-500">
                 <p class="hidden sm:block" :title="item.date">
                     {{ getDayName(item.date, "en-EN") }}
@@ -47,26 +54,26 @@
 <script>
 export default {
     props: {
-        data: Array
+        data: Array,
     },
     computed: {
         calculateMaxWidth() {
             return 100 / 7;
-        }
+        },
     },
     methods: {
         calculateBarHeight(value) {
             const maxValue = Math.max(
-                ...this.data.map(element => element.created_cards_count)
+                ...this.data.map((element) => element.created_cards_count)
             );
 
-            return (value * 10) / maxValue + 0.1;
+            return (value * 10) / maxValue;
         },
         getDayName(dateStr, locale) {
             const date = new Date(dateStr);
 
             return date.toLocaleDateString(locale, { weekday: "long" });
-        }
-    }
+        },
+    },
 };
 </script>
