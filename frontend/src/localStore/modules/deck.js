@@ -71,6 +71,15 @@ export const mutations = {
             }
         });
     },
+    SORT_DECKS(state) {
+        state.decks = state.decks.sort((a, b) => {
+            if (a.favorite === b.favorite) {
+                return b.due_cards_count - a.due_cards_count;
+            }
+
+            return b.favorite - a.favorite;
+        });
+    },
 };
 
 export const actions = {
@@ -84,6 +93,7 @@ export const actions = {
         commit("SET_STATE", data);
     },
     fetchDecks({ commit }, { page }) {
+        commit("SORT_DECKS");
         commit("SET_DECKS", page);
         commit("SET_META", page);
     },
