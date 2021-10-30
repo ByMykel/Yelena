@@ -20,7 +20,7 @@ jobs:
             - run: npm run build
               working-directory: ./frontend
               env:
-                  VUE_APP_DEMO: true
+                  VUE_APP_BROWSER_VERSION: true
 
             - name: Init new repo in dist folder and commit generated files
               run: |
