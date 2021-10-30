@@ -112,11 +112,12 @@ export const actions = {
     fetchCards({ commit, rootState }, { id, page }) {
         const deck = rootState.deck.decks.find((deck) => deck.id === id);
 
+        commit("SORT_CARDS");
+
         const cards = rootState.card.cards.filter(
             (card) => card.deck_id === deck.id
         );
 
-        commit("SORT_CARDS");
         commit("SET_DECK", deck);
         commit("SET_CARDS", { cards, page });
         commit("SET_META", page);
