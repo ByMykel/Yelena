@@ -87,6 +87,15 @@ export const mutations = {
             }
         });
     },
+    SORT_CARDS(state) {
+        state.cards = state.cards.sort((a, b) => {
+            if (a.favorite === b.favorite) {
+                return new Date(a.review_date) - new Date(b.review_date);
+            }
+
+            return b.favorite - a.favorite;
+        });
+    },
 };
 
 export const actions = {
@@ -107,6 +116,7 @@ export const actions = {
             (card) => card.deck_id === deck.id
         );
 
+        commit("SORT_CARDS");
         commit("SET_DECK", deck);
         commit("SET_CARDS", { cards, page });
         commit("SET_META", page);
