@@ -29,7 +29,7 @@ export const actions = {
 
         commit("SET_STUDY_DECK", { ...deck, cards });
     },
-    updateStudyCard({ commit, rootState }, { id, data }) {
+    updateStudyCard({ commit, rootState, dispatch }, { id, data }) {
         const card = rootState.card.cards.find((card) => card.id === id);
         const supermemoData = supermemo(
             data.quality,
@@ -48,6 +48,8 @@ export const actions = {
         );
 
         commit("deck/DECREASE_DUE_CARD_COUNT", card.deck_id, { root: true });
+
+        dispatch("stats/setStudiedCard", data.name, { root: true });
     },
 };
 

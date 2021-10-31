@@ -33,5 +33,10 @@ export default new Vuex.Store({
             localStorageName: "card",
             dispatch: "card/setState",
         }),
+        PersistentStore({
+            moduleName: "stats",
+            localStorageName: "stats",
+            dispatch: "stats/setState",
+        }),
     ],
 });
