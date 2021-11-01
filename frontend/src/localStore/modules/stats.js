@@ -1,15 +1,15 @@
 export const namespaced = true;
 
 const currentWeek = () => {
-    const date = new Date();
-    const firstDay = date.getDate() - (date.getDay() === 0 ? 6 : 1);
+    let date = new Date();
+    let firstDay =
+        date.getDate() - date.getDay() + (date.getDay() === 0 ? -6 : 1);
 
     let week = [];
 
-    for (let i = 0; i < 7; i++) {
-        week.push(
-            new Date(date.setDate(firstDay + i)).toISOString().slice(0, 10)
-        );
+    for (; firstDay < 7; firstDay++) {
+        date.setDate(firstDay);
+        week.push(date.toLocaleString().slice(0, 10));
     }
 
     return week;
@@ -63,9 +63,9 @@ export const actions = {
         const cards = rootState.card.cards.reduce(
             (cards, card) => ({
                 ...cards,
-                [new Date(card.created_at).toISOString().slice(0, 10)]:
+                [new Date(card.created_at).toLocaleString().slice(0, 10)]:
                     (cards[
-                        new Date(card.created_at).toISOString().slice(0, 10)
+                        new Date(card.created_at).toLocaleString().slice(0, 10)
                     ] || 0) + 1,
             }),
             {}
@@ -84,7 +84,6 @@ export const actions = {
         commit("SET_CREATED_CARDS_WEEKLY", CreatedCardsWeekly);
     },
     setStudiedCard({ commit }, quality) {
-        console.log(quality);
         commit("SET_STUDIED_CARD", quality);
     },
 };
