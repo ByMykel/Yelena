@@ -9,7 +9,7 @@ const currentWeek = () => {
 
     for (; firstDay < 8; firstDay++) {
         date.setDate(firstDay);
-        week.push(date.toLocaleString().slice(0, 10));
+        week.push(date.toISOString().slice(0, 10));
     }
 
     return week;
@@ -63,9 +63,9 @@ export const actions = {
         const cards = rootState.card.cards.reduce(
             (cards, card) => ({
                 ...cards,
-                [new Date(card.created_at).toLocaleString().slice(0, 10)]:
+                [new Date(card.created_at).toISOString().slice(0, 10)]:
                     (cards[
-                        new Date(card.created_at).toLocaleString().slice(0, 10)
+                        new Date(card.created_at).toISOString().slice(0, 10)
                     ] || 0) + 1,
             }),
             {}
