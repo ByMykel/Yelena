@@ -7,7 +7,7 @@ const currentWeek = () => {
 
     let week = [];
 
-    for (; firstDay < 7; firstDay++) {
+    for (; firstDay < 8; firstDay++) {
         date.setDate(firstDay);
         week.push(date.toLocaleString().slice(0, 10));
     }
