@@ -1,6 +1,5 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import Home from "../views/Home.vue";
 import Stats from "../views/Stats.vue";
 
 Vue.use(VueRouter);
@@ -8,26 +7,15 @@ Vue.use(VueRouter);
 const routes = [
     {
         path: "/",
-        name: "Home",
-        component: Home,
-    },
-    {
-        path: "/decks",
         name: "Decks",
-        // route level code-splitting
-        // this generates a separate chunk (about.[hash].js) for this route
-        // which is lazy-loaded when the route is visited.
         component: () =>
-            import(/* webpackChunkName: "about" */ "../views/Decks/Index.vue"),
+            import("../views/Decks/Index.vue"),
     },
     {
         path: "/decks/:id",
         name: "DeckById",
-        // route level code-splitting
-        // this generates a separate chunk (about.[hash].js) for this route
-        // which is lazy-loaded when the route is visited.
         component: () =>
-            import(/* webpackChunkName: "about" */ "../views/Decks/Show.vue"),
+            import("../views/Decks/Show.vue"),
     },
     {
         path: "/stats",
@@ -37,11 +25,8 @@ const routes = [
     {
         path: "*",
         name: "PageNotFound",
-        // route level code-splitting
-        // this generates a separate chunk (about.[hash].js) for this route
-        // which is lazy-loaded when the route is visited.
         component: () =>
-            import(/* webpackChunkName: "about" */ "../views/PageNotFound.vue"),
+            import("../views/PageNotFound.vue"),
     },
 ];
 

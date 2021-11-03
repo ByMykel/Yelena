@@ -108,14 +108,9 @@ export default {
             showMobileMenu: false,
             links: [
                 {
-                    name: "Home",
-                    route_name: "Home",
-                    to: "/",
-                },
-                {
                     name: "Decks",
                     route_name: "Decks",
-                    to: "/decks",
+                    to: "/",
                 },
                 {
                     name: "Stats",
