@@ -22,7 +22,7 @@
                                     <base-pagination
                                         v-if="getDecksMeta"
                                         action="deck/fetchDecks"
-                                        path="/decks"
+                                        path="/"
                                         :meta="getDecksMeta"
                                     ></base-pagination>
                                 </div>
