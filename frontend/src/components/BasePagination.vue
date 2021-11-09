@@ -2,14 +2,14 @@
     <div class="flex items-center justify-between px-4 py-3 sm:px-6">
         <div class="flex justify-between flex-1 sm:hidden">
             <button
-                class="relative inline-flex items-center px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+                class="relative inline-flex items-center px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md dark:hover:bg-gray-600 dark:bg-gray-700 dark:text-gray-200 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
                 :disabled="previousPage === null"
                 @click="toPage(previousPage)"
             >
                 Previous
             </button>
             <button
-                class="relative inline-flex items-center px-4 py-2 ml-3 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+                class="relative inline-flex items-center px-4 py-2 ml-3 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md dark:hover:bg-gray-600 dark:bg-gray-700 dark:text-gray-200 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
                 :disabled="nextPage === null"
                 @click="toPage(nextPage)"
             >
@@ -20,7 +20,7 @@
             class="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between"
         >
             <div>
-                <p class="text-sm text-gray-700">
+                <p class="text-sm text-gray-700 dark:text-gray-200">
                     Showing <span class="font-medium">{{ meta.from }}</span> to
                     <span class="font-medium">{{ meta.to }}</span> of
                     <span class="font-medium">{{ meta.total }}</span> results
@@ -32,7 +32,7 @@
                     aria-label="Pagination"
                 >
                     <button
-                        class="relative inline-flex items-center px-2 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-l-md hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+                        class="relative inline-flex items-center px-2 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 dark:hover:bg-gray-600 rounded-l-md hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed dark:bg-gray-700 dark:text-gray-200"
                         :disabled="previousPage === null"
                         @click="toPage(previousPage)"
                     >
@@ -45,7 +45,7 @@
                     <button
                         v-for="(page, index) in pages"
                         :key="index"
-                        class="relative inline-flex items-center px-4 py-2 text-sm font-medium border "
+                        class="relative inline-flex items-center px-4 py-2 text-sm font-medium border dark:bg-gray-700 dark:text-gray-200"
                         :class="pageClass(page)"
                         :disabled="page === '...'"
                         @click="toPage(page)"
@@ -53,7 +53,7 @@
                         <span>{{ page }}</span>
                     </button>
                     <button
-                        class="relative inline-flex items-center px-2 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-r-md hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+                        class="relative inline-flex items-center px-2 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 dark:hover:bg-gray-600 rounded-r-md hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed dark:bg-gray-700 dark:text-gray-200"
                         :disabled="nextPage === null"
                         @click="toPage(nextPage)"
                     >
@@ -152,7 +152,7 @@ export default {
 
             return this.meta.current_page === page
                 ? "z-10 bg-blue-50 border-blue-500 text-blue-600"
-                : "bg-white border-gray-300 text-gray-500 hover:bg-gray-50";
+                : "bg-white border-gray-300 text-gray-500 hover:bg-gray-50 dark:hover:bg-gray-600";
         },
     },
 };

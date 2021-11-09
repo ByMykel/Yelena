@@ -61,7 +61,7 @@
                         </button>
                     </div>
                     <div
-                        class="overflow-y-auto bg-white rounded-md shadow"
+                        class="overflow-y-auto bg-white rounded-md shadow dark:bg-gray-700"
                         style="max-height: calc(100vh - 150px)"
                     >
                         <slot :mounted-hook="mountedHook"></slot>

@@ -1,7 +1,7 @@
 <template>
-    <div class="divide-y divide-gray-200">
+    <div class="divide-y divide-gray-200 dark:divide-gray-600">
         <div
-            class="grid grid-cols-1 bg-white sm:grid-cols-5"
+            class="grid grid-cols-1 bg-white dark:bg-gray-700 sm:grid-cols-5"
             v-for="index in 5"
             :key="index"
         >

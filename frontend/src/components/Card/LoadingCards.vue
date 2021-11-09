@@ -1,7 +1,7 @@
 <template>
-    <div class="divide-y divide-gray-200">
+    <div class="divide-y divide-gray-200 dark:divide-gray-600">
         <div
-            class="grid grid-cols-1 bg-white sm:grid-cols-6"
+            class="grid grid-cols-1 bg-white sm:grid-cols-6 dark:bg-gray-700"
             v-for="index in 5"
             :key="index"
         >
@@ -54,7 +54,7 @@ export default {
     methods: {
         getRandomWidth() {
             return Math.floor(Math.random() * 100) + 20;
-        }
-    }
+        },
+    },
 };
 </script>

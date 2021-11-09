@@ -10,7 +10,7 @@
         </div>
         <div class="absolute inset-0">
             <div
-                class="flex items-center justify-center w-full h-full text-gray-900 group-hover:text-red-600 group-focus:text-red-600"
+                class="flex items-center justify-center w-full h-full text-gray-900 dark:text-gray-200 group-hover:text-red-600 group-focus:text-red-600"
             >
                 <hero-icons-outline
                     v-if="!confirmed"

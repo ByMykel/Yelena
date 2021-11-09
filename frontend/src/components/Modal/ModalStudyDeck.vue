@@ -6,7 +6,7 @@
         >
             <div class="w-full pb-2">
                 <div
-                    class="w-full px-4 py-3 font-bold text-center text-gray-900 border-b border-gray-200 bg-gray-50 sm:px-6"
+                    class="w-full px-4 py-3 font-bold text-center text-gray-900 border-b border-gray-200 dark:text-gray-200 dark:border-gray-500 bg-gray-50 dark:bg-gray-600 sm:px-6"
                 >
                     {{ studyDeckTitle }}
                 </div>
@@ -16,7 +16,7 @@
                 ></div>
                 <div
                     v-if="finished"
-                    class="flex items-center justify-center mt-5 text-lg font-semibold "
+                    class="flex items-center justify-center mt-5 text-lg font-semibold dark:text-gray-200"
                 >
                     You have finished this deck for now.
                 </div>
@@ -26,7 +26,7 @@
                     style="max-height: calc(100% - 46px)"
                 >
                     <div
-                        class="w-2/4 mt-2 space-y-2 text-3xl font-bold text-center "
+                        class="w-2/4 mt-2 space-y-2 text-3xl font-bold text-center dark:text-gray-200"
                     >
                         <div v-if="showAnswer" class="px-2">
                             <div>{{ actualCard.answer }}</div>

@@ -1,6 +1,6 @@
 <template>
     <div class="overflow-hidden rounded-md">
-        <div class="flex items-center justify-between p-2 bg-blue-200">
+        <div class="flex items-center justify-between p-2 bg-blue-200 dark:bg-blue-400">
             <div class="font-medium text-gray-900 truncate">
                 <div class="flex items-start p-1">
                     <div class="flex items-center h-5">
@@ -29,7 +29,7 @@
                 ></hero-icons-solid>
             </button>
         </div>
-        <div v-show="show" class="p-2 bg-blue-100">
+        <div v-show="show" class="p-2 bg-blue-100 dark:bg-blue-300">
             <div
                 v-for="(card, index) in deck.cards"
                 :key="index"

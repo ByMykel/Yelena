@@ -23,7 +23,7 @@
                     class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8"
                 >
                     <div
-                        class="overflow-hidden border-b border-gray-200 shadow sm:rounded-lg"
+                        class="overflow-hidden border-b border-gray-200 shadow sm:rounded-lg dark:border-gray-700"
                     >
                         <loading-cards
                             v-if="getLoading && !getCards.length"
@@ -31,7 +31,7 @@
                         <div v-else>
                             <div v-if="getCards.length">
                                 <table-for-cards></table-for-cards>
-                                <div class="bg-white border-t border-gray-200">
+                                <div class="bg-white border-t border-gray-200 dark:border-gray-600 dark:bg-gray-700">
                                     <base-pagination
                                         v-if="getCardsMeta"
                                         action="card/fetchCards"

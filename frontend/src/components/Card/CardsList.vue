@@ -1,13 +1,13 @@
 <template>
-    <div class="divide-y divide-gray-200">
+    <div class="divide-y divide-gray-200 dark:divide-gray-600">
         <div
-            class="grid grid-cols-1 bg-white sm:grid-cols-6"
+            class="grid grid-cols-1 bg-white sm:grid-cols-6 dark:bg-gray-700"
             v-for="card in getCards"
             :key="card.id"
             :class="[wasReviewed(card) ? 'bg-gray-50' : 'bg-white']"
         >
             <div
-                class="relative flex items-center col-span-2 px-8 py-4 text-sm font-medium text-gray-900 whitespace-nowrap"
+                class="relative flex items-center col-span-2 px-8 py-4 text-sm font-medium text-gray-900 dark:text-gray-200 whitespace-nowrap"
             >
                 <div
                     class="absolute inset-0 flex items-center justify-center w-8 "
@@ -36,7 +36,7 @@
                 ></action-update-card-question>
             </div>
             <div
-                class="relative flex items-center col-span-2 px-8 pb-4 -mt-2 text-sm font-medium text-gray-900 sm:mt-0 sm:py-4 whitespace-nowrap"
+                class="relative flex items-center col-span-2 px-8 pb-4 -mt-2 text-sm font-medium text-gray-900 dark:text-gray-200 sm:mt-0 sm:py-4 whitespace-nowrap"
             >
                 <action-update-card-answer
                     :class="{
@@ -49,7 +49,7 @@
                 class="flex items-center justify-between col-span-2 px-2 py-0 pb-2 sm:py-2"
             >
                 <div
-                    class="ml-6 text-sm text-gray-500 truncate sm:ml-0 whitespace-nowrap"
+                    class="ml-6 text-sm text-gray-500 truncate sm:ml-0 whitespace-nowrap dark:text-gray-300"
                     :class="{
                         'opacity-50': wasReviewed(card),
                     }"

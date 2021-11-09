@@ -12,13 +12,13 @@
                     class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8"
                 >
                     <div
-                        class="overflow-hidden border-b border-gray-200 shadow sm:rounded-lg"
+                        class="overflow-hidden border-b border-gray-200 shadow dark:border-gray-700 sm:rounded-lg"
                     >
                         <loading-decks v-if="getLoading && !getDecks.length"></loading-decks>
                         <div v-else>
                             <div v-if="getDecks.length">
                                 <table-for-decks></table-for-decks>
-                                <div class="bg-white border-t border-gray-200">
+                                <div class="bg-white border-t border-gray-200 dark:border-gray-600 dark:bg-gray-700">
                                     <base-pagination
                                         v-if="getDecksMeta"
                                         action="deck/fetchDecks"

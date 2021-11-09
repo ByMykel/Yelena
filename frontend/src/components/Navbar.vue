@@ -10,7 +10,7 @@
                     <!-- Mobile menu button-->
                     <button
                         type="button"
-                        class="inline-flex items-center justify-center p-2 text-gray-400 rounded-md outline-none hover:text-white hover:bg-blue-500"
+                        class="inline-flex items-center justify-center p-2 text-gray-200 rounded-md outline-none hover:text-white hover:bg-blue-500"
                         aria-controls="mobile-menu"
                         aria-expanded="false"
                         @click="showMobileMenu = !showMobileMenu"
@@ -46,7 +46,7 @@
                                 :class="
                                     $route.name === link.route_name
                                         ? 'bg-blue-700 text-white'
-                                        : 'text-gray-300 hover:bg-blue-500 hover:text-white outline-none focus:bg-blue-500 focus:text-white'
+                                        : 'text-gray-200 hover:bg-blue-500 hover:text-white outline-none focus:bg-blue-500 focus:text-white'
                                 "
                                 >{{ link.name }}</router-link
                             >
@@ -86,7 +86,7 @@
                     :class="
                         $route.name === link.route_name
                             ? 'bg-blue-700 text-white'
-                            : 'text-gray-300 hover:bg-blue-500 hover:text-white'
+                            : 'text-gray-200 hover:bg-blue-500 hover:text-white'
                     "
                     >{{ link.name }}</router-link
                 >

@@ -4,7 +4,7 @@
             <div>
                 <label
                     for="deck-name"
-                    class="block text-sm font-medium text-gray-700"
+                    class="block text-sm font-medium text-gray-700 dark:text-gray-200"
                     >Deck name</label
                 >
                 <input
@@ -25,14 +25,14 @@
                     />
                 </div>
                 <div class="ml-3 text-sm">
-                    <label for="favorite-deck" class="font-medium text-gray-700"
+                    <label for="favorite-deck" class="font-medium text-gray-700 dark:text-gray-200"
                         >Favorite</label
                     >
                 </div>
             </div>
         </div>
         <div
-            class="px-4 py-3 text-right border-t border-gray-200 bg-gray-50 sm:px-6"
+            class="px-4 py-3 text-right border-t border-gray-200 dark:border-gray-500 bg-gray-50 dark:bg-gray-600 sm:px-6"
         >
             <button
                 class="inline-flex items-center justify-center px-4 py-2 text-sm font-medium text-white bg-blue-600 border border-transparent rounded-md shadow-sm disabled:cursor-wait disabled:opacity-80 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"

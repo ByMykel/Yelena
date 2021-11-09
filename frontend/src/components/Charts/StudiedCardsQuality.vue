@@ -16,8 +16,8 @@
                     class="block w-3 h-3 mr-1 rounded-full"
                     :style="{ background: item.color }"
                 ></span>
-                <span class="space-x-1 font-semibold text-gray-400">
-                    <span class="text-gray-500">{{ item.cards_count }}</span>
+                <span class="space-x-1 font-semibold text-gray-400 dark:text-gray-200">
+                    <span class="text-gray-500 dark:text-gray-300">{{ item.cards_count }}</span>
                     <span>{{ item.quality }}</span>
                 </span>
             </div>
@@ -91,7 +91,16 @@ export default {
                 conicGradient = "rgb(17, 24, 39) 0, rgb(17, 24, 39) 100%";
             }
 
-            return `background: radial-gradient(circle closest-side, transparent 100%, white 0), conic-gradient(${conicGradient});`;
+            let radialGradientColor = this.isDarkMode ? '#27272b' : '#fff'
+
+            return `background: radial-gradient(circle closest-side, transparent 100%, ${radialGradientColor}), conic-gradient(${conicGradient});`;
+        },
+        isDarkMode() {
+            return (
+                localStorage.theme === "dark" ||
+                (!("theme" in localStorage) &&
+                    window.matchMedia("(prefers-color-scheme: dark)").matches)
+            );
         },
     },
 };

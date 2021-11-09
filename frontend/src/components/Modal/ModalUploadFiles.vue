@@ -5,7 +5,7 @@
                 <div class="flex items-center text-gray-600 text-md">
                     <label
                         for="file-upload"
-                        class="relative font-medium text-blue-600 bg-white rounded-md cursor-pointer hover:text-blue-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-blue-500"
+                        class="relative font-medium text-blue-600 bg-white rounded-md cursor-pointer dark:bg-gray-700 hover:text-blue-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-blue-500"
                     >
                         <span>Upload a file</span>
                         <input
@@ -18,7 +18,7 @@
                         />
                     </label>
                 </div>
-                <div class="text-xs text-gray-500">
+                <div class="text-xs text-gray-500 dark:text-gray-300">
                     Upload a .csv with your saved translations in
                     <a
                         class="text-blue-500"
@@ -30,11 +30,11 @@
             </div>
             <div
                 v-if="getFileName"
-                class="flex items-center p-2 mt-3 bg-blue-100 rounded-md"
+                class="flex items-center p-2 mt-3 bg-blue-100 rounded-md dark:bg-blue-400"
             >
                 <div class="mr-3">
                     <hero-icons-solid
-                        class="w-8 h-8 text-blue-300"
+                        class="w-8 h-8 text-blue-300 dark:text-blue-700"
                         name="document-text"
                     ></hero-icons-solid>
                 </div>
@@ -62,12 +62,12 @@
         </div>
         <div v-if="showSelectedFileData">
             <div
-                class="px-4 py-3 text-sm font-medium text-gray-700 border-b border-gray-200 "
+                class="px-4 py-3 text-sm font-medium text-gray-700 border-b border-gray-200 dark:border-gray-500"
             >
                 The file that you have uploaded contains this data
             </div>
             <div
-                class="h-full px-4 py-2 space-y-1 overflow-auto bg-gray-100"
+                class="h-full px-4 py-2 space-y-1 overflow-auto bg-gray-100 dark:bg-gray-600"
                 style="max-height: calc(100vh - 267px)"
             >
                 <file-deck-information
@@ -84,7 +84,7 @@
             class="flex items-center justify-center p-4"
         >
             <svg
-                class="text-gray-600 fill-current animate-spin"
+                class="text-gray-600 fill-current dark:text-gray-300 animate-spin"
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
                 width="16"
@@ -93,14 +93,14 @@
                 <path fill="none" d="M0 0h24v24H0z" />
                 <path d="M12 3a9 9 0 0 1 9 9h-2a7 7 0 0 0-7-7V3z" />
             </svg>
-            <span class="ml-1 text-sm text-gray-600">Uploading data</span>
+            <span class="ml-1 text-sm text-gray-600 dark:text-gray-300">Uploading data</span>
         </div>
-        <div v-if="showCreatedDecksInfo" class="p-4 text-sm text-gray-600">
+        <div v-if="showCreatedDecksInfo" class="p-4 text-sm text-gray-600 dark:text-gray-300">
             {{ CreatedDecksInfo }}
         </div>
         <div
             v-if="showSomeButton"
-            class="px-4 py-3 space-x-2 text-right border-t border-gray-200 bg-gray-50 sm:px-6"
+            class="px-4 py-3 space-x-2 text-right border-t border-gray-200 bg-gray-50 sm:px-6 dark:border-gray-500 dark:bg-gray-600"
         >
             <button
                 v-if="showUploadButton"

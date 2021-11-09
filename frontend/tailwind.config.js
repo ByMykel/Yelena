@@ -3,7 +3,7 @@ module.exports = {
         mode: "layers",
         content: ["./public/**/*.html", "./src/**/*.vue"],
     },
-    darkMode: 'media',
+    darkMode: "media",
     theme: {
         extend: {
             transitionProperty: {

@@ -16,7 +16,7 @@
                 }"
             >
                 <span
-                    class="block h-full bg-gray-400 rounded-t-sm"
+                    class="block h-full bg-gray-400 rounded-t-sm dark:bg-gray-300"
                     :style="{
                         maxHeight:
                             calculateBarHeight(item.created_cards_count) +
@@ -25,7 +25,7 @@
                 ></span>
             </div>
             <span
-                class="w-full text-center bg-gray-600 p-0.5"
+                class="w-full text-center bg-gray-600 dark:bg-gray-500 p-0.5"
                 :class="[
                     calculateBarHeight(item.created_cards_count)
                         ? 'rounded-b-sm'
@@ -36,7 +36,7 @@
                     {{ item.created_cards_count }}
                 </p>
             </span>
-            <span class="text-xs text-gray-500">
+            <span class="text-xs text-gray-500 dark:text-gray-200">
                 <p class="hidden sm:block" :title="item.date">
                     {{ getDayName(item.date, "en-EN") }}
                 </p>
