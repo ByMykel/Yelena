@@ -1,52 +1,72 @@
 <template>
-    <div class="flex justify-center h-56 p-3 m-1 space-x-2 lg:mx-20">
+    <div>
         <div
-            v-for="(item, index) in data"
-            :key="index"
-            class="flex flex-col items-center justify-end w-full"
-            :style="{
-                maxWidth: calculateMaxWidth + '%',
-            }"
+            v-if="showStats"
+            class="flex justify-center h-56 p-3 m-1 space-x-2 lg:mx-20"
         >
             <div
-                class="relative w-full h-full"
+                v-for="(item, index) in data"
+                :key="index"
+                class="flex flex-col items-center justify-end w-full"
                 :style="{
-                    maxHeight:
-                        calculateBarHeight(item.created_cards_count) + 'rem',
+                    maxWidth: calculateMaxWidth + '%',
                 }"
             >
-                <span
-                    class="block h-full bg-gray-400 rounded-t-sm dark:bg-gray-300"
+                <div
+                    class="relative w-full h-full"
                     :style="{
                         maxHeight:
                             calculateBarHeight(item.created_cards_count) +
                             'rem',
                     }"
-                ></span>
-            </div>
-            <span
-                class="w-full text-center bg-gray-600 dark:bg-gray-500 p-0.5"
-                :class="[
-                    calculateBarHeight(item.created_cards_count)
-                        ? 'rounded-b-sm'
-                        : 'rounded-sm',
-                ]"
-            >
-                <p class="px-2 text-xs text-white truncate sm:text-sm">
-                    {{ item.created_cards_count }}
-                </p>
-            </span>
-            <span class="text-xs text-gray-500 dark:text-gray-200">
-                <p class="hidden sm:block" :title="item.date">
-                    {{ getDayName(item.date, "en-EN") }}
-                </p>
-                <p
-                    class="block sm:hidden"
-                    :title="getDayName(item.date, 'en-EN') + ' - ' + item.date"
                 >
-                    {{ item.day }}
-                </p>
-            </span>
+                    <span
+                        class="block h-full bg-gray-400 rounded-t-sm dark:bg-gray-300"
+                        :style="{
+                            maxHeight:
+                                calculateBarHeight(item.created_cards_count) +
+                                'rem',
+                        }"
+                    ></span>
+                </div>
+                <span
+                    class="
+                        w-full
+                        text-center
+                        bg-gray-600
+                        dark:bg-gray-500
+                        p-0.5
+                    "
+                    :class="[
+                        calculateBarHeight(item.created_cards_count)
+                            ? 'rounded-b-sm'
+                            : 'rounded-sm',
+                    ]"
+                >
+                    <p class="px-2 text-xs text-white truncate sm:text-sm">
+                        {{ item.created_cards_count }}
+                    </p>
+                </span>
+                <span class="text-xs text-gray-500 dark:text-gray-200">
+                    <p class="hidden sm:block" :title="item.date">
+                        {{ getDayName(item.date, "en-EN") }}
+                    </p>
+                    <p
+                        class="block sm:hidden"
+                        :title="
+                            getDayName(item.date, 'en-EN') + ' - ' + item.date
+                        "
+                    >
+                        {{ item.day }}
+                    </p>
+                </span>
+            </div>
+        </div>
+        <div
+            v-else
+            class="font-medium text-center text-gray-700 dark:text-gray-200"
+        >
+            No data
         </div>
     </div>
 </template>
@@ -57,6 +77,11 @@ export default {
         data: Array,
     },
     computed: {
+        showStats() {
+            return Math.max(
+                ...this.data.map((element) => element.created_cards_count)
+            );
+        },
         calculateMaxWidth() {
             return 100 / 7;
         },

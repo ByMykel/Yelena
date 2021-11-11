@@ -20,10 +20,10 @@
                 </div>
             </div>
             <div
-                class="space-y-4 overflow-hidden text-gray-700 bg-white border-b border-gray-200 shadow dark:text-gray-200 dark:border-gray-700 dark:bg-gray-700 sm:rounded-lg"
+                class="overflow-hidden bg-white border-b border-gray-200 shadow dark:border-gray-700 dark:bg-gray-700 sm:rounded-lg"
             >
                 <div
-                    class="px-4 py-3 font-medium border-b border-gray-200 dark:border-gray-600 bg-gray-50 sm:px-6 dark:bg-gray-700"
+                    class="px-4 py-3 font-medium text-gray-700 border-b border-gray-200 dark:text-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 sm:px-6"
                 >
                     Studied cards by quality
                 </div>
