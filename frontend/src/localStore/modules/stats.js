@@ -4,10 +4,10 @@ const currentWeek = () => {
     let date = new Date();
     let firstDay =
         date.getDate() - date.getDay() + (date.getDay() === 0 ? -6 : 1);
-
+    let lastDay = firstDay + 7;
     let week = [];
 
-    for (; firstDay < 8; firstDay++) {
+    for (; firstDay < lastDay; firstDay++) {
         date.setDate(firstDay);
         week.push(date.toISOString().slice(0, 10));
     }
