@@ -7,7 +7,7 @@
         <div
             v-show="show"
             ref="modal"
-            class="fixed inset-0 z-50 flex items-center justify-center w-full h-screen bg-black bg-opacity-50 focus:outline-none"
+            class="fixed inset-0 z-50 flex items-center justify-center w-full h-screen bg-black bg-opacity-50 focus:outline-none backdrop-filter backdrop-blur-sm"
             role="dialog"
             aria-modal="true"
             tabindex="0"
