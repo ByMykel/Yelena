@@ -38,6 +38,8 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 export default {
     props: {
         data: Array,
@@ -53,6 +55,7 @@ export default {
         };
     },
     computed: {
+        ...mapGetters("theme", ["getTheme"]),
         showStats() {
             return [...this.data].reduce(
                 (total, count) => total + count.cards_count,
@@ -114,11 +117,7 @@ export default {
             return `background: radial-gradient(circle closest-side, transparent 100%, ${radialGradientColor}), conic-gradient(${conicGradient});`;
         },
         isDarkMode() {
-            return (
-                localStorage.theme === "dark" ||
-                (!("theme" in localStorage) &&
-                    window.matchMedia("(prefers-color-scheme: dark)").matches)
-            );
+            return this.getTheme === "dark";
         },
     },
 };

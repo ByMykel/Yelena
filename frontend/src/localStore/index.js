@@ -6,6 +6,7 @@ import * as card from "./modules/card";
 import * as study from "./modules/study";
 import * as stats from "./modules/stats";
 import * as modals from "./modules/modals";
+import * as theme from "./modules/theme";
 
 import PersistentStore from "./PersistentStore";
 
@@ -20,6 +21,7 @@ export default new Vuex.Store({
         study,
         stats,
         modals,
+        theme
     },
 
     plugins: [
@@ -37,6 +39,11 @@ export default new Vuex.Store({
             moduleName: "stats",
             localStorageName: "stats",
             dispatch: "stats/setState",
+        }),
+        PersistentStore({
+            moduleName: "theme",
+            localStorageName: "theme",
+            dispatch: "theme/setState",
         }),
     ],
 });

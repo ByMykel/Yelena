@@ -68,6 +68,22 @@
                             :name="action.icon"
                         ></hero-icons-outline>
                     </button>
+                    <button
+                        class="p-2 text-white rounded-full outline-none hover:bg-blue-500 focus:bg-blue-500"
+                        type="button"
+                        @click="toggleTheme()"
+                    >
+                        <hero-icons-outline
+                            v-if="isDarkMode"
+                            class="w-5 h-5"
+                            name="sun"
+                        ></hero-icons-outline>
+                        <hero-icons-outline
+                            v-else
+                            class="w-5 h-5"
+                            name="moon"
+                        ></hero-icons-outline>
+                    </button>
                 </div>
             </div>
         </div>
@@ -99,8 +115,9 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 import HeroIconsOutline from "./HeroIconsOutline.vue";
+
 export default {
     components: { HeroIconsOutline },
     data() {
@@ -140,13 +157,29 @@ export default {
             ],
         };
     },
+    computed: {
+        ...mapGetters("theme", ["getTheme"]),
+        isDarkMode() {
+            return this.getTheme === 'dark';
+        }
+    },
     methods: {
         ...mapActions("modals", ["toggleModalVisibility"]),
+        ...mapActions("theme", ["changeTheme"]),
         openModal(modal) {
             this.toggleModalVisibility({
                 modal,
                 visibility: true,
             });
+        },
+        toggleTheme() {
+            if (this.getTheme === 'light') {
+                this.changeTheme("dark");
+                document.documentElement.classList.add('dark')
+            } else {
+                this.changeTheme("light");
+                document.documentElement.classList.remove('dark')
+            }
         },
     },
 };
