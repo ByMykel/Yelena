@@ -100,6 +100,10 @@ export default {
                 return false;
             }
 
+            if (new Date(card.review_date_human) < new Date()) {
+                return false;
+            }
+
             return true;
         },
         handleFavoriteCard(card) {
