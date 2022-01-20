@@ -64,6 +64,28 @@ export const mutations = {
             }
         });
     },
+    DECREASE_CARD_COUNT(state, card) {
+        state.decks.map((deck) => {
+            if (deck.id === card.deck_id) {
+                deck.cards_count -= 1;
+
+                if (card.review_date_human === "Has never been reviewed") {
+                    deck.due_cards_count -= 1;
+                    return;
+                }
+    
+                if (card.review_date_human === "Review now") {
+                    deck.due_cards_count -= 1;
+                    return;
+                }
+    
+                if (new Date(card.review_date) < new Date()) {
+                    deck.due_cards_count -= 1;
+                    return;
+                }
+            }
+        });
+    },
     DECREASE_DUE_CARD_COUNT(state, id) {
         state.decks.map((deck) => {
             if (deck.id === id) {
