@@ -100,7 +100,7 @@ export default {
                 return false;
             }
 
-            if (new Date(card.review_date_human) < new Date()) {
+            if (new Date(card.review_date) < new Date()) {
                 return false;
             }
 

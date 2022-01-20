@@ -132,7 +132,7 @@ export default {
             this.createCard(this.form).then(() => {
                 this.form.question = "";
                 this.form.answer = "";
-                this.form.favorite = "";
+                this.form.favorite = false;
                 this.loading = false;
             });
         },
