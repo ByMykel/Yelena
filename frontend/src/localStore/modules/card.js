@@ -88,8 +88,20 @@ export const mutations = {
         });
     },
     SORT_CARDS(state) {
-        state.cards = state.cards.sort((a, b) => {
+        state.cardsDisplayed = state.cardsDisplayed.sort((a, b) => {
             if (a.favorite === b.favorite) {
+                if (a.review_date == null && b.review_date == null) {
+                    return 0;
+                }
+
+                if (a.review_date == null) {
+                    return -1;
+                }
+
+                if (b.review_date == null) {
+                    return 1;
+                }
+
                 return new Date(a.review_date) - new Date(b.review_date);
             }
 
@@ -112,8 +124,6 @@ export const actions = {
     fetchCards({ commit, rootState }, { id, page }) {
         const deck = rootState.deck.decks.find((deck) => deck.id === id);
 
-        commit("SORT_CARDS");
-
         const cards = rootState.card.cards.filter(
             (card) => card.deck_id === deck.id
         );
@@ -121,6 +131,8 @@ export const actions = {
         commit("SET_DECK", deck);
         commit("SET_CARDS", { cards, page });
         commit("SET_META", page);
+
+        commit("SORT_CARDS");
     },
     handleFavorite({ commit }, id) {
         commit("UPDATE_FAVORITE", id);
@@ -131,8 +143,11 @@ export const actions = {
     updateCardAnswer({ commit }, { id, answer }) {
         commit("UPDATE_CARD_ANSWER", { id, answer });
     },
-    deleteCardById({ commit }, id) {
+    deleteCardById({ commit, state }, id) {
+        let card = state.cards.find((card) => card.id === id);
+
         commit("DELETE_CARD", id);
+        commit("deck/DECREASE_CARD_COUNT", card, { root: true });
         updateState();
     },
     createCard({ commit }, card) {
