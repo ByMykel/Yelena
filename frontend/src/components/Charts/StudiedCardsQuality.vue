@@ -38,7 +38,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters } from "vuex";
 
 export default {
     props: {
@@ -97,14 +97,17 @@ export default {
             let conicGradient = [];
 
             if (totalCards) {
+                let totalPercentage = 0;
+
                 for (let item of sortedData) {
                     let color = this.colors[item.quality];
+                    let percentage = (item.cards_count * 100) / totalCards;
 
                     conicGradient.push(
-                        `${color} 0, ${color} ${
-                            (item.cards_count * 100) / totalCards
-                        }%`
+                        `${color} 0, ${color} ${percentage + totalPercentage}%`
                     );
+
+                    totalPercentage += percentage;
                 }
             }
 
@@ -113,6 +116,10 @@ export default {
             }
 
             let radialGradientColor = this.isDarkMode ? "#27272b" : "#fff";
+
+            console.log(
+                `background: radial-gradient(circle closest-side, transparent 100%, ${radialGradientColor}), conic-gradient(${conicGradient});`
+            );
 
             return `background: radial-gradient(circle closest-side, transparent 100%, ${radialGradientColor}), conic-gradient(${conicGradient});`;
         },
