@@ -1,6 +1,10 @@
 <template>
     <base-modal :show="show" v-slot:default="slotProps">
-        <div v-if="showUploadFileInput" class="px-4 py-4">
+        <div
+            v-if="showUploadFileInput"
+            class="px-4 py-4"
+            :class="{ 'py-12': !getFileName }"
+        >
             <div class="flex flex-col items-center">
                 <div class="flex items-center text-gray-600 text-md">
                     <label
@@ -30,11 +34,11 @@
             </div>
             <div
                 v-if="getFileName"
-                class="flex items-center p-2 mt-3 bg-blue-100 rounded-md dark:bg-blue-400"
+                class="flex items-center p-2 mt-3 bg-gray-200 rounded-md dark:bg-gray-800"
             >
                 <div class="mr-3">
                     <hero-icons-solid
-                        class="w-8 h-8 text-blue-300 dark:text-blue-700"
+                        class="w-8 h-8 text-gray-500"
                         name="document-text"
                     ></hero-icons-solid>
                 </div>
@@ -42,10 +46,12 @@
                     class="w-full text-sm"
                     style="max-width: calc(100% - 80px)"
                 >
-                    <div class="w-full font-medium text-gray-900 truncate">
+                    <div
+                        class="w-full font-medium text-gray-900 truncate dark:text-gray-100"
+                    >
                         {{ getFileName }}
                     </div>
-                    <div class="font-normal text-gray-800">
+                    <div class="font-normal text-gray-800 dark:text-gray-400">
                         {{ getFileSize }}
                     </div>
                 </div>
@@ -62,12 +68,12 @@
         </div>
         <div v-if="showSelectedFileData">
             <div
-                class="px-4 py-3 text-sm font-medium text-gray-700 border-b border-gray-200 dark:border-gray-500"
+                class="px-4 py-3 text-sm font-medium text-center text-gray-700 truncate border-b border-gray-200 dark:text-gray-200 md:text-base dark:border-gray-500"
             >
                 The file that you have uploaded contains this data
             </div>
             <div
-                class="h-full px-4 py-2 space-y-1 overflow-auto bg-gray-100 dark:bg-gray-600"
+                class="h-full px-4 py-2 space-y-1 overflow-auto bg-gray-50 dark:bg-gray-600"
                 style="max-height: calc(100vh - 267px)"
             >
                 <file-deck-information
@@ -93,9 +99,14 @@
                 <path fill="none" d="M0 0h24v24H0z" />
                 <path d="M12 3a9 9 0 0 1 9 9h-2a7 7 0 0 0-7-7V3z" />
             </svg>
-            <span class="ml-1 text-sm text-gray-600 dark:text-gray-300">Uploading data</span>
+            <span class="ml-1 text-sm text-gray-600 dark:text-gray-300"
+                >Uploading data</span
+            >
         </div>
-        <div v-if="showCreatedDecksInfo" class="p-4 text-sm text-gray-600 dark:text-gray-300">
+        <div
+            v-if="showCreatedDecksInfo"
+            class="p-4 text-sm text-center text-gray-600 md:text-base dark:text-gray-200"
+        >
             {{ CreatedDecksInfo }}
         </div>
         <div
@@ -110,18 +121,18 @@
                 Upload
             </button>
             <button
+                v-if="showGoBackButton"
+                class="inline-flex justify-center px-4 py-2 text-sm font-medium text-white bg-red-600 border border-transparent rounded-md shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+                @click="resetData(), slotProps.mountedHook()"
+            >
+                Go back
+            </button>
+            <button
                 v-if="showCreateButton"
                 class="inline-flex justify-center px-4 py-2 text-sm font-medium text-white bg-blue-600 border border-transparent rounded-md shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
                 @click="create(), slotProps.mountedHook()"
             >
                 Create
-            </button>
-            <button
-                v-if="showGoBackButton"
-                class="inline-flex justify-center px-4 py-2 text-sm font-medium text-white bg-blue-600 border border-transparent rounded-md shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-                @click="resetData(), slotProps.mountedHook()"
-            >
-                Go back
             </button>
         </div>
     </base-modal>

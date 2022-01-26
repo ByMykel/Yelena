@@ -167,7 +167,7 @@ export const actions = {
 
         updateState();
 
-        return `Created successfully ${createdDecks} decks and ${createdCards} cards.`;
+        return `Created successfully ${createdDecks} decks and ${createdCards} cards`;
     },
     getAllDecksName({ state }) {
         return { data: { data: state.decks } };

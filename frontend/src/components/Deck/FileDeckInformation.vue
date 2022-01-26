@@ -1,6 +1,6 @@
 <template>
     <div class="overflow-hidden rounded-md">
-        <div class="flex items-center justify-between p-2 bg-blue-200 dark:bg-blue-400">
+        <div class="flex items-center justify-between p-2 bg-gray-200 dark:bg-gray-800">
             <div class="font-medium text-gray-900 truncate">
                 <div class="flex items-start p-1">
                     <div class="flex items-center h-5">
@@ -15,7 +15,7 @@
                     <div class="ml-3 text-sm">
                         <label
                             :for="deckName"
-                            class="font-medium text-gray-900"
+                            class="font-medium text-gray-900 dark:text-gray-200"
                             >{{ deckName }}</label
                         >
                     </div>
@@ -29,7 +29,7 @@
                 ></hero-icons-solid>
             </button>
         </div>
-        <div v-show="show" class="p-2 bg-blue-100 dark:bg-blue-300">
+        <div v-show="show" class="p-2 bg-gray-100 dark:bg-gray-700">
             <div
                 v-for="(card, index) in deck.cards"
                 :key="index"
@@ -46,7 +46,7 @@
                 <div class="ml-3 text-sm">
                     <label
                         :for="deckName + index"
-                        class="font-medium text-gray-900"
+                        class="font-medium text-gray-900 dark:text-gray-200"
                     >
                         {{ card.question }} - {{ card.answer }}
                     </label>
