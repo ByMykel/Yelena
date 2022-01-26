@@ -1,10 +1,10 @@
 <template>
     <base-modal :show="show" v-slot:default="slotProps">
         <div
-            class="flex justify-center h-56"
+            class="flex justify-center"
             style="max-height: calc(100vh - 150px)"
         >
-            <div class="w-full pb-2">
+            <div class="w-full pb-4 overflow-hidden">
                 <div
                     class="w-full px-4 py-3 font-bold text-center text-gray-900 border-b border-gray-200 dark:text-gray-200 dark:border-gray-500 bg-gray-50 dark:bg-gray-600 sm:px-6"
                 >
@@ -16,17 +16,24 @@
                 ></div>
                 <div
                     v-if="finished"
-                    class="flex items-center justify-center mt-5 text-lg font-semibold dark:text-gray-200"
+                    class="relative flex flex-col items-center justify-center mb-32 text-lg font-semibold md:mb-48 dark:text-gray-200"
                 >
-                    You have finished this deck for now.
+                    <p class="mt-4 text-sm font-medium sm:text-base">
+                        You have finished this deck for now.
+                    </p>
+                    <img
+                        class="absolute top-2 md:top-0"
+                        src="images/undraw_finish_line_katerina_limpitsouni_xy20.svg"
+                        alt=""
+                    />
                 </div>
                 <div
                     v-else
-                    class="flex flex-col items-center justify-between h-full py-2 "
+                    class="text-center"
                     style="max-height: calc(100% - 46px)"
                 >
                     <div
-                        class="w-2/4 mt-2 space-y-2 text-3xl font-bold text-center dark:text-gray-200"
+                        class="mt-2 space-y-2 text-3xl font-bold mb-14 dark:text-gray-200"
                     >
                         <div v-if="showAnswer" class="px-2">
                             <div>{{ actualCard.answer }}</div>
@@ -42,20 +49,24 @@
                         </div>
                     </div>
                     <div>
-                        <button
-                            v-if="!showAnswer"
-                            class="inline-flex justify-center px-4 py-2 text-sm font-medium text-white bg-blue-600 border border-transparent rounded-md shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-                            @click="
-                                (showAnswer = true), slotProps.mountedHook()
-                            "
+                        <div v-if="!showAnswer" class="px-4">
+                            <button
+                                class="inline-flex justify-center w-full px-4 py-2 text-sm font-medium text-white bg-blue-600 border border-transparent rounded-md shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                                @click="
+                                    (showAnswer = true), slotProps.mountedHook()
+                                "
+                            >
+                                Show
+                            </button>
+                        </div>
+                        <div
+                            v-else
+                            class="flex flex-col justify-center px-4 space-y-2 md:space-y-0 md:flex-row md:space-x-2"
                         >
-                            Show
-                        </button>
-                        <div v-else class="space-x-2">
                             <button
                                 v-for="option in options"
                                 :key="option.number"
-                                class="inline-flex justify-center px-4 py-2 text-sm font-medium text-white bg-blue-600 border border-transparent rounded-md shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                                class="inline-flex justify-center w-full px-4 py-2 text-sm font-medium text-white bg-blue-600 border border-transparent rounded-md shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
                                 @click="
                                     selectedOption(option),
                                         slotProps.mountedHook()
@@ -108,6 +119,13 @@ export default {
         },
     },
     watch: {
+        finished(value) {
+            if (value) {
+                setTimeout(() => {
+                    this.closeModals();
+                }, 2000);
+            }
+        },
         show(value) {
             if (value) {
                 this.showAnswer = false;
@@ -126,6 +144,7 @@ export default {
     methods: {
         ...mapActions("deck", ["fetchDecks"]),
         ...mapActions("study", ["updateStudyCard"]),
+        ...mapActions("modals", ["closeModals"]),
         selectedOption(option) {
             this.updateStudyCard({
                 id: this.actualCard.id,
