@@ -1,6 +1,22 @@
 import updateState from "../updateState";
 import axios from "axios";
 
+const checkCardWasReviewed = (card) => {
+    if (card.review_date_human === "Has never been reviewed") {
+        return false;
+    }
+
+    if (card.review_date_human === "Review now") {
+        return false;
+    }
+
+    if (new Date(card.review_date) < new Date()) {
+        return false;
+    }
+
+    return true;
+};
+
 export const namespaced = true;
 
 export const state = {
@@ -73,12 +89,12 @@ export const mutations = {
                     deck.due_cards_count -= 1;
                     return;
                 }
-    
+
                 if (card.review_date_human === "Review now") {
                     deck.due_cards_count -= 1;
                     return;
                 }
-    
+
                 if (new Date(card.review_date) < new Date()) {
                     deck.due_cards_count -= 1;
                     return;
@@ -90,6 +106,13 @@ export const mutations = {
         state.decks.map((deck) => {
             if (deck.id === id) {
                 deck.due_cards_count -= 1;
+            }
+        });
+    },
+    UPDATE_DUE_CARD_COUNT(state, { id, count }) {
+        state.decks.map((deck) => {
+            if (deck.id === id) {
+                deck.due_cards_count = count;
             }
         });
     },
@@ -114,8 +137,26 @@ export const actions = {
     setState({ commit }, data) {
         commit("SET_STATE", data);
     },
-    fetchDecks({ commit }, { page }) {
+    fetchDecks({ commit, state, rootState }, { page }) {
         commit("SORT_DECKS");
+
+        const dueCardsCount = rootState.card.cards.reduce(
+            (cards, card) => ({
+                ...cards,
+                [card.deck_id]:
+                    (cards[card.deck_id] || 0) +
+                    (checkCardWasReviewed(card) ? 0 : 1),
+            }),
+            {}
+        );
+
+        state.decks.forEach((deck) => {
+            commit("UPDATE_DUE_CARD_COUNT", {
+                id: deck.id,
+                count: dueCardsCount[deck.id],
+            });
+        });
+
         commit("SET_DECKS", page);
         commit("SET_META", page);
     },
