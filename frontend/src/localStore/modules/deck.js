@@ -153,7 +153,7 @@ export const actions = {
         state.decks.forEach((deck) => {
             commit("UPDATE_DUE_CARD_COUNT", {
                 id: deck.id,
-                count: dueCardsCount[deck.id],
+                count: dueCardsCount[deck.id] || 0,
             });
         });
 
