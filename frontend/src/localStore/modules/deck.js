@@ -168,6 +168,7 @@ export const actions = {
     },
     deleteDeckById({ commit }, id) {
         commit("DELETE_DECK", id);
+        commit("card/DELETE_CARDS_BY_DECK", id, { root: true });
         updateState();
     },
     createDeck({ commit }, deck) {

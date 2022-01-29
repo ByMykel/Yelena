@@ -13,8 +13,8 @@
             "id": 1429580854230,
             "name": "Vocabulary - Spanish to Russian",
             "favorite": false,
-            "cards_count": 9,
-            "due_cards_count": 9,
+            "cards_count": 10,
+            "due_cards_count": 10,
             "created_at": "2022-01-29T14:10:46.345Z",
             "updated_at": "2022-01-29T14:10:46.345Z"
         },
@@ -22,8 +22,8 @@
             "id": 874911869875,
             "name": "Vocabulary - Spanish to Portuguese",
             "favorite": false,
-            "cards_count": 3,
-            "due_cards_count": 3,
+            "cards_count": 10,
+            "due_cards_count": 10,
             "created_at": "2022-01-29T14:10:46.344Z",
             "updated_at": "2022-01-29T14:10:46.344Z"
         }

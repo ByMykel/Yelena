@@ -108,6 +108,9 @@ export const mutations = {
             return b.favorite - a.favorite;
         });
     },
+    DELETE_CARDS_BY_DECK(state, id) {
+        state.cards = state.cards.filter((card) => card.deck_id !== id);
+    },
 };
 
 export const actions = {
@@ -118,8 +121,21 @@ export const actions = {
 
         updateState();
     },
-    setState({ commit }, data) {
+    setState({ commit, rootState }, data) {
         commit("SET_STATE", data);
+
+        const decksId = rootState.deck.decks.map((deck) => deck.id);
+        const deleteDecks = new Set();
+
+        rootState.card.cards.forEach((card) => {
+            if (!decksId.includes(card.deck_id)) {
+                deleteDecks.add(card.deck_id);
+            }
+        });
+
+        deleteDecks.forEach((id) => {
+            commit("DELETE_CARDS_BY_DECK", id);
+        });
     },
     fetchCards({ commit, rootState }, { id, page }) {
         commit("SORT_CARDS");
