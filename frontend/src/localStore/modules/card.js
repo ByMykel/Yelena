@@ -88,7 +88,7 @@ export const mutations = {
         });
     },
     SORT_CARDS(state) {
-        state.cardsDisplayed = state.cardsDisplayed.sort((a, b) => {
+        state.cards = state.cards.sort((a, b) => {
             if (a.favorite === b.favorite) {
                 if (a.review_date == null && b.review_date == null) {
                     return 0;
@@ -122,6 +122,8 @@ export const actions = {
         commit("SET_STATE", data);
     },
     fetchCards({ commit, rootState }, { id, page }) {
+        commit("SORT_CARDS");
+
         const deck = rootState.deck.decks.find((deck) => deck.id === id);
 
         const cards = rootState.card.cards.filter(
@@ -131,8 +133,6 @@ export const actions = {
         commit("SET_DECK", deck);
         commit("SET_CARDS", { cards, page });
         commit("SET_META", page);
-
-        commit("SORT_CARDS");
     },
     handleFavorite({ commit }, id) {
         commit("UPDATE_FAVORITE", id);
