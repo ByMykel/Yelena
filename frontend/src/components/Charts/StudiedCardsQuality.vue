@@ -117,10 +117,6 @@ export default {
 
             let radialGradientColor = this.isDarkMode ? "#27272b" : "#fff";
 
-            console.log(
-                `background: radial-gradient(circle closest-side, transparent 100%, ${radialGradientColor}), conic-gradient(${conicGradient});`
-            );
-
             return `background: radial-gradient(circle closest-side, transparent 100%, ${radialGradientColor}), conic-gradient(${conicGradient});`;
         },
         isDarkMode() {
