@@ -198,7 +198,7 @@ export const actions = {
 
                 commit(
                     "card/CREATE_CARD",
-                    { ...card, deck_id: deckId },
+                    { ...card, deck_id: deckId, favorite: false },
                     { root: true }
                 );
 
