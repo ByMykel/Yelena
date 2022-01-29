@@ -119,13 +119,6 @@ export default {
         },
     },
     watch: {
-        finished(value) {
-            if (value) {
-                setTimeout(() => {
-                    this.closeModals();
-                }, 2000);
-            }
-        },
         show(value) {
             if (value) {
                 this.showAnswer = false;
