@@ -1,3 +1,5 @@
+const defaultTheme = require("tailwindcss/defaultTheme");
+
 module.exports = {
     purge: {
         mode: "layers",
@@ -25,6 +27,9 @@ module.exports = {
                     800: "hsl(240, 4%, 10%)",
                     900: "hsl(240, 5%, 4%)",
                 },
+            },
+            fontFamily: {
+                sans: ["Inter var", ...defaultTheme.fontFamily.sans],
             },
         },
     },
