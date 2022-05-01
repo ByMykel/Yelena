@@ -291,7 +291,6 @@ export default {
         },
         resetData() {
             this.loading = false;
-            this.decksList = [];
             this.form = {
                 deck_id: null,
                 question: "",
