@@ -4,54 +4,57 @@
             <div class="mb-3">
                 <div>
                     <label
-                        class="block text-sm font-medium text-gray-700"
+                        class="block text-sm font-medium text-gray-700  dark:text-gray-200"
                     >
                         Deck
                     </label>
                     <div class="relative w-full mt-1">
-                        <button
-                            type="button"
-                            class="relative w-full py-2 pr-10 text-left bg-white border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                            :class="[ formErrors.deck_id ? 'border-red-500 border-2' : 'border' ]"
-                            @click="showDecksList = !showDecksList"
-                        >
-                            <span class="flex items-center">
-                                <span
-                                    class="block ml-3 truncate"
-                                    :class="{
-                                        'text-gray-400': selectedDeck === null,
-                                    }"
-                                >
-                                    {{ getSelectedDeckName }}
-                                </span>
-                            </span>
-                            <span
-                                class="absolute inset-y-0 right-0 flex items-center pr-2 ml-3 pointer-events-none "
+                        <div class="relative">
+                            <input
+                                ref="searchDeck"
+                                type="text"
+                                v-model="query"
+                                class="relative w-full py-2 pr-10 text-left bg-white border-gray-300 rounded-md shadow-sm  focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                                :class="[
+                                    formErrors.deck_id
+                                        ? 'border-red-500 border-2'
+                                        : 'border',
+                                ]"
+                                @keydown="showDecksList = true"
+                            />
+                            <button
+                                ref="openDeckSelector"
+                                type="button"
+                                class="absolute inset-y-0 right-0 flex items-center px-2 ml-3 rounded-md  focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                                @click="showDecksList = !showDecksList"
                             >
-                                <svg
-                                    class="w-5 h-5 text-gray-400"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    viewBox="0 0 20 20"
-                                    fill="currentColor"
-                                    aria-hidden="true"
-                                >
-                                    <path
-                                        fill-rule="evenodd"
-                                        d="M10 3a1 1 0 01.707.293l3 3a1 1 0 01-1.414 1.414L10 5.414 7.707 7.707a1 1 0 01-1.414-1.414l3-3A1 1 0 0110 3zm-3.707 9.293a1 1 0 011.414 0L10 14.586l2.293-2.293a1 1 0 011.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z"
-                                        clip-rule="evenodd"
-                                    />
-                                </svg>
-                            </span>
-                        </button>
+                                <span>
+                                    <svg
+                                        class="w-5 h-5 text-gray-400"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        viewBox="0 0 20 20"
+                                        fill="currentColor"
+                                        aria-hidden="true"
+                                    >
+                                        <path
+                                            fill-rule="evenodd"
+                                            d="M10 3a1 1 0 01.707.293l3 3a1 1 0 01-1.414 1.414L10 5.414 7.707 7.707a1 1 0 01-1.414-1.414l3-3A1 1 0 0110 3zm-3.707 9.293a1 1 0 011.414 0L10 14.586l2.293-2.293a1 1 0 011.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z"
+                                            clip-rule="evenodd"
+                                        />
+                                    </svg>
+                                </span>
+                            </button>
+                        </div>
                         <ul
+                            ref="decksList"
                             v-show="showDecksList"
-                            class="absolute z-10 w-full py-1 mt-1 overflow-auto text-base bg-white rounded-md shadow-lg max-h-56 ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm"
+                            class="absolute z-10 w-full py-1 mt-1 overflow-auto text-base bg-white rounded-md shadow-lg  deck-list max-h-56 ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm"
                         >
                             <li
-                                v-for="deck in decksList"
+                                v-for="deck in filteredDecks"
                                 :key="deck.id"
                                 :value="deck.id"
-                                class="relative py-2 pl-3 text-gray-900 cursor-pointer select-none hover:text-white hover:bg-blue-600 pr-9 group"
+                                class="relative py-2 pl-3 text-gray-900 cursor-pointer select-none  hover:text-white hover:bg-blue-600 pr-9 group"
                                 @click="selectDeck(deck)"
                             >
                                 <div class="flex items-center">
@@ -85,7 +88,7 @@
                                 </div>
                                 <span
                                     v-if="deck.id === form.deck_id"
-                                    class="absolute inset-y-0 right-0 flex items-center pr-4 text-blue-600 group-hover:text-white"
+                                    class="absolute inset-y-0 right-0 flex items-center pr-4 text-blue-600  group-hover:text-white"
                                 >
                                     <svg
                                         class="w-5 h-5"
@@ -102,6 +105,12 @@
                                     </svg>
                                 </span>
                             </li>
+                            <li
+                                v-if="filteredDecks.length === 0"
+                                class="relative py-2 pl-3 text-center text-gray-600 cursor-pointer select-none  pr-9"
+                            >
+                                No decks found
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -109,28 +118,28 @@
             <div class="mb-3">
                 <label
                     for="card-question"
-                    class="block text-sm font-medium text-gray-700 dark:text-gray-200"
+                    class="block text-sm font-medium text-gray-700  dark:text-gray-200"
                     >Question</label
                 >
                 <input
                     id="card-question"
                     v-model="form.question"
                     type="text"
-                    class="flex-1 block w-full mt-1 border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                    class="flex-1 block w-full mt-1 border-gray-300 rounded-md  focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                     :class="{ 'border-red-500 border-2': formErrors.question }"
                 />
             </div>
             <div class="">
                 <label
                     for="card-answer"
-                    class="block text-sm font-medium text-gray-700 dark:text-gray-200"
+                    class="block text-sm font-medium text-gray-700  dark:text-gray-200"
                     >Answer</label
                 >
                 <input
                     id="card-answer"
                     v-model="form.answer"
                     type="text"
-                    class="flex-1 block w-full mt-1 border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                    class="flex-1 block w-full mt-1 border-gray-300 rounded-md  focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                     :class="{ 'border-red-500 border-2': formErrors.answer }"
                 />
             </div>
@@ -140,7 +149,7 @@
                         id="favorite-card"
                         v-model="form.favorite"
                         type="checkbox"
-                        class="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+                        class="w-4 h-4 text-blue-600 border-gray-300 rounded  focus:ring-blue-500"
                     />
                 </div>
                 <div class="ml-3 text-sm">
@@ -153,10 +162,10 @@
             </div>
         </div>
         <div
-            class="px-4 py-3 text-right border-t border-gray-200 dark:border-gray-500 bg-gray-50 dark:bg-gray-600 sm:px-6"
+            class="px-4 py-3 text-right border-t border-gray-200  dark:border-gray-500 bg-gray-50 dark:bg-gray-600 sm:px-6"
         >
             <button
-                class="inline-flex items-center justify-center px-4 py-2 text-sm font-medium text-white bg-blue-600 border border-transparent rounded-md shadow-sm disabled:cursor-wait disabled:opacity-80 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                class="inline-flex items-center justify-center px-4 py-2 text-sm font-medium text-white bg-blue-600 border border-transparent rounded-md shadow-sm  disabled:cursor-wait disabled:opacity-80 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
                 :disabled="loading"
                 @click="handleForm(), slotProps.mountedHook()"
             >
@@ -192,6 +201,7 @@ export default {
             showDecksList: false,
             decksList: [],
             selectedDeck: null,
+            query: "",
             form: {
                 deck_id: null,
                 question: "",
@@ -209,6 +219,13 @@ export default {
         getSelectedDeckName() {
             return this.selectedDeck?.name ?? "Select a deck";
         },
+        filteredDecks() {
+            return this.decksList.filter((deck) => {
+                return deck.name
+                    .toLowerCase()
+                    .includes(this.query.toLowerCase());
+            });
+        },
     },
     watch: {
         show(value) {
@@ -220,8 +237,14 @@ export default {
             this.getDecksList();
         },
     },
+    beforeMount() {
+        window.addEventListener("click", this.clickOutsideSelector);
+    },
     mounted() {
         this.getDecksList();
+    },
+    beforeDestroy() {
+        window.removeEventListener("click", this.clickOutsideSelector);
     },
     methods: {
         ...mapActions("card", ["createCard"]),
@@ -281,11 +304,29 @@ export default {
                 question: false,
                 answer: false,
             };
+            this.query = "";
         },
         selectDeck(deck) {
+            this.query = deck.name;
             this.selectedDeck = deck;
             this.form.deck_id = deck.id;
             this.showDecksList = false;
+        },
+        clickOutsideSelector(e) {
+            if (this.$refs.openDeckSelector.contains(e.target)) {
+                return;
+            }
+
+            if (this.$refs.searchDeck.contains(e.target)) {
+                return;
+            }
+
+            if (
+                this.showDecksList &&
+                !this.$refs.decksList.contains(e.target)
+            ) {
+                this.showDecksList = false;
+            }
         },
     },
 };
