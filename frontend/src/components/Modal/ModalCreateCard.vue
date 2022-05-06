@@ -4,7 +4,7 @@
             <div class="mb-3">
                 <div>
                     <label
-                        class="block text-sm font-medium text-gray-700  dark:text-gray-200"
+                        class="block text-sm font-medium text-gray-700 dark:text-gray-200"
                     >
                         Deck
                     </label>
@@ -14,7 +14,7 @@
                                 ref="searchDeck"
                                 type="text"
                                 v-model="query"
-                                class="relative w-full py-2 pr-10 text-left bg-white border-gray-300 rounded-md shadow-sm  focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                                class="relative w-full py-2 pr-10 text-left bg-white border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                                 :class="[
                                     formErrors.deck_id
                                         ? 'border-red-500 border-2'
@@ -25,7 +25,7 @@
                             <button
                                 ref="openDeckSelector"
                                 type="button"
-                                class="absolute inset-y-0 right-0 flex items-center px-2 ml-3 rounded-md  focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                                class="absolute inset-y-0 right-0 flex items-center px-2 ml-3 rounded-md focus:outline-none"
                                 @click="showDecksList = !showDecksList"
                             >
                                 <span>
@@ -48,13 +48,13 @@
                         <ul
                             ref="decksList"
                             v-show="showDecksList"
-                            class="absolute z-10 w-full py-1 mt-1 overflow-auto text-base bg-white rounded-md shadow-lg  deck-list max-h-56 ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm"
+                            class="absolute z-10 w-full py-1 mt-1 overflow-auto text-base bg-white rounded-md shadow-lg deck-list max-h-56 ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm"
                         >
                             <li
                                 v-for="deck in filteredDecks"
                                 :key="deck.id"
                                 :value="deck.id"
-                                class="relative py-2 pl-3 text-gray-900 cursor-pointer select-none  hover:text-white hover:bg-blue-600 pr-9 group"
+                                class="relative py-2 pl-3 text-gray-900 cursor-pointer select-none hover:text-white hover:bg-blue-600 pr-9 group"
                                 @click="selectDeck(deck)"
                             >
                                 <div class="flex items-center">
@@ -88,7 +88,7 @@
                                 </div>
                                 <span
                                     v-if="deck.id === form.deck_id"
-                                    class="absolute inset-y-0 right-0 flex items-center pr-4 text-blue-600  group-hover:text-white"
+                                    class="absolute inset-y-0 right-0 flex items-center pr-4 text-blue-600 group-hover:text-white"
                                 >
                                     <svg
                                         class="w-5 h-5"
@@ -107,7 +107,7 @@
                             </li>
                             <li
                                 v-if="filteredDecks.length === 0"
-                                class="relative py-2 pl-3 text-center text-gray-600 cursor-pointer select-none  pr-9"
+                                class="relative py-2 pl-3 text-center text-gray-600 cursor-pointer select-none pr-9"
                             >
                                 No decks found
                             </li>
@@ -118,28 +118,28 @@
             <div class="mb-3">
                 <label
                     for="card-question"
-                    class="block text-sm font-medium text-gray-700  dark:text-gray-200"
+                    class="block text-sm font-medium text-gray-700 dark:text-gray-200"
                     >Question</label
                 >
                 <input
                     id="card-question"
                     v-model="form.question"
                     type="text"
-                    class="flex-1 block w-full mt-1 border-gray-300 rounded-md  focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                    class="flex-1 block w-full mt-1 border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                     :class="{ 'border-red-500 border-2': formErrors.question }"
                 />
             </div>
             <div class="">
                 <label
                     for="card-answer"
-                    class="block text-sm font-medium text-gray-700  dark:text-gray-200"
+                    class="block text-sm font-medium text-gray-700 dark:text-gray-200"
                     >Answer</label
                 >
                 <input
                     id="card-answer"
                     v-model="form.answer"
                     type="text"
-                    class="flex-1 block w-full mt-1 border-gray-300 rounded-md  focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                    class="flex-1 block w-full mt-1 border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                     :class="{ 'border-red-500 border-2': formErrors.answer }"
                 />
             </div>
@@ -149,7 +149,7 @@
                         id="favorite-card"
                         v-model="form.favorite"
                         type="checkbox"
-                        class="w-4 h-4 text-blue-600 border-gray-300 rounded  focus:ring-blue-500"
+                        class="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
                     />
                 </div>
                 <div class="ml-3 text-sm">
@@ -162,10 +162,10 @@
             </div>
         </div>
         <div
-            class="px-4 py-3 text-right border-t border-gray-200  dark:border-gray-500 bg-gray-50 dark:bg-gray-600 sm:px-6"
+            class="px-4 py-3 text-right border-t border-gray-200 dark:border-gray-500 bg-gray-50 dark:bg-gray-600 sm:px-6"
         >
             <button
-                class="inline-flex items-center justify-center px-4 py-2 text-sm font-medium text-white bg-blue-600 border border-transparent rounded-md shadow-sm  disabled:cursor-wait disabled:opacity-80 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                class="inline-flex items-center justify-center px-4 py-2 text-sm font-medium text-white bg-blue-600 border border-transparent rounded-md shadow-sm disabled:cursor-wait disabled:opacity-80 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
                 :disabled="loading"
                 @click="handleForm(), slotProps.mountedHook()"
             >
