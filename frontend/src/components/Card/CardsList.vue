@@ -49,12 +49,13 @@
                 class="flex items-center justify-between col-span-2 px-2 py-0 pb-2 sm:py-2"
             >
                 <div
-                    class="ml-6 text-sm text-gray-500 truncate sm:ml-0 whitespace-nowrap dark:text-gray-300"
+                    class="ml-6 text-sm text-gray-500 normal-case truncate sm:ml-0 whitespace-nowrap dark:text-gray-300 capitalize-first"
                     :class="{
                         'opacity-50': wasReviewed(card),
                     }"
+                    :title="getReviewDateFormatted(card)"
                 >
-                    {{ card.review_date_human }}
+                    {{ getReviewDateHuman(card) }}
                 </div>
                 <div
                     class="flex items-center justify-end text-sm font-medium text-right whitespace-nowrap"
@@ -76,6 +77,9 @@ import IconBackground from "../IconBackground.vue";
 import ActionDeleteCard from "./ActionDeleteCard.vue";
 import ActionUpdateCardAnswer from "./ActionUpdateCardAnswer.vue";
 import ActionUpdateCardQuestion from "./ActionUpdateCardQuestion.vue";
+import * as dayjs from "dayjs";
+
+const relativeTime = require("dayjs/plugin/relativeTime");
 
 export default {
     components: {
@@ -111,6 +115,21 @@ export default {
         },
         deleteCard(id) {
             this.deleteCardById(id);
+        },
+        getReviewDateHuman(card) {
+            if (new Date(card.review_date) < new Date()) {
+                return "Review now";
+            }
+
+            if (card.review_date_human === card.review_date) {
+                dayjs.extend(relativeTime);
+                return dayjs(card.review_date).fromNow();
+            }
+
+            return card.review_date_human;
+        },
+        getReviewDateFormatted(card) {
+            return dayjs(card.review_date).format("MMMM D, YYYY h:mm A");
         },
     },
 };
