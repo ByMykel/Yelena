@@ -110,6 +110,7 @@
                     class="h-2 border-b border-blue-300 border-opacity-25"
                 ></div>
             </div>
+            <div class="fixed inset-0 z-10 bg-gray-900 bg-opacity-80 top-20"></div>
         </div>
     </nav>
 </template>
@@ -162,6 +163,17 @@ export default {
         isDarkMode() {
             return this.getTheme === 'dark';
         }
+    },
+    watch: {
+        showMobileMenu(val) {
+            if (val) {
+                document.body.classList.add("overflow-hidden");
+                document.body.classList.add("md:overflow-auto");
+            } else {
+                document.body.classList.remove("overflow-hidden");
+                document.body.classList.remove("md:overflow-auto");
+            }
+        },
     },
     methods: {
         ...mapActions("modals", ["toggleModalVisibility"]),
