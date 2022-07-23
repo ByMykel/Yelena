@@ -4,6 +4,10 @@ export default function supermemo(
     oldRepetitions,
     oldEaseFactor
 ) {
+    if (oldRepetitions == null) oldRepetitions = 0;
+    if (oldInterval == null) oldInterval = 0;
+    if (oldEaseFactor == null) oldEaseFactor = 2.5;
+
     let interval = 0;
     let repetitions = 0;
     let easeFactor = 0;
